@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 interface ShortcutProps {
   className?: string;
   keys: string[];
-  onShortcutPress?: () => void;
+  onShortcutPress?: (e: KeyboardEvent) => void;
 }
 
 const Shortcut = ({
@@ -21,7 +21,7 @@ const Shortcut = ({
 
       if (e.metaKey || e.ctrlKey) {
         e.preventDefault();
-        onShortcutPress();
+        onShortcutPress(e);
       }
     }
 

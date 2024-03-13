@@ -16,8 +16,6 @@ interface AccountWidgetProps {
 }
 
 const AccountWidget = ({ className = "", account }: AccountWidgetProps) => {
-  console.log(account.birthday);
-
   return (
     <div className={cn("flex items-center space-x-2", className)}>
       {/** Settings */}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 // Components
 import {
   CommandDialog,
@@ -14,26 +14,34 @@ import { useModalControl } from "../providers/ModalProvider";
 interface NavigationSearchModalProps {}
 
 const NavigationSearchModal = ({}: NavigationSearchModalProps) => {
-  const { type, isOpen, onClose } = useModalControl();
+  const { type, isOpen, onClose, data } = useModalControl();
+
+  const nonEmptyData = useMemo(
+    () => data?.navigationSearchData?.filter((data) => data.items.length),
+    [data]
+  );
 
   const isModalOpen = isOpen && type === "navigationSearch";
 
+  const getPlaceholder = () =>
+    `Search over ${nonEmptyData?.map((data) => data.type).join(", ")}...`;
+
   return (
     <CommandDialog open={isModalOpen} onOpenChange={onClose}>
-      <CommandInput placeholder="Type a command or search..." />
+      {/** Placeholder */}
+      <CommandInput placeholder={getPlaceholder()} />
+      {/** List */}
       <CommandList>
+        {/** In case there are no results */}
         <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Suggestions">
-          <CommandItem>Calendar</CommandItem>
-          <CommandItem>Search Emoji</CommandItem>
-          <CommandItem>Calculator</CommandItem>
-        </CommandGroup>
-        <CommandSeparator />
-        <CommandGroup heading="Settings">
-          <CommandItem>Profile</CommandItem>
-          <CommandItem>Billing</CommandItem>
-          <CommandItem>Settings</CommandItem>
-        </CommandGroup>
+        {/** Data */}
+        {nonEmptyData?.map(({ label, type, items }) => (
+          <CommandGroup key={type} heading={label}>
+            {items?.map((item) => (
+              <CommandItem key={item.id}>{item.name}</CommandItem>
+            ))}
+          </CommandGroup>
+        ))}
       </CommandList>
     </CommandDialog>
   );

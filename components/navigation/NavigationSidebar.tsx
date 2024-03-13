@@ -71,11 +71,11 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
         {/** Search */}
         <NavigationSearch
           data={[
-            { label: "Servers", type: "servers", data: [] },
+            { label: "Servers", type: "servers", items: [] },
             {
               label: "Users",
               type: "users",
-              data: navigationData?.users?.map((account: Account) => ({
+              items: navigationData?.users?.map((account: Account) => ({
                 name: account.name,
                 id: account.id,
                 imageURL: account.imageURL,

@@ -4,6 +4,8 @@ import React from "react";
 import dynamic from "next/dynamic";
 // Lib
 import { cn } from "@/lib/utils";
+// TS
+import { NavigationSearchData } from "@/ts/types";
 // Components
 import { useModalControl } from "../providers/ModalProvider";
 const SearchBTN = dynamic(() => import("@/components/ui/SearchBTN"));
@@ -12,16 +14,7 @@ const Shortcut = dynamic(() => import("@/components/ui/Shortcut"));
 // Props
 interface NavigationSearchProps {
   className?: string;
-  data: {
-    label: string;
-    type: "users" | "servers";
-    data: {
-      icon: React.ReactNode;
-      imageURL?: string;
-      name: string;
-      id: string;
-    }[];
-  }[];
+  data: NavigationSearchData;
 }
 
 const NavigationSearch = ({
@@ -37,14 +30,17 @@ const NavigationSearch = ({
         placeholder="Search"
         className="relative"
         onClick={() => {
-          toggleModal("navigationSearch");
+          toggleModal("navigationSearch", { navigationSearchData: data });
         }}
       >
         <Shortcut
           keys={["CTRL", "f"]}
           className="absolute top-[50%] translate-y-[-50%] right-2 z-[2]"
-          onShortcutPress={() => {
-            toggleModal("navigationSearch");
+          onShortcutPress={(e) => {
+            // Stop propagation (because parent element (SearchBTN) has initialized onClick event too)
+            e.stopPropagation();
+
+            toggleModal("navigationSearch", { navigationSearchData: data });
           }}
         />
       </SearchBTN>

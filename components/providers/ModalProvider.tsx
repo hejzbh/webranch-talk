@@ -2,14 +2,19 @@
 import { createContext, useContext, useState } from "react";
 // Next
 import dynamic from "next/dynamic";
+// TS
+import { NavigationSearchData } from "@/ts/types";
 // Modals
 const NavigationSearchModal = dynamic(
   () => import("@/components/modals/NavigationSearchModal")
 );
+
 // Types
 export type ModalType = "navigationSearch";
 
-export interface ModalData {}
+export interface ModalData {
+  navigationSearchData?: NavigationSearchData;
+}
 
 interface ModalStore {
   type: ModalType | null;
