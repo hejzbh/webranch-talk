@@ -1,10 +1,15 @@
 import "./globals.css";
 // Next
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Open_Sans } from "next/font/google";
 // Clerk
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+// Components
+const BackgroundImage = dynamic(
+  () => import("@/components/ui/BackgroundImage")
+);
 
 const font = Open_Sans({
   subsets: ["latin", "latin-ext"],
@@ -28,7 +33,10 @@ export default function RootLayout({
       }}
     >
       <html lang="en">
-        <body className={font.className}>{children}</body>
+        <body className={`${font.className}`}>
+          <BackgroundImage imageURL="/images/app-bg.webp" includeBlackOverlay />
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );
