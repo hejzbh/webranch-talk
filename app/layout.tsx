@@ -2,8 +2,9 @@ import "./globals.css";
 // Next
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
-// NPM
+// Clerk
 import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 const font = Open_Sans({
   subsets: ["latin", "latin-ext"],
@@ -21,7 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
       <html lang="en">
         <body className={font.className}>{children}</body>
       </html>
