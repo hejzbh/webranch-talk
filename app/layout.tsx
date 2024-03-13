@@ -34,10 +34,7 @@ export default function RootLayout({
     >
       <html lang="en">
         <body className={`${font.className}`}>
-          <BackgroundImage imageURL="/images/app-bg.webp" includeBlackOverlay />
-          <main className="p-4">
-            <section className="rounded-md">{children}</section>
-          </main>
+          <main className="text-white">{children}</main>
         </body>
       </html>
     </ClerkProvider>

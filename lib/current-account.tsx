@@ -11,5 +11,7 @@ export const getCurrentAccount = async function (paramUserId?: string) {
   // 3)
   const account = db.account.findUnique({ where: { userId } });
   // 4)
+  if (!account) return redirectToSignIn();
+  // 5)
   return account;
 };

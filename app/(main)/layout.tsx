@@ -11,13 +11,13 @@ export default async function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex">
+    <div className="flex h-full">
       {/** Navigation Sidebar - ON SCREENS LARGER > 768PX (MOBILE: MenuToggle in Header) */}
-      <div className="hidden md:block">
+      <div className="hidden lg:block h-full min-w-[270px] xl:min-w-[300px]">
         <NavigationSidebar />
       </div>
       {/** Page/Children */}
-      <main>{children}</main>
+      <main className="lg:p-5">{children}</main>
     </div>
   );
 }

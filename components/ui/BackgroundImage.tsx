@@ -23,7 +23,7 @@ const BackgroundImage = ({
         fill
       />
       {includeBlackOverlay && (
-        <div className="absolute inset-0 bg-gradient-to-b from-black to-black/95 opacity-95" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black to-black/95 opacity-80" />
       )}
     </div>
   );
