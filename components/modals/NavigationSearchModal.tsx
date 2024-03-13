@@ -40,6 +40,7 @@ const NavigationSearchModal = ({}: NavigationSearchModalProps) => {
             {items?.map((item) => (
               <CommandItem key={item.id}>{item.name}</CommandItem>
             ))}
+            <CommandSeparator />
           </CommandGroup>
         ))}
       </CommandList>
