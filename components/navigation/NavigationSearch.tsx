@@ -8,9 +8,6 @@ import { cn } from "@/lib/utils";
 import { useModalControl } from "../providers/ModalProvider";
 const SearchBTN = dynamic(() => import("@/components/ui/SearchBTN"));
 const Shortcut = dynamic(() => import("@/components/ui/Shortcut"));
-const NavigationSearchModal = dynamic(
-  () => import("@/components/modals/NavigationSearchModal")
-);
 
 // Props
 interface NavigationSearchProps {
@@ -51,8 +48,6 @@ const NavigationSearch = ({
           }}
         />
       </SearchBTN>
-      {/** Search modal */}
-      <NavigationSearchModal />
     </div>
   );
 };

@@ -1,12 +1,15 @@
 "use client";
-
 import { createContext, useContext, useState } from "react";
-
+// Next
+import dynamic from "next/dynamic";
+// Modals
+const NavigationSearchModal = dynamic(
+  () => import("@/components/modals/NavigationSearchModal")
+);
+// Types
 export type ModalType = "navigationSearch";
 
 export interface ModalData {}
-
-const ModalControlContext = createContext({});
 
 interface ModalStore {
   type: ModalType | null;
@@ -19,6 +22,9 @@ type ModalStoreWithFunctions = ModalStore & {
   onClose: () => void;
   toggleModal: (type: ModalType, data?: ModalData) => void;
 };
+
+// Provider
+const ModalControlContext = createContext({});
 
 export const ModalControlProvider = ({
   children,
@@ -61,11 +67,13 @@ export const ModalControlProvider = ({
     <ModalControlContext.Provider
       value={{ ...modalStore, onOpen, onClose, toggleModal }}
     >
+      <NavigationSearchModal />
       {children}
     </ModalControlContext.Provider>
   );
 };
 
+// Use modal control
 export const useModalControl = () =>
   useContext(ModalControlContext) as ModalStoreWithFunctions;
 
