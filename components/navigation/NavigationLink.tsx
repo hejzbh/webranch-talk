@@ -34,9 +34,10 @@ const NavigationLink = ({
       serverLink: () => {
         alert("Server");
       },
+      serverChannelLink: () => {},
     };
     // 2)
-    fn[type].call(type);
+    fn[type]?.call(type);
   };
 
   return (

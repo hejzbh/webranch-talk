@@ -19,6 +19,6 @@ export type NavigationLink = {
   imageURL?: string;
   href?: string;
   title: string;
-  type: "defaultLink" | "serverLink";
+  type: "defaultLink" | "serverLink" | "serverChannelLink";
   sublinks?: NavigationLink[];
 };
