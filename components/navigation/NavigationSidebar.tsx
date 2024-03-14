@@ -49,7 +49,7 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
   const account: Account = await getCurrentAccount();
 
   const navigationData = await getNavigationSidebarData(account);
-  console.log(navigationData);
+
   return (
     <div
       className="relative w-full h-full p-5 rounded-r-xl"
@@ -74,6 +74,7 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
             { label: "Servers", type: "servers", items: [] },
             {
               label: "Users",
+              requiredRoles: [ApplicationRole.ADMIN],
               type: "users",
               items: navigationData?.users?.map((account: Account) => ({
                 name: account.name,

@@ -1,5 +1,8 @@
 import React, { useMemo } from "react";
+// Next
+import dynamic from "next/dynamic";
 // Components
+import { useModalControl } from "../providers/ModalProvider";
 import {
   CommandDialog,
   CommandEmpty,
@@ -9,7 +12,8 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/Command";
-import { useModalControl } from "../providers/ModalProvider";
+import { ApplicationRole } from "@prisma/client";
+const RequireRoles = dynamic(() => import("@/components/auth/RequireRoles"));
 // Interface
 interface NavigationSearchModalProps {}
 
@@ -35,13 +39,15 @@ const NavigationSearchModal = ({}: NavigationSearchModalProps) => {
         {/** In case there are no results */}
         <CommandEmpty>No results found.</CommandEmpty>
         {/** Data */}
-        {nonEmptyData?.map(({ label, type, items }) => (
-          <CommandGroup key={type} heading={label}>
-            {items?.map((item) => (
-              <CommandItem key={item.id}>{item.name}</CommandItem>
-            ))}
-            <CommandSeparator />
-          </CommandGroup>
+        {nonEmptyData?.map(({ label, type, items, requiredRoles = [] }) => (
+          <RequireRoles requiredRoles={requiredRoles}>
+            <CommandGroup key={type} heading={label}>
+              {items?.map((item) => (
+                <CommandItem key={item.id}>{item.name}</CommandItem>
+              ))}
+              <CommandSeparator />
+            </CommandGroup>
+          </RequireRoles>
         ))}
       </CommandList>
     </CommandDialog>
