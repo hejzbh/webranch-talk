@@ -39,20 +39,25 @@ const RequireRoles = ({
 }: RequireRolesProps) => {
   const currentAcc = useCurrentAccount();
 
-  if (currentAcc.appRole === ApplicationRole.ADMIN) return children;
-
   // 1)
-  if (!currentAcc) return null;
+  if (
+    (!requiredRoles?.length && !oneOfRoles?.length) ||
+    currentAcc.appRole === ApplicationRole.ADMIN
+  )
+    return children;
 
   // 2)
+  if (!currentAcc) return null;
+
+  // 3)
   if (requiredRoles && hasRoles([currentAcc.appRole], requiredRoles))
     return children;
 
-  // 3)
+  // 4)
   if (oneOfRoles && hasOneOfRoles([currentAcc.appRole], oneOfRoles))
     return children;
 
-  // 4)
+  // 5)
   return null;
 };
 

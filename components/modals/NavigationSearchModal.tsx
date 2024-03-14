@@ -12,7 +12,6 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/Command";
-import { ApplicationRole } from "@prisma/client";
 const RequireRoles = dynamic(() => import("@/components/auth/RequireRoles"));
 // Interface
 interface NavigationSearchModalProps {}
