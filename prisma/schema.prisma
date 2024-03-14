@@ -13,6 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ACCOUNT
 model Account {
   id String @id @default(uuid()) @map("_id")
   userId String @unique
@@ -24,9 +25,75 @@ model Account {
   appRole ApplicationRole @default(GUEST)
   birthday String?
   lastVisitedServerId String? @db.String
+
+ servers Server[]
+ serverMembers ServerMember[]
+ serverChannels ServerChannel[]
 }
 
+// SERVER
+model Server {
+    id String @id @default(uuid()) @map("_id")
+    name String
+    imageURL String @db.String
+    inviteCode String @unique 
+    ownerID String
+    owner Account @relation(fields: [ownerID],references: [id],onDelete:Cascade)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    members ServerMember[]
+    channels ServerChannel[]
+
+    @@index([ownerID])
+}
+
+model ServerMember {
+  id String @id @default(uuid()) @map("_id")
+  role ServerRole @default(GUEST)
+  accountID String
+  account Account @relation(fields: [accountID],references: [id],onDelete:Cascade)
+  serverID String
+  server Server @relation(fields:[serverID],references: [id],onDelete:Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([accountID])
+  @@index([serverID])
+}
+
+model ServerChannel {
+  id String @id @default(uuid()) @map("_id")
+  name String
+  type ServerChannelType @default(TEXT)
+  authorID String
+  author Account @relation(fields:[authorID], references: [id], onDelete: Cascade)
+  serverID String
+  server Server @relation(fields: [serverID],references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([authorID])
+  @@index([serverID])
+}
+
+
+
+
+// ENUMS
 enum ApplicationRole {
   ADMIN
   GUEST
+}
+
+enum ServerRole {
+  OWNER
+  MODERATOR
+  GUEST
+}
+
+enum ServerChannelType {
+  TEXT
+  AUDIO
+  VIDEO
+  TODO
 }

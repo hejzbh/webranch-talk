@@ -23,6 +23,7 @@ const config = {
         black: "#15161A",
         primary: "white",
         main: "#6763FE",
+        inputBG: "#232529",
         secondary: "#a8aeb6",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

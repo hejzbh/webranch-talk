@@ -1,5 +1,7 @@
 import { ApplicationRole } from "@prisma/client";
 
+export type FileUploadEndpoint = "serverImage" | "messageFile";
+
 export type NavigationSearchData = {
   label: string;
   type: "users" | "servers";
@@ -21,4 +23,12 @@ export type NavigationLink = {
   title: string;
   type: "defaultLink" | "serverLink" | "serverChannelLink";
   sublinks?: NavigationLink[];
+};
+
+export type FormField = {
+  name: string;
+  type: "file" | "input" | "textarea";
+  inputType?: "text" | "password" | "email";
+  label?: string;
+  placeholder?: string;
 };

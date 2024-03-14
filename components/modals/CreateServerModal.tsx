@@ -1,8 +1,16 @@
 import React from "react";
+// Next
+import dynamic from "next/dynamic";
 // Components
 import { Dialog, DialogHeader, DialogContent } from "@/components/ui/Dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { useModalControl } from "@/components/providers/ModalProvider";
+const CreateServerForm = dynamic(
+  () => import("@/components/forms/CreateServerForm")
+);
+const InviteCodeForm = dynamic(
+  () => import("@/components/forms/InviteCodeForm")
+);
 
 const CreateServerModal = () => {
   const { type, isOpen, onClose } = useModalControl();
@@ -16,22 +24,23 @@ const CreateServerModal = () => {
       <DialogContent>
         <Tabs defaultValue="server" className="w-full my-5">
           {/** Header */}
-          <DialogHeader>
-            {/** Tabs */}{" "}
+          <DialogHeader className="mb-10">
             <TabsList className="w-full">
               <TabsTrigger className="w-full" value="server">
                 Create Server
               </TabsTrigger>
-              <TabsTrigger className="w-full" value="invite">
+              <TabsTrigger className="w-full" value="inviteCode">
                 Use Invite Code
               </TabsTrigger>
             </TabsList>
           </DialogHeader>
           {/** Tabs Content */}
           <TabsContent value="server">
-            Make changes to your account here.
+            <CreateServerForm />
           </TabsContent>
-          <TabsContent value="invite">Change your password here.</TabsContent>
+          <TabsContent value="inviteCode">
+            <InviteCodeForm type="use" />
+          </TabsContent>
         </Tabs>
       </DialogContent>
     </Dialog>
