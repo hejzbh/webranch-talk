@@ -45,7 +45,7 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
 
   return (
     <div
-      className="relative w-full h-full p-5 rounded-r-xl"
+      className="relative w-full h-full p-5 rounded-r-3xl"
       style={{
         background:
           "linear-gradient(108deg, rgba(30,31,36,1) 0%, rgba(32,33,38,1) 66%)",

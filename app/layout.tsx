@@ -33,7 +33,13 @@ export default function RootLayout({
       }}
     >
       <html lang="en">
-        <body className={`${font.className}`}>
+        <body
+          className={`${font.className}`}
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(18,18,22,1) 0%, rgba(38,39,46,1) 50%, rgba(18,18,22,1) 100%)",
+          }}
+        >
           <main className="text-white">{children}</main>
         </body>
       </html>
