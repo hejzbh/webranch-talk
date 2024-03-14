@@ -8,8 +8,8 @@ import { getCurrentAccount } from "@/lib/current-account";
 import { getAllUsers } from "@/lib/all-app-users";
 // Components
 const AccountWidget = dynamic(() => import("@/components/AccountWidget"));
-const NavigationSearch = dynamic(
-  () => import("@/components/navigation/NavigationSearch")
+const NavigationSearchToggler = dynamic(
+  () => import("@/components/togglers/NavigationSearchToggler")
 );
 const NavigationSection = dynamic(
   () => import("@/components/navigation/NavigationSection")
@@ -59,7 +59,7 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
           }}
         />
         {/** Search */}
-        <NavigationSearch
+        <NavigationSearchToggler
           data={[
             { label: "Servers", type: "servers", items: [] },
             {

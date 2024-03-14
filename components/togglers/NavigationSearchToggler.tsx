@@ -1,30 +1,28 @@
 "use client";
+
 import React from "react";
 // Next
 import dynamic from "next/dynamic";
-// Lib
-import { cn } from "@/lib/utils";
-// TS
-import { NavigationSearchData } from "@/ts/types";
 // Components
 import { useModalControl } from "../providers/ModalProvider";
+import { NavigationSearchData } from "@/ts/types";
 const SearchBTN = dynamic(() => import("@/components/ui/SearchBTN"));
 const Shortcut = dynamic(() => import("@/components/ui/Shortcut"));
 
 // Props
-interface NavigationSearchProps {
-  className?: string;
+interface NavigationSearchTogglerProps {
   data: NavigationSearchData;
+  className?: string;
 }
 
-const NavigationSearch = ({
-  className = "",
-  data = [],
-}: NavigationSearchProps) => {
+const NavigationSearchToggler = ({
+  data,
+  className,
+}: NavigationSearchTogglerProps) => {
   const { toggleModal } = useModalControl();
 
   return (
-    <div className={cn("", className)}>
+    <div className={className}>
       {/** Togger */}
       <SearchBTN
         placeholder="Search"
@@ -48,4 +46,4 @@ const NavigationSearch = ({
   );
 };
 
-export default NavigationSearch;
+export default NavigationSearchToggler;
