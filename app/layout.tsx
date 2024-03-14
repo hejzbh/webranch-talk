@@ -7,8 +7,8 @@ import { Open_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 // Components
-const BackgroundImage = dynamic(
-  () => import("@/components/ui/BackgroundImage")
+const ThemeProvider = dynamic(
+  () => import("@/components/providers/ThemeProvider")
 );
 
 const font = Open_Sans({
@@ -40,7 +40,15 @@ export default function RootLayout({
               "radial-gradient(circle, rgba(18,18,22,1) 0%, rgba(21,21,25,1) 35%, rgba(18,18,22,1) 100%)",
           }}
         >
-          <main className="text-white">{children}</main>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {" "}
+            <main className="text-white">{children}</main>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
