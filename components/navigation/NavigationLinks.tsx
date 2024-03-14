@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 // TS
 import { NavigationLink as NavigationLinkType } from "@/ts/types";
 // Icons
-import { Home, Rss, Send, Activity, ListTodo } from "lucide-react";
+import { Home, Rss, Send, Activity, ListTodo, CodeXml } from "lucide-react";
 // Prisma
 import { ApplicationRole } from "@prisma/client";
 // Lib
@@ -33,6 +33,13 @@ async function getNavigationLinks() {
       Icon: <Rss />,
       title: "Servers",
       type: "serverLink",
+      sublinks: [],
+    },
+    {
+      id: "62",
+      Icon: <CodeXml />,
+      title: "Projects",
+      type: "defaultLink",
       sublinks: [],
     },
     {
