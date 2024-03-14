@@ -1,14 +1,12 @@
 import React from "react";
 // Components
 import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from "@/components/ui/Command";
+  Dialog,
+  DialogHeader,
+  DialogTitle,
+  DialogContent,
+} from "@/components/ui/Dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useModalControl } from "@/components/providers/ModalProvider";
 
 const CreateServerModal = () => {
@@ -19,9 +17,29 @@ const CreateServerModal = () => {
   if (!isModalOpen) return null;
 
   return (
-    <CommandDialog open={isModalOpen} onOpenChange={onClose}>
-      CreateServerForm
-    </CommandDialog>
+    <Dialog open={isModalOpen} onOpenChange={onClose}>
+      <DialogContent>
+        <Tabs defaultValue="server" className="w-full my-5">
+          {/** Header */}
+          <DialogHeader>
+            {/** Tabs */}{" "}
+            <TabsList className="w-full">
+              <TabsTrigger className="w-full" value="server">
+                Create Server
+              </TabsTrigger>
+              <TabsTrigger className="w-full" value="invite">
+                Use Invite Code
+              </TabsTrigger>
+            </TabsList>
+          </DialogHeader>
+          {/** Tabs Content */}
+          <TabsContent value="server">
+            Make changes to your account here.
+          </TabsContent>
+          <TabsContent value="invite">Change your password here.</TabsContent>
+        </Tabs>
+      </DialogContent>
+    </Dialog>
   );
 };
 
