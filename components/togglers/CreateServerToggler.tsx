@@ -1,10 +1,14 @@
 "use client";
 import React from "react";
+// Next
+import dynamic from "next/dynamic";
 // Icons
 import { Plus } from "lucide-react";
 // Lib
 import { cn } from "@/lib/utils";
 import { useModalControl } from "../providers/ModalProvider";
+// Components
+const Shortcut = dynamic(() => import("@/components/ui/Shortcut"));
 
 // Props
 interface CreateServerTogglerProps {
@@ -12,14 +16,14 @@ interface CreateServerTogglerProps {
 }
 
 const CreateServerToggler = ({ className = "" }: CreateServerTogglerProps) => {
-  const { onOpen } = useModalControl();
+  const { toggleModal } = useModalControl();
 
   return (
     <button
-      onClick={() => onOpen("createServer")}
+      onClick={() => toggleModal("createServer")}
       title="Create new server"
       className={cn(
-        "flex items-center justify-center flex-col bg-black border-[2px] border-dashed p-7 border-white/40 w-full rounded-2xl",
+        "flex items-center relative justify-center flex-col bg-black border-[2px] border-dashed p-7 border-white/40 w-full rounded-2xl",
         className
       )}
     >
@@ -32,6 +36,12 @@ const CreateServerToggler = ({ className = "" }: CreateServerTogglerProps) => {
       <p className="text-sm">
         or use <span className="text-main">invite code</span>
       </p>
+      {/** Shortcut */}
+      <Shortcut
+        onShortcutPress={() => toggleModal("createServer")}
+        keys={["CTRL", "s"]}
+        className="absolute top-2 right-2"
+      />
     </button>
   );
 };

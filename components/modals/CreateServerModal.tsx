@@ -1,11 +1,6 @@
 import React from "react";
 // Components
-import {
-  Dialog,
-  DialogHeader,
-  DialogTitle,
-  DialogContent,
-} from "@/components/ui/Dialog";
+import { Dialog, DialogHeader, DialogContent } from "@/components/ui/Dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useModalControl } from "@/components/providers/ModalProvider";
 
