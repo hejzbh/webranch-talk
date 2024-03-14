@@ -22,6 +22,7 @@ const config = {
         border: "hsl(var(--border))",
         black: "#15161A",
         primary: "white",
+        main: "#6763FE",
         secondary: "#a8aeb6",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

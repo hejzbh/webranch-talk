@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { Account, ApplicationRole } from "@prisma/client";
 // Lib
 import { getCurrentAccount } from "@/lib/current-account";
-import { db } from "@/lib/db";
+import { getAllUsers } from "@/lib/all-app-users";
 // Components
 const AccountWidget = dynamic(() => import("@/components/AccountWidget"));
 const NavigationSearch = dynamic(
@@ -14,33 +14,23 @@ const NavigationSearch = dynamic(
 const NavigationSection = dynamic(
   () => import("@/components/navigation/NavigationSection")
 );
+const NavigationLinks = dynamic(
+  () => import("@/components/navigation/NavigationLinks")
+);
 // Props
 interface NavigationSidebarProps {}
 
+async function getUserServers(account: Account): Promise<any[]> {
+  return Promise.resolve([]);
+}
+
 async function getNavigationSidebarData(account: Account) {
   const [servers, users]: any = await Promise.allSettled([
-    getUserServers(),
-    getAllUsers(),
+    getUserServers(account),
+    account.appRole !== ApplicationRole.ADMIN
+      ? Promise.resolve([])
+      : getAllUsers(account?.id),
   ]);
-
-  async function getUserServers() {
-    return Promise.resolve([]);
-  }
-
-  async function getAllUsers() {
-    // 1) Only app admin should be able to view all users in application and search over them
-    if (account.appRole !== ApplicationRole.ADMIN) return [];
-    // 2)
-    const users = await db.account.findMany({
-      where: {
-        id: {
-          not: account.id, // Skip ourself.
-        },
-      },
-    });
-    // 3)
-    return users;
-  }
 
   return { servers: servers?.value, users: users?.value };
 }
@@ -58,7 +48,7 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
           "linear-gradient(108deg, rgba(30,31,36,1) 0%, rgba(32,33,38,1) 66%)",
       }}
     >
-      <div className="relative z-10">
+      <div className="relative z-10 h-full flex flex-col">
         {/** Account Widget */}
         <AccountWidget
           account={{
@@ -83,11 +73,16 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
               })),
             },
           ]}
-          className="my-5"
+          className="my-6"
         />
-        {/* Overvieww */}
-        <NavigationSection label="Overview">
-          <h1>Cao</h1>
+        {/* Overview / Navigation Links */}
+        <NavigationSection label="Overview" className="flex-1 overflow-auto">
+          <NavigationLinks />
+        </NavigationSection>
+
+        {/** Onboarding */}
+        <NavigationSection label="Onboarding">
+          <h1>Add Server</h1>
         </NavigationSection>
       </div>
     </div>

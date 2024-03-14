@@ -23,6 +23,10 @@ input {
   max-width: calc(-5rem + 100vw);
 }
 
+.overflow-auto::-webkit-scrollbar {
+  display: none;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

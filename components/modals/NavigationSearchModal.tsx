@@ -39,7 +39,7 @@ const NavigationSearchModal = ({}: NavigationSearchModalProps) => {
         <CommandEmpty>No results found.</CommandEmpty>
         {/** Data */}
         {nonEmptyData?.map(({ label, type, items, requiredRoles = [] }) => (
-          <RequireRoles requiredRoles={requiredRoles}>
+          <RequireRoles key={label} requiredRoles={requiredRoles}>
             <CommandGroup key={type} heading={label}>
               {items?.map((item) => (
                 <CommandItem key={item.id}>{item.name}</CommandItem>

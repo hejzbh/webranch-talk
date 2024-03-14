@@ -11,3 +11,14 @@ export type NavigationSearchData = {
     id: string;
   }[];
 }[];
+
+export type NavigationLink = {
+  id: string;
+  Icon?: any;
+  requiredRoles?: ApplicationRole[];
+  imageURL?: string;
+  href?: string;
+  title: string;
+  type: "defaultLink" | "serverLink";
+  sublinks?: NavigationLink[];
+};

@@ -23,7 +23,7 @@ const SearchBTN = ({
       type="button"
       title="Click to search"
       className={cn(
-        "bg-black rounded-3xl p-2 px-3 w-full flex items-center space-x-2 transition-all hover:opacity-70",
+        "bg-black rounded-3xl p-3 px-4 w-full flex items-center space-x-2 transition-all hover:opacity-70",
         className
       )}
     >
