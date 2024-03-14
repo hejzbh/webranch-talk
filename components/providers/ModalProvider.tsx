@@ -8,9 +8,12 @@ import { NavigationSearchData } from "@/ts/types";
 const NavigationSearchModal = dynamic(
   () => import("@/components/modals/NavigationSearchModal")
 );
+const CreateServerModal = dynamic(
+  () => import("@/components/modals/CreateServerModal")
+);
 
 // Types
-export type ModalType = "navigationSearch";
+export type ModalType = "navigationSearch" | "createServer";
 
 export interface ModalData {
   navigationSearchData?: NavigationSearchData;
@@ -73,6 +76,7 @@ export const ModalControlProvider = ({
       value={{ ...modalStore, onOpen, onClose, toggleModal }}
     >
       <NavigationSearchModal />
+      <CreateServerModal />
       {children}
     </ModalControlContext.Provider>
   );

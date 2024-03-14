@@ -17,6 +17,9 @@ const NavigationSection = dynamic(
 const NavigationLinks = dynamic(
   () => import("@/components/navigation/NavigationLinks")
 );
+const CreateServerToggler = dynamic(
+  () => import("@/components/togglers/CreateServerToggler")
+);
 // Props
 interface NavigationSidebarProps {}
 
@@ -81,8 +84,8 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
         </NavigationSection>
 
         {/** Onboarding */}
-        <NavigationSection label="Onboarding">
-          <h1>Add Server</h1>
+        <NavigationSection label="Onboarding" className="pt-5">
+          <CreateServerToggler />
         </NavigationSection>
       </div>
     </div>

@@ -19,7 +19,7 @@ const NavigationSection = ({
   className = "",
 }: NavigationSectionProps) => {
   return (
-    <section className={cn("space-y-1", className)}>
+    <section className={cn("space-y-2", className)}>
       {/** Label */}
       <Label text={label} />
       {/* Children */}

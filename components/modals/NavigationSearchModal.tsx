@@ -29,6 +29,8 @@ const NavigationSearchModal = ({}: NavigationSearchModalProps) => {
   const getPlaceholder = () =>
     `Search over ${nonEmptyData?.map((data) => data.type).join(", ")}...`;
 
+  if (!isModalOpen) return null;
+
   return (
     <CommandDialog open={isModalOpen} onOpenChange={onClose}>
       {/** Placeholder */}
