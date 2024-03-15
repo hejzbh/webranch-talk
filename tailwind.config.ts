@@ -34,6 +34,7 @@ const config = {
     extend: {
       colors: {
         border: "hsl(var(--border))",
+        "border-common-2": "#232528",
         black: "#15161A",
         primary: "white",
         main: "#6763FE",

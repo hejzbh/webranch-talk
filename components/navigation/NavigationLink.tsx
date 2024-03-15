@@ -34,7 +34,7 @@ const NavigationLink = ({
   );
 
   const isActiveSublink = (sublinkID: string) =>
-    Object.values(params).pop() === sublinkID;
+    Object.values(params).some((paramID) => paramID === sublinkID);
   // TODO: Add active check for servers
   // const params = useParams()
 

@@ -44,7 +44,7 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
 
   return (
     <div
-      className="relative w-full h-full p-5 rounded-r-3xl"
+      className="relative w-full h-full  rounded-r-3xl border-r-2 border-border-common-2"
       style={{
         background:
           "linear-gradient(108deg, rgba(30,31,36,1) 0%, rgba(32,33,38,1) 66%)",
@@ -52,14 +52,17 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
     >
       <div className="relative z-10 h-full flex flex-col">
         {/** Account Widget */}
-        <AccountWidget
-          account={{
-            name: account.name,
-            email: account.email,
-            imageURL: account.imageURL,
-            birthday: account.birthday,
-          }}
-        />
+        <div className="border-b-2 border-border-common-2 min-h-20 pt-5 pl-5">
+          <AccountWidget
+            account={{
+              name: account.name,
+              email: account.email,
+              imageURL: account.imageURL,
+              birthday: account.birthday,
+            }}
+          />
+        </div>
+
         {/** Search */}
         <NavigationSearchToggler
           data={[
@@ -83,15 +86,18 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
               })),
             },
           ]}
-          className="my-6"
+          className="my-6 px-5"
         />
         {/* Overview / Navigation Links */}
-        <NavigationSection label="Overview" className="flex-1 overflow-auto">
+        <NavigationSection
+          label="Overview"
+          className="flex-1 overflow-auto px-5"
+        >
           <NavigationLinks />
         </NavigationSection>
 
         {/** Onboarding */}
-        <NavigationSection label="Onboarding" className="pt-5">
+        <NavigationSection label="Onboarding" className="p-5">
           <CreateServerToggler />
         </NavigationSection>
       </div>

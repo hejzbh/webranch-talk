@@ -1,4 +1,14 @@
-import { ApplicationRole } from "@prisma/client";
+import {
+  ApplicationRole,
+  Server,
+  ServerChannel,
+  ServerMember,
+} from "@prisma/client";
+
+export type DetailedServer = Server & {
+  channels: ServerChannel[];
+  members: ServerMember[];
+};
 
 export type FileUploadEndpoint = "serverImage" | "messageFile";
 

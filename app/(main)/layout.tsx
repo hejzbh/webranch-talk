@@ -33,7 +33,7 @@ export default async function MainLayout({
               <NavigationSidebar />
             </div>
             {/** Page/Children */}
-            <main className="lg:p-5 w-full">{children}</main>
+            <main className=" w-full">{children}</main>
           </div>
         </ModalProvider>
       </NotificationsProvider>
