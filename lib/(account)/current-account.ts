@@ -1,6 +1,6 @@
 // Clerk
 import { auth } from "@clerk/nextjs/server";
-import { db } from "./db";
+import { db } from "../db";
 import { Account } from "@prisma/client";
 
 export const getCurrentAccount = async function (paramUserId?: string) {

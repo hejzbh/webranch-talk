@@ -3,12 +3,12 @@ import { NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
 // Constants
 import {
-  CANNOT_FOUND_ACCOUNT_ERROR,
+  UNAUHORIZED_ERROR,
   CREATE_SERVER_ERROR,
   CREATE_SERVER_MISSING_DATA_ERROR,
 } from "@/constants/errorMessages";
 // Lib
-import { getCurrentAccount } from "@/lib/current-account";
+import { getCurrentAccount } from "@/lib/(account)/current-account";
 import { db } from "@/lib/db";
 import { defaultServerChannels } from "@/lib/default-server-channels";
 // Prisma
@@ -29,8 +29,7 @@ export async function POST(req: Request) {
     const account: Account = await getCurrentAccount();
 
     // 4) Checking if account is not found
-    if (!account)
-      return new NextResponse(CANNOT_FOUND_ACCOUNT_ERROR, { status: 401 });
+    if (!account) return new NextResponse(UNAUHORIZED_ERROR, { status: 401 });
 
     // 5) Creating a new server in the database
     const server = await db.server.create({

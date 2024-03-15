@@ -1,7 +1,7 @@
 // Next
 import dynamic from "next/dynamic";
 // Lib
-import { getCurrentAccount } from "@/lib/current-account";
+import { getCurrentAccount } from "@/lib/(account)/current-account";
 // Components
 const NavigationSidebar = dynamic(
   () => import("@/components/navigation/NavigationSidebar")

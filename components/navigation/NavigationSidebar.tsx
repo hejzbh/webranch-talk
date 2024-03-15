@@ -4,9 +4,10 @@ import dynamic from "next/dynamic";
 // TS
 import { Account, ApplicationRole, Server } from "@prisma/client";
 // Lib
-import { getCurrentAccount } from "@/lib/current-account";
+import { getCurrentAccount } from "@/lib/(account)/current-account";
 import { getAllUsers } from "@/lib/all-app-users";
-import { getAccountServers } from "@/lib/account-servers";
+import { getAccountServers } from "@/lib/(account)/account-servers";
+import axios from "axios";
 // Components
 const AccountWidget = dynamic(() => import("@/components/AccountWidget"));
 const NavigationSearchToggler = dynamic(

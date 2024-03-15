@@ -9,12 +9,11 @@ import { FormField } from "@/ts/types";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 // Lib
 import { cn } from "@/lib/utils";
 // Components
 import { useNotifications } from "@/components/providers/NotificationsProvider";
-import { redirectToSignIn } from "@clerk/nextjs";
+import { createServer } from "@/lib/(server)/create-server";
 
 const Input = dynamic(() => import("@/components/ui/Input"));
 const FileUpload = dynamic(() => import("@/components/FileUpload"));
@@ -26,7 +25,7 @@ interface CreateServerFormProps {
   afterOnSubmitDone?: (isSuccess: boolean) => void;
 }
 
-const formSchema = z.object({
+export const formSchema = z.object({
   name: z
     .string()
     .min(1, "Name is required")
@@ -65,7 +64,7 @@ const CreateServerForm = ({
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
       // 1)
-      await axios.post(`/api/servers/`, formData);
+      await createServer(formData);
       // 2)
       showNotification({
         title: "Create Server",
@@ -80,8 +79,9 @@ const CreateServerForm = ({
       afterOnSubmitDone(true);
     } catch (err: any) {
       afterOnSubmitDone(false);
+
       const errorMsg = err?.response?.data || err?.message;
-      if (errorMsg === "Unauthorized") redirectToSignIn();
+
       showNotification(
         {
           title: "Create Server",

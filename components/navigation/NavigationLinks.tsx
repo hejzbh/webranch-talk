@@ -9,7 +9,7 @@ import { Home, Rss, Send, Activity, ListTodo, CodeXml } from "lucide-react";
 import { ApplicationRole, Server } from "@prisma/client";
 // Lib
 import { cn } from "@/lib/utils";
-import { getAccountServers } from "@/lib/account-servers";
+import { getAccountServers } from "@/lib/(account)/account-servers";
 // Components
 const RequireRoles = dynamic(() => import("@/components/auth/RequireRoles"));
 const ScrollArea = dynamic(() => import("@/components/ui/ScrollArea"));

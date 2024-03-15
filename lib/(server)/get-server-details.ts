@@ -1,7 +1,7 @@
 // Lib
 
-import { getCurrentAccount } from "./current-account";
-import { db } from "./db";
+import { getCurrentAccount } from "../(account)/current-account";
+import { db } from "../db";
 
 export const getServerDetails = async (serverID: string, include = {}) => {
   try {

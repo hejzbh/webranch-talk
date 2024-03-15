@@ -1,8 +1,8 @@
 // Clerk
 import { currentUser, redirectToSignIn } from "@clerk/nextjs";
 // Lib
-import { getCurrentAccount } from "./current-account";
-import { createAccount } from "./create-account";
+import { getCurrentAccount } from "./(account)/current-account";
+import { createAccount } from "./(account)/create-account";
 
 export const initialAccount = async function () {
   // 1)

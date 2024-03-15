@@ -1,6 +1,5 @@
 // DEFAULT
-export const CANNOT_FOUND_ACCOUNT_ERROR =
-  "Account cannot be found / Unauthorized";
+export const UNAUHORIZED_ERROR = "Unauthorized";
 
 // Server
 export const CREATE_SERVER_ERROR = "Something went wrong";

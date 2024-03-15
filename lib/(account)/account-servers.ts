@@ -2,7 +2,7 @@
 import { redirectToSignIn } from "@clerk/nextjs";
 // Lib
 import { getCurrentAccount } from "./current-account";
-import { db } from "./db";
+import { db } from "../db";
 
 export const getAccountServers = async function (paramAccountID?: string) {
   try {

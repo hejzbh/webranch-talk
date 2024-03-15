@@ -1,7 +1,7 @@
 // TS
 import { Account } from "@prisma/client";
 // Lib
-import { getCurrentAccount } from "./current-account";
+import { getCurrentAccount } from "./(account)/current-account";
 // Clerk
 import { redirectToSignIn } from "@clerk/nextjs";
 

@@ -3,7 +3,7 @@ import React from "react";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 // Lib
-import { getServerDetails } from "@/lib/get-server-details";
+import { getServerDetails } from "@/lib/(server)/get-server-details";
 // TS
 import { DetailedServer } from "@/ts/types";
 // Components
