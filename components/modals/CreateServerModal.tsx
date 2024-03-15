@@ -36,7 +36,9 @@ const CreateServerModal = () => {
           </DialogHeader>
           {/** Tabs Content */}
           <TabsContent value="server">
-            <CreateServerForm afterOnSubmitDone={onClose} />
+            <CreateServerForm
+              afterOnSubmitDone={(created) => (created ? onClose() : {})}
+            />
           </TabsContent>
           <TabsContent value="inviteCode">
             <InviteCodeForm type="use" />

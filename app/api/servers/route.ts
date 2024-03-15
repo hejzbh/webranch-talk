@@ -50,8 +50,11 @@ export async function POST(req: Request) {
 
     // 6) Returning JSON response with the created server
     return NextResponse.json(server);
-  } catch {
+  } catch (err: any) {
     // Handling errors
-    return new NextResponse(CREATE_SERVER_ERROR);
+    return new NextResponse(
+      err.message?.length < 20 ? err.message : CREATE_SERVER_ERROR,
+      { status: 400 }
+    );
   }
 }

@@ -24,7 +24,7 @@ const ServerPage = async ({ params }: ServerPageProps) => {
     );
   }
 
-  return <h1>sagag</h1>;
+  return null;
 };
 
 export default ServerPage;

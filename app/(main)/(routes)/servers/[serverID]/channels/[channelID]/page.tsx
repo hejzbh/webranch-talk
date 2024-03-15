@@ -6,9 +6,14 @@ const ChannelHeader = dynamic(
   () => import("@/components/server/channel/ServerChannelHeader")
 );
 // Props
-interface ServerChannelPageProps {}
+interface ServerChannelPageProps {
+  params: {
+    serverID: string;
+    channelID: string;
+  };
+}
 
-const ServerChannelPage = () => {
+const ServerChannelPage = ({}: ServerChannelPageProps) => {
   return (
     <main>
       <ChannelHeader />

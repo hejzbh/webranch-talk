@@ -14,6 +14,8 @@ import axios from "axios";
 import { cn } from "@/lib/utils";
 // Components
 import { useNotifications } from "@/components/providers/NotificationsProvider";
+import { redirectToSignIn } from "@clerk/nextjs";
+
 const Input = dynamic(() => import("@/components/ui/Input"));
 const FileUpload = dynamic(() => import("@/components/FileUpload"));
 const Button = dynamic(() => import("@/components/ui/Button"));
@@ -78,10 +80,12 @@ const CreateServerForm = ({
       afterOnSubmitDone(true);
     } catch (err: any) {
       afterOnSubmitDone(false);
+      const errorMsg = err?.response?.data || err?.message;
+      if (errorMsg === "Unauthorized") redirectToSignIn();
       showNotification(
         {
           title: "Create Server",
-          message: err?.response?.data || err?.message,
+          message: errorMsg,
           variant: "error",
         },
         5000
