@@ -6,9 +6,10 @@ import { NavigationLink as NavigationLinkType } from "@/ts/types";
 // Icons
 import { Home, Rss, Send, Activity, ListTodo, CodeXml } from "lucide-react";
 // Prisma
-import { ApplicationRole } from "@prisma/client";
+import { ApplicationRole, Server } from "@prisma/client";
 // Lib
 import { cn } from "@/lib/utils";
+import { getAccountServers } from "@/lib/account-servers";
 // Components
 const RequireRoles = dynamic(() => import("@/components/auth/RequireRoles"));
 const ScrollArea = dynamic(() => import("@/components/ui/ScrollArea"));
@@ -20,6 +21,8 @@ interface NavigationLinksProps {
 }
 
 async function getNavigationLinks() {
+  const servers = await getAccountServers();
+
   return [
     {
       id: "1",
@@ -32,8 +35,17 @@ async function getNavigationLinks() {
       id: "2",
       Icon: <Rss />,
       title: "Servers",
+      href: "/servers",
       type: "serverLink",
-      sublinks: [],
+      sublinks: servers
+        ? servers?.map((server: Server) => ({
+            id: server.id,
+            title: server.name,
+            type: "serverLink",
+            imageURL: server?.imageURL,
+            sublinks: [],
+          }))
+        : [],
     },
     {
       id: "62",

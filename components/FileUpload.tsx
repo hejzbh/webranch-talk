@@ -48,6 +48,7 @@ const FileUpload = ({
       )}
       {/** Upload zone */}
       <UploadDropzone
+        className="!max-w-[250px]"
         endpoint={endpoint}
         /**
          * TODO

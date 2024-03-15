@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 // Next
 import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 // Components
 import { useModalControl } from "../providers/ModalProvider";
 import {
@@ -12,7 +14,11 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/Command";
+// TS
+import { NavigationSearchItem, NavigationSearchType } from "@/ts/types";
+// Components
 const RequireRoles = dynamic(() => import("@/components/auth/RequireRoles"));
+
 // Interface
 interface NavigationSearchModalProps {}
 
@@ -20,14 +26,31 @@ const NavigationSearchModal = ({}: NavigationSearchModalProps) => {
   const { type, isOpen, onClose, data } = useModalControl();
 
   const nonEmptyData = useMemo(
-    () => data?.navigationSearchData?.filter((data) => data.items.length),
+    () => data?.navigationSearchData?.filter((data) => data?.items?.length),
     [data]
   );
+
+  const router = useRouter();
 
   const isModalOpen = isOpen && type === "navigationSearch";
 
   const getPlaceholder = () =>
     `Search over ${nonEmptyData?.map((data) => data.type).join(", ")}...`;
+
+  const onItemSelect = (
+    type: NavigationSearchType,
+    item: NavigationSearchItem
+  ) => {
+    // 1)
+    const fn = {
+      servers: () => router.push(`/servers/${item.id}/`),
+      users: () => router.push(`/inbox/${item.id}`),
+    };
+    // 2)
+    fn[type]?.call(type);
+    // 3)
+    onClose();
+  };
 
   if (!isModalOpen) return null;
 
@@ -44,7 +67,23 @@ const NavigationSearchModal = ({}: NavigationSearchModalProps) => {
           <RequireRoles key={label} requiredRoles={requiredRoles}>
             <CommandGroup key={type} heading={label}>
               {items?.map((item) => (
-                <CommandItem key={item.id}>{item.name}</CommandItem>
+                <CommandItem
+                  onSelect={() => onItemSelect(type, item)}
+                  className="cursor-pointer"
+                  key={item.id}
+                >
+                  {item.imageURL && (
+                    <Image
+                      loading="lazy"
+                      src={item.imageURL}
+                      alt={`Item image`}
+                      width={28}
+                      height={28}
+                      className="rounded-full w-7 h-7 object-cover mr-2"
+                    />
+                  )}
+                  {item.name}
+                </CommandItem>
               ))}
               <CommandSeparator />
             </CommandGroup>

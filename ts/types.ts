@@ -2,16 +2,20 @@ import { ApplicationRole } from "@prisma/client";
 
 export type FileUploadEndpoint = "serverImage" | "messageFile";
 
+export type NavigationSearchType = "users" | "servers";
+
+export type NavigationSearchItem = {
+  icon: React.ReactNode;
+  imageURL?: string;
+  name: string;
+  id: string;
+};
+
 export type NavigationSearchData = {
   label: string;
-  type: "users" | "servers";
+  type: NavigationSearchType;
   requiredRoles?: ApplicationRole[];
-  items: {
-    icon: React.ReactNode;
-    imageURL?: string;
-    name: string;
-    id: string;
-  }[];
+  items: NavigationSearchItem[];
 }[];
 
 export type NavigationLink = {
