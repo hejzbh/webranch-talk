@@ -2,12 +2,14 @@
 import React from "react";
 // Next
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 // TS
 import { FormField } from "@/ts/types";
 // NPM
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 // Lib
 import { cn } from "@/lib/utils";
 // Components
@@ -19,6 +21,7 @@ const Button = dynamic(() => import("@/components/ui/Button"));
 // Interface
 interface CreateServerFormProps {
   className?: string;
+  afterOnSubmitDone?: (isSuccess: boolean) => void;
 }
 
 const formSchema = z.object({
@@ -42,7 +45,10 @@ const formFields: FormField[] = [
   },
 ];
 
-const CreateServerForm = ({ className = "" }: CreateServerFormProps) => {
+const CreateServerForm = ({
+  className = "",
+  afterOnSubmitDone = () => {},
+}: CreateServerFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,15 +58,30 @@ const CreateServerForm = ({ className = "" }: CreateServerFormProps) => {
   });
 
   const { showNotification } = useNotifications();
+  const router = useRouter();
 
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
-      throw new Error("Something went wrong");
+      // 1)
+      await axios.post(`/api/servers/`, formData);
+      // 2)
+      showNotification({
+        title: "Create Server",
+        message: `You successfully created a  ${formData?.name} server`,
+        variant: "success",
+      });
+      //3)
+      router.refresh();
+      // 4)
+      form.reset();
+      // 5)
+      afterOnSubmitDone(true);
     } catch (err: any) {
+      afterOnSubmitDone(false);
       showNotification(
         {
           title: "Create Server",
-          message: err?.message,
+          message: err?.response?.data || err?.message,
           variant: "error",
         },
         5000

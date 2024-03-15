@@ -2,10 +2,11 @@ import React from "react";
 // Next
 import dynamic from "next/dynamic";
 // TS
-import { Account, ApplicationRole } from "@prisma/client";
+import { Account, ApplicationRole, Server } from "@prisma/client";
 // Lib
 import { getCurrentAccount } from "@/lib/current-account";
 import { getAllUsers } from "@/lib/all-app-users";
+import { getAccountServers } from "@/lib/account-servers";
 // Components
 const AccountWidget = dynamic(() => import("@/components/AccountWidget"));
 const NavigationSearchToggler = dynamic(
@@ -23,13 +24,11 @@ const CreateServerToggler = dynamic(
 // Props
 interface NavigationSidebarProps {}
 
-async function getUserServers(account: Account): Promise<any[]> {
-  return Promise.resolve([]);
-}
-
 async function getNavigationSidebarData(account: Account) {
   const [servers, users]: any = await Promise.allSettled([
-    getUserServers(account),
+    //
+    getAccountServers(account?.id),
+    //
     account.appRole !== ApplicationRole.ADMIN
       ? Promise.resolve([])
       : getAllUsers(account?.id),
@@ -64,7 +63,15 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
         {/** Search */}
         <NavigationSearchToggler
           data={[
-            { label: "Servers", type: "servers", items: [] },
+            {
+              label: "Servers",
+              type: "servers",
+              items: navigationData?.servers?.map((server: Server) => ({
+                name: server.name,
+                id: server.id,
+                imageURL: server?.imageURL,
+              })),
+            },
             {
               label: "Users",
               requiredRoles: [ApplicationRole.ADMIN],
