@@ -26,7 +26,7 @@ const formSchema = z.object({
     .string()
     .min(1, "Name is required")
     .max(20, "Name should be less than 20 characters"),
-  imageURL: z.string().min(0, "Image is required"),
+  imageURL: z.string().min(1, "Image is required"),
 });
 
 const formFields: FormField[] = [
@@ -54,14 +54,18 @@ const CreateServerForm = ({ className = "" }: CreateServerFormProps) => {
   const { showNotification } = useNotifications();
 
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
-    showNotification(
-      {
-        title: "Create Server Error",
-        message: "You cant create",
-        variant: "success",
-      },
-      5000
-    );
+    try {
+      throw new Error("Something went wrong");
+    } catch (err: any) {
+      showNotification(
+        {
+          title: "Create Server",
+          message: err?.message,
+          variant: "error",
+        },
+        5000
+      );
+    }
   };
 
   const onImageUploaded = (imageURL?: string) =>
