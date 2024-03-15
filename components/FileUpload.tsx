@@ -16,12 +16,14 @@ interface FileUploadProps {
   value: string;
   onChange: (url?: string) => void;
   label?: string;
+  error?: string;
 }
 const FileUpload = ({
   className = "",
   endpoint,
   value,
   label,
+  error,
   onChange = () => {},
 }: FileUploadProps) => {
   //
@@ -36,7 +38,14 @@ const FileUpload = ({
   return (
     <div className={`${className}`}>
       {/** Label ? */}
-      {label && <Label text={label} />}
+      {label && (
+        <div>
+          <Label text={label} />
+          {error && (
+            <span className="text-rose-500 text-sm mt-1 block">{error}</span>
+          )}
+        </div>
+      )}
       {/** Upload zone */}
       <UploadDropzone
         endpoint={endpoint}

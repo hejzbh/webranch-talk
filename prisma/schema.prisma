@@ -87,6 +87,7 @@ enum ApplicationRole {
 
 enum ServerRole {
   OWNER
+  ADMIN
   MODERATOR
   GUEST
 }

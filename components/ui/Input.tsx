@@ -31,9 +31,11 @@ const Input = ({
     <div className={cn("", className)}>
       {/** Label? */}
       {label && (
-        <div className="flex items-center space-x-2">
+        <div>
           <Label text={label} />
-          {error && <span className="text-rose-500 text-sm">{error}</span>}
+          {error && (
+            <span className="text-rose-500 text-sm block mt-1">{error}</span>
+          )}
         </div>
       )}
       {/** Input */}

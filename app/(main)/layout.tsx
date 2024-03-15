@@ -12,6 +12,9 @@ const ModalProvider = dynamic(
 const CurrentAccountProvider = dynamic(
   () => import("@/components/providers/CurrentAccountProvider")
 );
+const NotificationsProvider = dynamic(
+  () => import("@/components/providers/NotificationsProvider")
+);
 
 export default async function MainLayout({
   children,
@@ -22,16 +25,18 @@ export default async function MainLayout({
 
   return (
     <CurrentAccountProvider account={account}>
-      <ModalProvider>
-        <div className="flex h-full">
-          {/** Navigation Sidebar - ON SCREENS LARGER > 768PX (MOBILE: MenuToggle in Header) */}
-          <div className="hidden lg:block h-full min-w-[270px] xl:min-w-[300px]">
-            <NavigationSidebar />
+      <NotificationsProvider>
+        <ModalProvider>
+          <div className="flex h-full">
+            {/** Navigation Sidebar - ON SCREENS LARGER > 768PX (MOBILE: MenuToggle in Header) */}
+            <div className="hidden lg:block h-full min-w-[270px] xl:min-w-[300px]">
+              <NavigationSidebar />
+            </div>
+            {/** Page/Children */}
+            <main className="lg:p-5 w-full">{children}</main>
           </div>
-          {/** Page/Children */}
-          <main className="lg:p-5 w-full">{children}</main>
-        </div>
-      </ModalProvider>
+        </ModalProvider>
+      </NotificationsProvider>
     </CurrentAccountProvider>
   );
 }

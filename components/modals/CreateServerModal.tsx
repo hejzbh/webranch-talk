@@ -6,10 +6,10 @@ import { Dialog, DialogHeader, DialogContent } from "@/components/ui/Dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { useModalControl } from "@/components/providers/ModalProvider";
 const CreateServerForm = dynamic(
-  () => import("@/components/forms/CreateServerForm")
+  () => import("@/components/forms/(server)/CreateServerForm")
 );
 const InviteCodeForm = dynamic(
-  () => import("@/components/forms/InviteCodeForm")
+  () => import("@/components/forms/(server)/InviteCodeForm")
 );
 
 const CreateServerModal = () => {
