@@ -7,6 +7,7 @@ import { useRouter, usePathname, useParams } from "next/navigation";
 import Image from "next/image";
 // Lib
 import { cn } from "@/lib/utils";
+import { serverRoute } from "@/lib/(routes)/server-route";
 // Components
 import {
   Accordion,
@@ -42,7 +43,7 @@ const NavigationLink = ({
     // 1)
     const fn = {
       defaultLink: () => router.push(`${href}`),
-      serverLink: () => router.push(`/servers/${id}`),
+      serverLink: () => router.push(serverRoute(`${id}`)),
       serverChannelLink: () => {},
     };
     // 2)

@@ -1,4 +1,5 @@
 import { ServerChannelType } from "@prisma/client";
+import { serverRoute } from "./server-route";
 
 export const channelRoute = ({
   serverID,
@@ -8,4 +9,5 @@ export const channelRoute = ({
   channelID: string;
   serverID: string;
   channelType: ServerChannelType;
-}) => `/servers/${serverID}/channels/${channelID}/${channelType.toLowerCase()}`;
+}) =>
+  `${serverRoute(serverID)}/channels/${channelID}/${channelType.toLowerCase()}`;
