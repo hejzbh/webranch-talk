@@ -11,13 +11,13 @@ interface ScrollAreaProps {
 const ScrollArea = ({ className = "", children, list }: ScrollAreaProps) => {
   if (list)
     return (
-      <ul className={cn("flex flex-col space-y-2 overflow-y-auto", className)}>
+      <ul className={cn("flex flex-col space-y-2 overflow-y-auto ", className)}>
         {children}
       </ul>
     );
 
   return (
-    <div className={cn("flex flex-col space-y-2 overflow-y-auto", className)}>
+    <div className={cn("flex flex-col space-y-2 overflow-y-auto ", className)}>
       {children}
     </div>
   );

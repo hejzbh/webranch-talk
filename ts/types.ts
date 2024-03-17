@@ -1,8 +1,10 @@
+import { ModalType } from "@/components/providers/ModalProvider";
 import {
   ApplicationRole,
   Server,
   ServerChannel,
   ServerMember,
+  ServerRole,
 } from "@prisma/client";
 
 export type DetailedServer = Server & {
@@ -49,4 +51,14 @@ export type FormField = {
   inputType?: "text" | "password" | "email";
   label?: string;
   placeholder?: string;
+};
+
+export type ServerOption = {
+  name: string;
+  data: { server: Server | DetailedServer };
+  requiredRoles?: ServerRole[];
+  modal: ModalType;
+  Icon: any;
+  hideFromOwner?: boolean;
+  className?: string;
 };
