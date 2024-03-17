@@ -3,12 +3,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 // Components
 import { Dialog, DialogHeader, DialogContent } from "@/components/ui/Dialog";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../../components/ui/Tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 //
 import { useModalControl } from "@/components/providers/ModalProvider";
 const CreateServerForm = dynamic(
