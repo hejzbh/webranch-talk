@@ -10,7 +10,7 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <BackgroundImage imageURL="/images/app-bg.webp" includeBlackOverlay />
-      <main>{children}</main>
+      <main className="h-full">{children}</main>
     </>
   );
 };

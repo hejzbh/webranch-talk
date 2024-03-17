@@ -1,1 +1,2 @@
-export const serverRoute = (serverID: string) => `/servers/${serverID}`;
+export const serverRoute = (serverID: string) =>
+  `/servers/${serverID}/channels/general/text`;

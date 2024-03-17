@@ -12,24 +12,7 @@ interface ServerPageProps {
 }
 
 const ServerPage = async ({ params }: ServerPageProps) => {
-  const generalChannel = await db.serverChannel.findFirst({
-    where: {
-      serverID: params.serverID,
-      name: "general",
-    },
-  });
-
-  if (generalChannel) {
-    return redirect(
-      channelRoute({
-        serverID: params.serverID,
-        channelID: generalChannel.id,
-        channelType: generalChannel.type,
-      })
-    );
-  }
-
-  return null;
+  return redirect(`/servers/${params.serverID}/channels/general/text`);
 };
 
 export default ServerPage;
