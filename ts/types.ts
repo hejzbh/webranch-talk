@@ -10,6 +10,10 @@ export type DetailedServer = Server & {
   members: ServerMember[];
 };
 
+export type DetailedServerChannel = ServerChannel & {
+  server: DetailedServer;
+};
+
 export type FileUploadEndpoint = "serverImage" | "messageFile";
 
 export type NavigationSearchType = "users" | "servers";

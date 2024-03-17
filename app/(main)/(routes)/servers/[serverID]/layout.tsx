@@ -37,7 +37,7 @@ const ServerLayout = async ({
       {/** Page */}
       <main className="w-full">{children}</main>
       {/** Sidebar */}
-      <div className="hidden lg:block h-full min-w-[270px] xl:min-w-[300px]">
+      <div className="hidden lg:block  min-w-[270px] xl:min-w-[300px]">
         <ServerSidebar server={server} />
       </div>
     </div>

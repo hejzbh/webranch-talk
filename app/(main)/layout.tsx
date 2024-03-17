@@ -27,13 +27,13 @@ export default async function MainLayout({
     <CurrentAccountProvider account={account}>
       <NotificationsProvider>
         <ModalProvider>
-          <div className="flex h-full">
+          <div className="flex h-screen">
             {/** Navigation Sidebar - ON SCREENS LARGER > 768PX (MOBILE: MenuToggle in Header) */}
-            <div className="hidden lg:block h-full min-w-[270px] xl:min-w-[300px]">
+            <div className="hidden lg:block h-full min-w-[270px] xl:min-w-[300px] inset-y-0 ">
               <NavigationSidebar />
             </div>
             {/** Page/Children */}
-            <main className=" w-full">{children}</main>
+            <main className=" w-full  h-screen">{children}</main>
           </div>
         </ModalProvider>
       </NotificationsProvider>

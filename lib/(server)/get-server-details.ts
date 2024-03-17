@@ -21,7 +21,7 @@ export const getServerDetails = async (serverID: string, include = {}) => {
     });
     // 3)
     return server;
-  } catch {
-    return null;
+  } catch (err: any) {
+    throw new Error(err.message);
   }
 };

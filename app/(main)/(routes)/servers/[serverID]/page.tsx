@@ -2,6 +2,7 @@
 import { redirect } from "next/navigation";
 // Lib
 import { db } from "@/lib/db";
+import { channelRoute } from "@/lib/(routes)/channel-route";
 
 // Props
 interface ServerPageProps {
@@ -20,7 +21,11 @@ const ServerPage = async ({ params }: ServerPageProps) => {
 
   if (generalChannel) {
     return redirect(
-      `/servers/${params.serverID}/channels/${generalChannel?.id}`
+      channelRoute({
+        serverID: params.serverID,
+        channelID: generalChannel.id,
+        channelType: generalChannel.type,
+      })
     );
   }
 
