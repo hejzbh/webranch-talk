@@ -36,7 +36,7 @@ const ServerWidget = ({
           loading="lazy"
           alt={server.name + " photo"}
         />
-        <h2>{server.name}</h2>
+        <h2 className="text-xl">{server.name}</h2>
       </div>
       {/** Settings */}
       <ServerOptions currentAccount={currentAccount} server={server} />

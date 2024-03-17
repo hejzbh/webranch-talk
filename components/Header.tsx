@@ -48,7 +48,7 @@ export const HeaderTitle = ({
   const Icon = spanIcon;
 
   return (
-    <h1 className="text-2xl flex items-center">
+    <h1 className={cn("text-xl flex items-center", className)}>
       {imageURL && (
         <Image
           width={35}
@@ -61,7 +61,7 @@ export const HeaderTitle = ({
       )}
       {text}
       {spanText && (
-        <span className="text-gray-500 text-md ml-2 flex items-center">
+        <span className="text-gray-500 text-lg ml-2 flex items-center">
           {<Icon className="mr-[2px]" />} {spanText}
         </span>
       )}
