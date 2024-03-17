@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
 // Constants
 import {
-  UNAUHORIZED_ERROR,
+  UNAUTHORIZED_ERROR,
   CREATE_SERVER_ERROR,
   CREATE_SERVER_MISSING_DATA_ERROR,
 } from "@/constants/errorMessages";
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     const account: Account = await getCurrentAccount();
 
     // 4) Checking if account is not found
-    if (!account) return new NextResponse(UNAUHORIZED_ERROR, { status: 401 });
+    if (!account) return new NextResponse(UNAUTHORIZED_ERROR, { status: 401 });
 
     // 5) Creating a new server in the database
     const server = await db.server.create({

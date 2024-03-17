@@ -42,7 +42,7 @@ const config = {
         secondary: "#a8aeb6",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        danger: "#f43f5e ",
+        danger: "#f43f5e",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         "custom-gray-1": "rgba(32,33,38,1)",

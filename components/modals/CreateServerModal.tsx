@@ -42,7 +42,7 @@ const CreateServerModal = () => {
             />
           </TabsContent>
           <TabsContent value="inviteCode">
-            <InviteCodeForm type="use" />
+            <InviteCodeForm type="use" afterOnSubmitDone={onClose} />
           </TabsContent>
         </Tabs>
       </DialogContent>

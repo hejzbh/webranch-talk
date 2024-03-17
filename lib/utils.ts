@@ -13,3 +13,10 @@ export const isFileImage = (fileUrl: string) => {
   // 3)
   return imgExtenstions.includes(fileExtension);
 };
+
+export const extractInviteCodeFromURL = (inviteCodeURL: string) =>
+  inviteCodeURL
+    .slice(inviteCodeURL.lastIndexOf("/servers/"))
+    .replaceAll("/servers/", "")
+    .replaceAll("servers", "")
+    .replaceAll("/servers", "");

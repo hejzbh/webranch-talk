@@ -30,7 +30,7 @@ const ServerSidebar = async ({ server }: ServerSidebarProps) => {
       className="bg-red-500 h-full flex-1 border-l-2 border-border-common-2"
       style={{
         background:
-          "radial-gradient(circle, rgba(26,27,31,1) 0%, rgba(26,27,31,1) 35%, rgba(18,18,22,1) 100%)",
+          "linear-gradient(90deg, rgba(21,22,26,1) 0%, rgba(15,15,18,1) 35%)",
       }}
     >
       {/** Server Widget (Settings, picture, name and more...) */}
