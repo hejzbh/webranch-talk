@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // NEXT
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
@@ -47,9 +47,20 @@ const Form = ({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
+  const disabled = form?.formState.isSubmitting;
+
+  const router = useRouter();
 
   const { showNotification } = useNotifications();
-  const router = useRouter();
+
+  useEffect(() => {
+    if (!defaultValues) return;
+    const valuesEntries = Object.entries(defaultValues);
+
+    for (const [key, value] of valuesEntries) {
+      form.setValue(key, value);
+    }
+  }, [defaultValues]);
 
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
@@ -112,6 +123,7 @@ const Form = ({
               <Input
                 key={idx}
                 {...field}
+                disabled={field.disabled || disabled}
                 type={field.inputType}
                 register={form.register}
                 className="w-full"
@@ -122,7 +134,12 @@ const Form = ({
             return null;
         }
       })}
-      <Button type="submit" title={buttonTitle} className="float-right mt-5" />
+      <Button
+        disabled={disabled}
+        type="submit"
+        title={buttonTitle}
+        className="float-right mt-5 disabled:opacity-50"
+      />
     </form>
   );
 };

@@ -12,6 +12,9 @@ const NavigationSearchModal = dynamic(
 const CreateServerModal = dynamic(
   () => import("@/components/modals/CreateServerModal")
 );
+const InvitePeopleModal = dynamic(
+  () => import("@/components/modals/InvitePeopleModal")
+);
 
 // Types
 export type ModalType =
@@ -21,7 +24,7 @@ export type ModalType =
   | "createServerChannel"
   | "deleteServer"
   | "leaveServer"
-  | "serverInvite"
+  | "invitePeople"
   | "serverSettings";
 
 export interface ModalData {
@@ -39,6 +42,7 @@ type ModalStoreWithFunctions = ModalStore & {
   onOpen: (type: ModalType, data?: ModalData) => void;
   onClose: () => void;
   toggleModal: (type: ModalType, data?: ModalData) => void;
+  changeData: (data: ModalData) => void;
 };
 
 // Provider
@@ -81,12 +85,20 @@ export const ModalControlProvider = ({
     }));
   }
 
+  function changeData(data: ModalData) {
+    setModalStore((modalStore: ModalStore) => ({
+      ...modalStore,
+      data,
+    }));
+  }
+
   return (
     <ModalControlContext.Provider
-      value={{ ...modalStore, onOpen, onClose, toggleModal }}
+      value={{ ...modalStore, onOpen, onClose, toggleModal, changeData }}
     >
       <NavigationSearchModal />
       <CreateServerModal />
+      <InvitePeopleModal />
       {children}
     </ModalControlContext.Provider>
   );

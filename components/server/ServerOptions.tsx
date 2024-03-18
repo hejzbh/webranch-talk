@@ -31,7 +31,7 @@ function getServerOptions(server: DetailedServer | Server) {
       name: "Invite People",
       data: { server },
       requiredRoles: [],
-      modal: "serverInvite",
+      modal: "invitePeople",
       Icon: UserPlus,
       className: "hover:!text-indigo-500 text-indigo-500",
     },

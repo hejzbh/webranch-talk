@@ -15,6 +15,7 @@ interface InputProps {
   placeholder?: string;
   label?: string;
   register: UseFormRegister<any>;
+  disabled?: boolean;
   error?: string;
 }
 
@@ -23,6 +24,7 @@ const Input = ({
   type = "text",
   name,
   placeholder,
+  disabled,
   label,
   register,
   error,
@@ -40,6 +42,7 @@ const Input = ({
       )}
       {/** Input */}
       <input
+        disabled={disabled}
         {...register(name)}
         className="w-full mt-1 bg-inputBG p-2 rounded-lg text-zinc-200"
         type={type}

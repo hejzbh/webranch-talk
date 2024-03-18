@@ -15,8 +15,4 @@ export const isFileImage = (fileUrl: string) => {
 };
 
 export const extractInviteCodeFromURL = (inviteCodeURL: string) =>
-  inviteCodeURL
-    .slice(inviteCodeURL.lastIndexOf("/servers/"))
-    .replaceAll("/servers/", "")
-    .replaceAll("servers", "")
-    .replaceAll("/servers", "");
+  inviteCodeURL.slice(inviteCodeURL.lastIndexOf("/") + 1);

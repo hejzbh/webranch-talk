@@ -51,6 +51,7 @@ export type FormField = {
   inputType?: "text" | "password" | "email";
   label?: string;
   placeholder?: string;
+  disabled?: boolean;
 };
 
 export type ServerOption = {

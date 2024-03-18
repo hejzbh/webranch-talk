@@ -9,6 +9,8 @@ import { FormField } from "@/ts/types";
 import { z } from "zod";
 import { extractInviteCodeFromURL } from "@/lib/utils";
 import { useServerInviteCode } from "@/lib/(server)/use-server-invite-code";
+import { refreshServerInviteCode } from "@/lib/(server)/refresh-server-invite-code";
+import { useModalControl } from "@/components/providers/ModalProvider";
 
 // Components
 const Form = dynamic(() => import("@/components/forms/Form"));
@@ -21,16 +23,23 @@ interface InviteCodeFormProps {
 }
 
 export const formSchema = z.object({
-  inviteCode: z
-    .string()
-    .min(10, "Invite code should be at least 10 charachters"),
+  inviteCode: z.string().min(10, "Please enter valid invite code"),
 });
 
-const formFields: FormField[] = [
+const formFieldsTypeUse: FormField[] = [
   {
     name: "inviteCode",
     type: "input",
     label: "Enter your invite code",
+  },
+];
+
+const formFieldsTypeManage: FormField[] = [
+  {
+    name: "inviteCode",
+    type: "input",
+    label: "Invite code",
+    disabled: true,
   },
 ];
 
@@ -40,6 +49,7 @@ const InviteCodeForm = ({
   afterOnSubmitDone = () => {},
 }: InviteCodeFormProps) => {
   const router = useRouter();
+  const { changeData } = useModalControl();
 
   async function useInviteCode(formData: z.infer<typeof formSchema>) {
     // 1)
@@ -59,12 +69,27 @@ const InviteCodeForm = ({
     router.push(`/servers/${joinedServer?.id}`);
   }
 
-  async function regenerateInviteCode(formData: z.infer<typeof formSchema>) {}
+  async function regenerateInviteCode(formData: z.infer<typeof formSchema>) {
+    // 1)
+    let { inviteCode } = formData;
+
+    // 2)
+    inviteCode = extractInviteCodeFromURL(inviteCode);
+
+    // 3)
+    const serverWithNewCode = await refreshServerInviteCode(inviteCode);
+
+    // 4)
+    changeData({ server: serverWithNewCode });
+
+    // 5)
+    router.refresh();
+  }
 
   return (
     <Form
       formSchema={formSchema}
-      formFields={formFields}
+      formFields={type === "manage" ? formFieldsTypeManage : formFieldsTypeUse}
       onSubmitAction={type === "use" ? useInviteCode : regenerateInviteCode}
       afterOnSubmitDone={afterOnSubmitDone}
       defaultValues={{ inviteCode } as z.infer<typeof formSchema>}
