@@ -8,7 +8,8 @@ import { initialAccount } from "../initial-account";
 
 let count = 0;
 
-export const getCurrentAccount: any = async function (paramUserId?: string) {
+// @ts-ignore
+export const getCurrentAccount = async function (paramUserId?: string) {
   try {
     // 1)
     const { userId } = paramUserId ? { userId: paramUserId } : auth();
@@ -21,7 +22,7 @@ export const getCurrentAccount: any = async function (paramUserId?: string) {
       if (count < 1) {
         count++;
         await initialAccount({ ignoreCurrentAccount: true });
-
+        // @ts-ignore
         return await getCurrentAccount(userId);
       } else throw new Error("");
     }
