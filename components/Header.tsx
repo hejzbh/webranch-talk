@@ -62,7 +62,7 @@ export const HeaderTitle = ({
           src={imageURL}
           alt={text}
           loading="lazy"
-          className="mr-2 rounded-full object-cover w-7 h-7 sm:w-9 sm:h-9 xl:w-10 xl:h-10"
+          className="mr-2 rounded-full object-cover w-8 h-8 sm:w-9 sm:h-9 xl:w-10 xl:h-10"
         />
       )}
       {text}
