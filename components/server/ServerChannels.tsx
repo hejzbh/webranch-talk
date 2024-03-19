@@ -2,9 +2,10 @@
 import React from "react";
 // Next
 import dynamic from "next/dynamic";
+import { useParams, useRouter } from "next/navigation";
 // Icons
 import { Plus } from "lucide-react";
-// Prisma
+// Prisma / Types
 import {
   Account,
   ServerChannel as ServerChannelInterface,
@@ -12,11 +13,14 @@ import {
   ServerMember,
   ServerRole,
 } from "@prisma/client";
+import { DetailedServer } from "@/ts/types";
+// Constants
 import { channelIconsMap } from "@/constants/icons";
-import { useParams, useRouter } from "next/navigation";
+// Lib
 import { cn } from "@/lib/utils";
 import { channelRoute } from "@/lib/(routes)/channel-route";
 // Components
+import { useModalControl } from "../providers/ModalProvider";
 const Label = dynamic(() => import("@/components/ui/Label"));
 const RequireServerRoles = dynamic(
   () => import("@/components/server/RequireServerRoles")
@@ -26,13 +30,13 @@ const RequireServerRoles = dynamic(
 interface ServerChannelsProps {
   channels: ServerChannelInterface[];
   currentAccount: Account;
-  serverMembers: ServerMember[];
+  server: DetailedServer;
 }
 
 const ServerChannels = ({
   channels,
   currentAccount,
-  serverMembers,
+  server,
 }: ServerChannelsProps) => {
   const channelsGroupdByType = channels.reduce(
     (group, channel) => {
@@ -54,7 +58,7 @@ const ServerChannels = ({
           <li key={type}>
             {" "}
             <ChannelsGroup
-              serverMembers={serverMembers}
+              server={server}
               currentAccount={currentAccount}
               type={type as ServerChannelType}
               channels={channels}
@@ -70,14 +74,15 @@ export const ChannelsGroup = ({
   channels,
   type,
   currentAccount,
-  serverMembers,
+  server,
 }: {
   channels: ServerChannelInterface[];
   type: ServerChannelType;
   currentAccount: Account;
-  serverMembers: ServerMember[];
+  server: DetailedServer;
 }) => {
-  const accountAsServerMember = serverMembers.find(
+  const { onOpen } = useModalControl();
+  const accountAsServerMember = server.members.find(
     (member) => member.accountID === currentAccount.id
   );
 
@@ -97,7 +102,12 @@ export const ChannelsGroup = ({
             ServerRole.OWNER,
           ]}
         >
-          <button title={`Create ${type} channel`}>
+          <button
+            onClick={() =>
+              onOpen("createServerChannel", { channelType: type, server })
+            }
+            title={`Create ${type} channel`}
+          >
             <Plus
               size={16}
               className="text-secondary hover:text-actionHover transition-all duration-300 ease-in-out"

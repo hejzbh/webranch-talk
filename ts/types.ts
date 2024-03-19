@@ -48,10 +48,11 @@ export type NavigationLink = {
 
 export type FormField = {
   name: string;
-  type: "file" | "input" | "textarea";
+  type: "file" | "input" | "textarea" | "radio";
   inputType?: "text" | "password" | "email";
   label?: string;
   placeholder?: string;
+  radioChoices?: any[];
   disabled?: boolean;
 };
 

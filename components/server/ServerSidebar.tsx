@@ -52,8 +52,8 @@ const ServerSidebar = async ({ server }: ServerSidebarProps) => {
         >
           <ServerChannels
             channels={server.channels}
+            server={server}
             currentAccount={currentAccount}
-            serverMembers={server.members}
           />
         </ServerSidebarSection>
         {/** Server Members */}

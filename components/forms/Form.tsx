@@ -16,6 +16,7 @@ import { useNotifications } from "@/components/providers/NotificationsProvider";
 const Input = dynamic(() => import("@/components/ui/Input"));
 const FileUpload = dynamic(() => import("@/components/FileUpload"));
 const Button = dynamic(() => import("@/components/ui/Button"));
+const RadioGroup = dynamic(() => import("@/components/ui/RadioGroup"));
 
 // Props
 interface FormProps {
@@ -96,10 +97,10 @@ const Form = ({
 
   const onImageUploaded = (imageURL?: string) =>
     form.setValue("imageURL", imageURL || "");
-
+  console.log(form.getValues());
   return (
     <form
-      className={cn("w-full", className)}
+      className={cn("w-full space-y-5", className)}
       onSubmit={form.handleSubmit(onSubmit)}
     >
       {formFields?.map((field, idx) => {
@@ -127,6 +128,20 @@ const Form = ({
                 type={field.inputType}
                 register={form.register}
                 className="w-full"
+                error={form?.formState?.errors[field.name]?.message as string}
+              />
+            );
+          // 3) Radio
+          case "radio":
+            return (
+              <RadioGroup
+                key={idx}
+                {...field}
+                disabled={field.disabled || disabled}
+                label={field.label}
+                name={field.name}
+                register={form.register}
+                choices={field.radioChoices as any[]}
                 error={form?.formState?.errors[field.name]?.message as string}
               />
             );

@@ -1,5 +1,5 @@
 import { DetailedServer, ServerMemberWithAccount } from "@/ts/types";
-import { ApplicationRole, Server } from "@prisma/client";
+import { Server } from "@prisma/client";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -28,6 +28,4 @@ export const isMemberServerOwner = ({
 }: {
   member: ServerMemberWithAccount;
   server: DetailedServer | Server;
-}) =>
-  server.ownerID === member?.accountID ||
-  member.account.appRole === ApplicationRole.ADMIN;
+}) => server.ownerID === member?.accountID; //||member.account.appRole === ApplicationRole.ADMIN;
