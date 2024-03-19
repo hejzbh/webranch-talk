@@ -44,7 +44,7 @@ const Input = ({
       <input
         disabled={disabled}
         {...register(name)}
-        className="w-full mt-1 bg-inputBG p-2 rounded-lg text-zinc-200"
+        className="w-full mt-1 bg-inputBG p-2 rounded-lg text-zinc-200 text-md"
         type={type}
         placeholder={placeholder}
       />
