@@ -36,7 +36,9 @@ const Input = ({
         <div>
           <Label text={label} />
           {error && (
-            <span className="text-rose-500 text-sm block mt-1">{error}</span>
+            <span className="text-rose-500 text-sm md:text-md block mt-1">
+              {error}
+            </span>
           )}
         </div>
       )}

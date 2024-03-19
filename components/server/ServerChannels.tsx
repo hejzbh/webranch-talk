@@ -107,10 +107,11 @@ export const ChannelsGroup = ({
               onOpen("createServerChannel", { channelType: type, server })
             }
             title={`Create ${type} channel`}
+            className="p-1 group"
           >
             <Plus
               size={16}
-              className="text-secondary hover:text-actionHover transition-all duration-300 ease-in-out"
+              className="text-secondary group-hover:text-actionHover transition-all duration-300 ease-in-out"
             />
           </button>
         </RequireServerRoles>

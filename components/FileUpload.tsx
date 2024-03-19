@@ -42,7 +42,9 @@ const FileUpload = ({
         <div>
           <Label text={label} />
           {error && (
-            <span className="text-rose-500 text-sm mt-1 block">{error}</span>
+            <span className="text-rose-500 text-sm md:text-md mt-1 block">
+              {error}
+            </span>
           )}
         </div>
       )}
