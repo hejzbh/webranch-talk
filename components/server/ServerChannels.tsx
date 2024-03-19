@@ -154,7 +154,7 @@ export const ServerChannel = ({
       title={`Go to ${channel.name} channel`}
       onClick={onClick}
       className={cn(
-        "text-md flex items-center sppace-x-2 py-1 text-secondary hover:text-main/80 transition-all duration-300 ease-in-out",
+        "text-md flex items-center sppace-x-2 py-1 w-full text-secondary hover:text-main/80 transition-all duration-300 ease-in-out",
         isActiveChannel && "text-main font-semibold"
       )}
     >
