@@ -68,7 +68,8 @@ export const HeaderTitle = ({
       {text}
       {spanText && (
         <span className="text-gray-500 text-[14px] xl:text-lg ml-2 flex items-center">
-          {<Icon className="w-4 h-4 sm:w-5 sm:h-5 mr-[2px]" />} {spanText}
+          {<Icon className="w-[17px] h-[17px] sm:w-5 sm:h-5 mr-[2px]" />}{" "}
+          {spanText}
         </span>
       )}
     </h1>
