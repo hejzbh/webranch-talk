@@ -35,7 +35,7 @@ const ServerSidebar = async ({ server }: ServerSidebarProps) => {
 
   return (
     <div
-      className="bg-red-500 h-full flex-1 border-l-2 border-border-common-2"
+      className="bg-red-500 h-full flex-1 border-l-2 border-border-common-2 pt-5 lg:pt-0"
       style={{
         background:
           "linear-gradient(108deg, rgba(30,31,36,1) 0%, rgba(32,33,38,1) 66%)",

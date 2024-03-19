@@ -62,13 +62,13 @@ export const HeaderTitle = ({
           src={imageURL}
           alt={text}
           loading="lazy"
-          className="mr-2 rounded-full object-cover w-9 h-9 xl:w-10 xl:h-10"
+          className="mr-2 rounded-full object-cover w-7 h-7 sm:w-9 sm:h-9 xl:w-10 xl:h-10"
         />
       )}
       {text}
       {spanText && (
         <span className="text-gray-500 text-md xl:text-lg ml-2 flex items-center">
-          {<Icon className="mr-[2px]" />} {spanText}
+          {<Icon className="w-4 h-4 sm:w-5 sm:h-5 mr-[2px]" />} {spanText}
         </span>
       )}
     </h1>
