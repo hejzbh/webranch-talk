@@ -67,7 +67,7 @@ export const HeaderTitle = ({
       )}
       {text}
       {spanText && (
-        <span className="text-gray-500 text-md xl:text-lg ml-2 flex items-center">
+        <span className="text-gray-500 text-[14px] xl:text-lg ml-2 flex items-center">
           {<Icon className="w-4 h-4 sm:w-5 sm:h-5 mr-[2px]" />} {spanText}
         </span>
       )}
