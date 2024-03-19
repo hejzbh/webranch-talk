@@ -2,7 +2,7 @@ import "./globals.css";
 // Next
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { Open_Sans, Noto_Sans } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 // Clerk
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";

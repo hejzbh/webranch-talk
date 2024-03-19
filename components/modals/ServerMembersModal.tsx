@@ -11,7 +11,7 @@ import {
   CommandList,
   CommandGroup,
 } from "@/components/ui/Command";
-import { ServerMember } from "../server/ServerMembers";
+import { ServerMember } from "@/components/server/ServerMember";
 // TS
 import { DetailedServer } from "@/ts/types";
 

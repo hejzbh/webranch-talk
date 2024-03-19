@@ -23,6 +23,7 @@ const RequireServerRoles = ({
   if (hideFromOwner && member.role === ServerRole.OWNER) return null;
 
   if ((!currentAccount || !member) && requiredServerRoles.length) return null;
+
   if (
     !requiredServerRoles?.length ||
     currentAccount?.appRole === ApplicationRole.ADMIN

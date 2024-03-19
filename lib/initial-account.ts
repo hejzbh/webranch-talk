@@ -4,15 +4,22 @@ import { currentUser, redirectToSignIn } from "@clerk/nextjs";
 import { getCurrentAccount } from "./(account)/current-account";
 import { createAccount } from "./(account)/create-account";
 
-export const initialAccount = async function () {
+interface initialAccountParams {
+  ignoreCurrentAccount?: boolean;
+}
+
+export const initialAccount = async function (params?: initialAccountParams) {
   // 1)
   const currentLoggedInUser = await currentUser();
   // 2)
   if (!currentLoggedInUser) return redirectToSignIn();
   // 3)
-  const account = await getCurrentAccount(currentLoggedInUser.id);
-  // 4)
-  if (account) return account;
+  if (!params?.ignoreCurrentAccount) {
+    const account = await getCurrentAccount(currentLoggedInUser.id);
+    // 4)
+    if (account) return account;
+  }
+
   // 5)
   const newAccount = await createAccount({
     userId: currentLoggedInUser.id,
