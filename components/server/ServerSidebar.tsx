@@ -2,11 +2,13 @@ import React from "react";
 // Next
 import dynamic from "next/dynamic";
 // TS
-import { DetailedServer, ServerMemberWithAccount } from "@/ts/types";
+import { DetailedServer } from "@/ts/types";
 // Lib
 import { getCurrentAccount } from "@/lib/(account)/current-account";
 // Prisma
-import { Account } from "@prisma/client";
+import { Account, ServerChannelType } from "@prisma/client";
+// Constants
+import { channelIconsMap } from "@/constants/icons";
 // Components
 const ServerWidget = dynamic(() => import("@/components/server/ServerWidget"));
 const ServerChannels = dynamic(
@@ -19,6 +21,9 @@ const ServerSidebarSection = dynamic(
   () => import("@/components/server/ServerSidebarSection")
 );
 const ScrollArea = dynamic(() => import("@/components/ui/ScrollArea"));
+const ServerSearchToggler = dynamic(
+  () => import("@/components/togglers/ServerSearchToggler")
+);
 
 // Props
 interface ServerSidebarProps {
@@ -43,7 +48,10 @@ const ServerSidebar = async ({ server }: ServerSidebarProps) => {
         className="border-b-2 border-border-common-2 min-h-20 p-5"
       />
 
-      <ScrollArea className="max-h-[90vh] p-5 space-y-7">
+      {/* Search */}
+      <ServerSearchToggler className="p-5" server={server} />
+
+      <ScrollArea className="max-h-[80vh] p-5 space-y-7 scrollbar-hide">
         {/** Server Channels */}
         <ServerSidebarSection
           title="Channels"

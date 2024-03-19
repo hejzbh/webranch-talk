@@ -3,7 +3,11 @@ import { createContext, useContext, useState } from "react";
 // Next
 import dynamic from "next/dynamic";
 // TS
-import { DetailedServer, NavigationSearchData } from "@/ts/types";
+import {
+  DetailedServer,
+  NavigationSearchData,
+  ServerSearchData,
+} from "@/ts/types";
 import { Server, ServerChannelType } from "@prisma/client";
 // Modals
 const NavigationSearchModal = dynamic(
@@ -18,10 +22,14 @@ const InvitePeopleModal = dynamic(
 const CreateServerChannelModal = dynamic(
   () => import("@/components/modals/CreateServerChannelModal")
 );
+const ServerSearchModal = dynamic(
+  () => import("@/components/modals/ServerSearchModal")
+);
 
 // Types
 export type ModalType =
   | "navigationSearch"
+  | "serverSearch"
   | "createServer"
   | "serverMembers"
   | "createServerChannel"
@@ -32,6 +40,7 @@ export type ModalType =
 
 export interface ModalData {
   navigationSearchData?: NavigationSearchData;
+  serverSearchData?: ServerSearchData;
   server?: DetailedServer | Server;
   channelType?: ServerChannelType;
 }
@@ -104,6 +113,7 @@ export const ModalControlProvider = ({
       <CreateServerModal />
       <InvitePeopleModal />
       <CreateServerChannelModal />
+      <ServerSearchModal />
       {children}
     </ModalControlContext.Provider>
   );

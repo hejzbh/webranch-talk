@@ -4,6 +4,7 @@ import {
   ApplicationRole,
   Server,
   ServerChannel,
+  ServerChannelType,
   ServerMember,
   ServerRole,
 } from "@prisma/client";
@@ -67,3 +68,21 @@ export type ServerOption = {
 };
 
 export type ServerMemberWithAccount = ServerMember & { account: Account };
+
+export type ServerSearchType = "channels" | "members";
+
+export type ServerSearchItem = {
+  icon?: any;
+  imageURL?: string;
+  serverID: string;
+  name: string;
+  type?: ServerChannelType | null;
+  id: string;
+};
+
+export type ServerSearchData = {
+  label: string;
+  type: ServerSearchType;
+  requiredRoles?: ServerRole[];
+  items: ServerSearchItem[];
+}[];
