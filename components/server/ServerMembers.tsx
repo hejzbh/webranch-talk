@@ -28,35 +28,46 @@ const ServerMembers = ({ members = [], server }: ServerMembersProps) => {
   return (
     <ul className="space-y-3">
       {members?.map((member) => {
-        //
-        const isOwner = isMemberServerOwner({
-          member,
-          server,
-        });
-
         return (
-          <li
-            key={member.id}
-            className={`flex items-center space-x-2 ${
-              memberRoleColor[member.role]
-            }`}
-          >
-            {/** Avatar */}
-            <UserAvatar imageURL={member.account?.imageURL} />
-            {/** Name */}
-            <p
-              className={cn(
-                "text-sm",
-                isOwner && "flex items-center justify-between"
-              )}
-            >
-              {member?.account?.name}{" "}
-              {isOwner && <OwnerIcon size={15} className="ml-2" />}
-            </p>
+          <li key={member.id}>
+            <ServerMember member={member} server={server} />
           </li>
         );
       })}
     </ul>
+  );
+};
+
+export const ServerMember = ({
+  member,
+  server,
+}: {
+  server: DetailedServer | Server;
+  member: ServerMemberWithAccount;
+}) => {
+  //
+  const isOwner = isMemberServerOwner({
+    member,
+    server,
+  });
+
+  return (
+    <div
+      className={`flex items-center space-x-2 ${memberRoleColor[member.role]}`}
+    >
+      {/** Avatar */}
+      <UserAvatar imageURL={member.account?.imageURL} />
+      {/** Name */}
+      <p
+        className={cn(
+          "text-sm",
+          isOwner && "flex items-center justify-between"
+        )}
+      >
+        {member?.account?.name}{" "}
+        {isOwner && <OwnerIcon size={15} className="ml-2" />}
+      </p>
+    </div>
   );
 };
 

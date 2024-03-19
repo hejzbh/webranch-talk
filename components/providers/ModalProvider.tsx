@@ -25,6 +25,9 @@ const CreateServerChannelModal = dynamic(
 const ServerSearchModal = dynamic(
   () => import("@/components/modals/ServerSearchModal")
 );
+const ServerMembersModal = dynamic(
+  () => import("@/components/modals/ServerMembersModal")
+);
 
 // Types
 export type ModalType =
@@ -114,6 +117,7 @@ export const ModalControlProvider = ({
       <InvitePeopleModal />
       <CreateServerChannelModal />
       <ServerSearchModal />
+      <ServerMembersModal />
       {children}
     </ModalControlContext.Provider>
   );
