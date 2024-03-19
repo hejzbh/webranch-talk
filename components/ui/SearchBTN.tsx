@@ -28,7 +28,7 @@ const SearchBTN = ({
       )}
     >
       {/** Icon */}
-      <Search className="w-4 sm:w-5 h-4 sm:h-5" />
+      <Search className="w-[18px] sm:w-5 h-[18px] sm:h-5" />
       {/** Text */}
       <p className="text-secondary text-sm sm:text-md">{placeholder}</p>
       {/** Children ? */}
