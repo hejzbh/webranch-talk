@@ -84,7 +84,8 @@ const ServerSearchModal = () => {
                     className="rounded-full w-7 h-7 object-cover mr-2"
                   />
                 )}
-                {item.name}
+
+                <p className=" text-sm sm:text-md">{item.name}</p>
               </CommandItem>
             ))}
             <CommandSeparator />

@@ -32,7 +32,7 @@ function getServerSearchData(server: ServerSearchTogglerProps["server"]) {
             serverID: channel.serverID,
             type: channel.type,
             id: channel.id,
-            icon: <Icon className="mr-2" size={18} />,
+            icon: <Icon className="mr-2" size={15} />,
           };
         }),
     },
@@ -48,7 +48,7 @@ function getServerSearchData(server: ServerSearchTogglerProps["server"]) {
             id: channel.id,
             type: channel.type,
             serverID: channel.serverID,
-            icon: <Icon className="mr-2" size={18} />,
+            icon: <Icon className="mr-2" size={15} />,
           };
         }),
     },
@@ -64,7 +64,7 @@ function getServerSearchData(server: ServerSearchTogglerProps["server"]) {
             id: channel.id,
             type: channel.type,
             serverID: channel.serverID,
-            icon: <Icon className="mr-2" size={18} />,
+            icon: <Icon className="mr-2" size={15} />,
           };
         }),
     },
@@ -80,7 +80,7 @@ function getServerSearchData(server: ServerSearchTogglerProps["server"]) {
             type: channel.type,
             id: channel.id,
             serverID: channel.serverID,
-            icon: <Icon className="mr-2" size={18} />,
+            icon: <Icon className="mr-2" size={15} />,
           };
         }),
     },

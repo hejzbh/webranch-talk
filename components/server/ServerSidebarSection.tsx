@@ -34,7 +34,7 @@ const ServerSidebarSection = ({
       {/** Heading */}
       <div className="flex items-center justify-between mb-4">
         {/** Title */}
-        <h2 className="text-md md:text-lg">{title}</h2>
+        <h2 className="text-[0.9rem] md:text-lg">{title}</h2>
         {/** Toggle modal */}
         {modalType && (
           <button
