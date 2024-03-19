@@ -1,8 +1,13 @@
 import React from "react";
 // Next
+import dynamic from "next/dynamic";
 import Image from "next/image";
 // Lib
 import { cn } from "@/lib/utils";
+// Components
+const NavigationSidebarBurger = dynamic(
+  () => import("@/components/burgers/NavigationSidebarBurger")
+);
 
 // Props
 interface HeaderProps {
@@ -21,7 +26,7 @@ const Header = ({ className = "", children }: HeaderProps) => {
   return (
     <header
       className={cn(
-        "p-5 min-h-20 ml-[-5%] pl-[7%] border-b-2 border-border-common-2 flex items-center justify-between",
+        "p-5 min-h-20 ml-[-5%] pl-[7%] border-b-2 border-border-common-2 flex items-center",
         className
       )}
       style={{
@@ -29,6 +34,9 @@ const Header = ({ className = "", children }: HeaderProps) => {
           "linear-gradient(108deg, rgba(30,31,36,1) 0%, rgba(32,33,38,1) 66%)",
       }}
     >
+      <div className="block lg:hidden mr-4">
+        <NavigationSidebarBurger />
+      </div>
       {children}
     </header>
   );
@@ -65,4 +73,12 @@ export const HeaderTitle = ({
       )}
     </h1>
   );
+};
+
+export const HeaderRightContent = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  return <div className="ml-auto">{children}</div>;
 };

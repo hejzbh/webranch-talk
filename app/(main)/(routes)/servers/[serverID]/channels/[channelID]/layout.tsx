@@ -28,8 +28,24 @@ const ServerChannelPage = async ({
     include: {
       server: {
         include: {
-          members: true,
-          channels: true,
+          members: {
+            include: {
+              account: true,
+            },
+          },
+          channels: {
+            include: {
+              server: {
+                include: {
+                  members: {
+                    include: {
+                      account: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       },
     },
