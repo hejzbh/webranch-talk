@@ -1,5 +1,6 @@
 import { ModalType } from "@/components/providers/ModalProvider";
 import {
+  Account,
   ApplicationRole,
   Server,
   ServerChannel,
@@ -9,7 +10,7 @@ import {
 
 export type DetailedServer = Server & {
   channels: ServerChannel[];
-  members: ServerMember[];
+  members: ServerMemberWithAccount[];
 };
 
 export type DetailedServerChannel = ServerChannel & {
@@ -63,3 +64,5 @@ export type ServerOption = {
   hideFromOwner?: boolean;
   className?: string;
 };
+
+export type ServerMemberWithAccount = ServerMember & { account: Account };

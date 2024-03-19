@@ -16,9 +16,9 @@ const UserAvatar = ({ imageURL, className = "" }: UserAvatarProps) => {
     <Image
       src={imageURL}
       alt={process.env.NEXT_PUBLIC_ALT_IMG_TEXT!!}
-      width={50}
-      height={50}
-      className={cn("", className)}
+      width={35}
+      height={35}
+      className={cn("rounded-full", className)}
     />
   );
 };

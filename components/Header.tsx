@@ -28,7 +28,7 @@ const Header = ({ className = "", children }: HeaderProps) => {
       )}
       style={{
         background:
-          "linear-gradient(90deg, rgba(26,27,31,1) 0%, rgba(26,27,31,1) 35%, rgba(18,18,22,1) 100%)",
+          "linear-gradient(108deg, rgba(30,31,36,1) 0%, rgba(32,33,38,1) 66%)",
       }}
     >
       {children}

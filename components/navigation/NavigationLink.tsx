@@ -66,7 +66,7 @@ const NavigationLink = ({
           className={cn(
             "flex items-center space-x-2 w-full p-2 rounded-3xl transition-all duration-300 ease-in-out cursor-pointer",
             isActiveLink && "bg-main hover:opacity-90 hover:text-zinc-200",
-            !isActiveLink && "hover:bg-main/40"
+            !isActiveLink && "hover:bg-actionHover"
           )}
         >
           <div className="flex items-center space-x-2">

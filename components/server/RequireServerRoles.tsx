@@ -22,11 +22,12 @@ const RequireServerRoles = ({
 }: RequireServerRolesProps) => {
   if (hideFromOwner && member.role === ServerRole.OWNER) return null;
 
-  // 1) Return content if there are no required roles of current user is ADMIN on entire application
+  if ((!currentAccount || !member) && requiredServerRoles.length) return null;
   if (
     !requiredServerRoles?.length ||
-    currentAccount.appRole === ApplicationRole.ADMIN
+    currentAccount?.appRole === ApplicationRole.ADMIN
   )
+    // 1) Return content if there are no required roles of current user is ADMIN on entire application
     return children;
 
   // 2)

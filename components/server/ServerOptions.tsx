@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-// Icons
-import { UserPlus, Plus, Users, LogOut, Trash, Settings } from "lucide-react";
 // Components
 import {
   DropdownMenu,
@@ -18,6 +16,10 @@ import { Account, Server, ServerMember, ServerRole } from "@prisma/client";
 import { useModalControl } from "../providers/ModalProvider";
 // Lib
 import { cn } from "@/lib/utils";
+// Constants
+import { modalIcons } from "@/constants/icons";
+// Icons
+import { Settings } from "lucide-react";
 
 // Props
 interface ServerOptionsProps {
@@ -32,7 +34,7 @@ function getServerOptions(server: DetailedServer | Server) {
       data: { server },
       requiredRoles: [],
       modal: "invitePeople",
-      Icon: UserPlus,
+      Icon: modalIcons.invitePeople,
       className: "hover:!text-indigo-500 text-indigo-500",
     },
     {
@@ -40,18 +42,18 @@ function getServerOptions(server: DetailedServer | Server) {
       data: { server },
       requiredRoles: [ServerRole.OWNER, ServerRole.ADMIN, ServerRole.MODERATOR],
       modal: "createServerChannel",
-      Icon: Plus,
+      Icon: modalIcons.createServerChannel,
     },
     {
       name: "Manage Members",
       data: { server },
       requiredRoles: [ServerRole.OWNER, ServerRole.ADMIN, ServerRole.MODERATOR],
       modal: "serverMembers",
-      Icon: Users,
+      Icon: modalIcons.serverMembers,
     },
     {
       name: "Server Settings",
-      Icon: Settings,
+      Icon: modalIcons.serverSettings,
       modal: "serverSettings",
       data: { server },
       requiredRoles: [ServerRole.OWNER, ServerRole.ADMIN],
@@ -59,16 +61,18 @@ function getServerOptions(server: DetailedServer | Server) {
     {
       name: "Leave Server",
       data: { server },
+      modal: "leaveServer",
       requiredRoles: [], // Hiden from owner, owner cant leave his own server.
       hideFromOwner: true,
-      Icon: LogOut,
+      Icon: modalIcons.leaveServer,
       className: "text-danger hover:!text-danger",
     },
     {
       name: "Delete Server",
       data: { server },
+      modal: "deleteServer",
       requiredRoles: [ServerRole.OWNER], // Hiden from owner, owner cant leave his own server.
-      Icon: Trash,
+      Icon: modalIcons.deleteServer,
       className: "text-danger hover:!text-danger",
     },
   ] as ServerOption[];
@@ -87,8 +91,8 @@ const ServerOptions = ({ server, currentAccount }: ServerOptionsProps) => {
     <DropdownMenu>
       {/** Header (Trigger icon) */}
       <DropdownMenuTrigger className="focus:outline-none" asChild>
-        <button title="Options">
-          <Settings />
+        <button title="Options" className="group">
+          <Settings className="group-hover:text-actionHover transition-all duration-300 ease-in-out" />
         </button>
       </DropdownMenuTrigger>
       {/** Server options list (Opens after trigger being clicked) */}

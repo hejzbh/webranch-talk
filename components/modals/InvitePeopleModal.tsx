@@ -26,7 +26,7 @@ const InvitePeopleModal = () => {
   const origin = useOrigin();
 
   const inviteCode = `${origin}/invite/${data?.server?.inviteCode}`;
-  console.log(inviteCode);
+
   if (!isModalOpen || !server) return null;
 
   return (

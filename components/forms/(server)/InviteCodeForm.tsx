@@ -57,7 +57,7 @@ const InviteCodeForm = ({
 
     // 2)
     const isCodeLink =
-      inviteCode.includes("https") || inviteCode.includes("servers");
+      inviteCode.includes("https") || inviteCode.includes("invite");
 
     // 3)
     if (isCodeLink) inviteCode = extractInviteCodeFromURL(inviteCode);
