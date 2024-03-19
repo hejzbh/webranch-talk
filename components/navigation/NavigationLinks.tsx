@@ -26,14 +26,14 @@ async function getNavigationLinks() {
   return [
     {
       id: "1",
-      Icon: <Home />,
+      Icon: <Home className="w-5 h-5" />,
       title: "Welcome",
       href: "/welcome",
       type: "defaultLink",
     },
     {
       id: "2",
-      Icon: <Rss />,
+      Icon: <Rss className="w-5 h-5" />,
       title: "Servers",
       href: "/servers",
       type: "serverLink",
@@ -49,27 +49,27 @@ async function getNavigationLinks() {
     },
     {
       id: "62",
-      Icon: <CodeXml />,
+      Icon: <CodeXml className="w-5 h-5" />,
       title: "Projects",
       type: "defaultLink",
       sublinks: [],
     },
     {
       id: "3",
-      Icon: <Send />,
+      Icon: <Send className="w-5 h-5" />,
       title: "Inbox",
       type: "defaultLink",
     },
     {
       id: "4",
-      Icon: <Activity />,
+      Icon: <Activity className="w-5 h-5" />,
       title: "Activities",
       type: "defaultLink",
       requiredRoles: [ApplicationRole.ADMIN],
     },
     {
       id: "5",
-      Icon: <ListTodo />,
+      Icon: <ListTodo className="w-5 h-5" />,
       title: "To-Do",
       type: "defaultLink",
       requiredRoles: [ApplicationRole.ADMIN],

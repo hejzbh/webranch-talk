@@ -114,12 +114,12 @@ const ServerOptions = ({ server, currentAccount }: ServerOptionsProps) => {
                   onOpen(option.modal, { server: option.data.server })
                 }
                 className={cn(
-                  "px-3 py-2 text-sm cursor-pointer flex items-center justify-between",
+                  "px-3 py-2 text-md cursor-pointer flex items-center justify-between",
                   option.className
                 )}
               >
                 <p>{option.name}</p>
-                <Icon />
+                <Icon className="w-5 h-5" />
               </DropdownMenuItem>
             </RequireServerRoles>
           );

@@ -13,23 +13,34 @@ const config = {
     container: {
       center: true,
       padding: "2rem",
+    },
+    screens: {
+      sm: "640px",
+      // => @media (min-width: 640px) { ... }
 
-      screens: {
-        sm: "640px",
-        // => @media (min-width: 640px) { ... }
+      md: "768px",
+      // => @media (min-width: 768px) { ... }
 
-        md: "768px",
-        // => @media (min-width: 768px) { ... }
+      lg: "1200px",
+      // => @media (min-width: 1024px) { ... }
 
-        lg: "1024px",
-        // => @media (min-width: 1024px) { ... }
+      xl: "1280px",
+      // => @media (min-width: 1280px) { ... }
 
-        xl: "1280px",
-        // => @media (min-width: 1280px) { ... }
-
-        "2xl": "1400px",
-        // => @media (min-width: 1536px) { ... }
-      },
+      "2xl": "1400px",
+      // => @media (min-width: 1536px) { ... }
+    },
+    fontSize: {
+      xs: ["0.68rem", "0.75rem"],
+      sm: ["0.75rem", "0.85rem"],
+      md: "0.85rem",
+      lg: "1rem",
+      xl: "1.180rem",
+      "2xl": "1.563rem",
+      "3xl": "1.953rem",
+      "4xl": "2.441rem",
+      "5xl": "3.052rem",
+      base: "1rem",
     },
     extend: {
       colors: {

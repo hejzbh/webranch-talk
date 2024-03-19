@@ -3,8 +3,6 @@ import React from "react";
 import Image from "next/image";
 // Lib
 import { cn } from "@/lib/utils";
-// Icons
-import { Circle } from "lucide-react";
 
 // Props
 interface HeaderProps {
@@ -48,7 +46,7 @@ export const HeaderTitle = ({
   const Icon = spanIcon;
 
   return (
-    <h1 className={cn("text-xl flex items-center", className)}>
+    <h1 className={cn("text-lg xl:text-xl flex items-center", className)}>
       {imageURL && (
         <Image
           width={35}
@@ -56,12 +54,12 @@ export const HeaderTitle = ({
           src={imageURL}
           alt={text}
           loading="lazy"
-          className="mr-2 rounded-full object-cover w-10 h-10"
+          className="mr-2 rounded-full object-cover w-9 h-9 xl:w-10 xl:h-10"
         />
       )}
       {text}
       {spanText && (
-        <span className="text-gray-500 text-lg ml-2 flex items-center">
+        <span className="text-gray-500 text-md xl:text-lg ml-2 flex items-center">
           {<Icon className="mr-[2px]" />} {spanText}
         </span>
       )}

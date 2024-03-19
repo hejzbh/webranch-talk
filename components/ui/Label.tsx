@@ -10,7 +10,7 @@ const Label = ({ className = "", text = "" }: LabelProps) => {
   return (
     <label
       className={cn(
-        "text-secondary text-sm font-semibold uppercase",
+        "text-secondary text-xs 2xl:text-sm font-semibold uppercase",
         className
       )}
     >

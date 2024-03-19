@@ -32,7 +32,7 @@ const ServerWidget = ({
           src={server.imageURL}
           width={35}
           height={35}
-          className="w-10 h-10 rounded-full object-cover mr-2"
+          className="w-9 h-9 xl:w-10 xl:h-10 rounded-full object-cover mr-2"
           loading="lazy"
           alt={server.name + " photo"}
         />

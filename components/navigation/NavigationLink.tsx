@@ -69,7 +69,7 @@ const NavigationLink = ({
             !isActiveLink && "hover:bg-actionHover"
           )}
         >
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 text-md">
             {Icon} <p>{title}</p>
           </div>
         </AccordionTrigger>
@@ -98,7 +98,7 @@ const NavigationLink = ({
                     className="w-7 h-7 rounded-full"
                   />
                 )}
-                <p className="text-sm">{sublink.title}</p>
+                <p className="text-md">{sublink.title}</p>
               </AccordionContent>
             ))}
           </AccordionContent>
