@@ -37,6 +37,9 @@ const MemberOptions = ({
   currentAccount,
   currentAccountAsMember,
 }: MemberOptionsProps) => {
+  /**  const isCurrentAccountAppAdmin =
+    currentAccount.appRole === ApplicationRole.ADMIN; */
+
   const isCurrentAccountOwner =
     currentAccountAsMember.role === ServerRole.OWNER;
 
