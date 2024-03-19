@@ -27,7 +27,7 @@ const CreateServerChannelModal = () => {
         {/** Header */}
         <DialogHeader className="mb-10">
           {" "}
-          <DialogTitle className="text-center text-white text-2xl">
+          <DialogTitle className="text-center text-white">
             Create new channel
           </DialogTitle>
         </DialogHeader>

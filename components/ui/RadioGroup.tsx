@@ -55,7 +55,7 @@ const RadioGroup = ({
                 className="text-zinc-200 w-5 h-5"
                 {...register(name)}
               />
-              <label className="text-sm flex items-center">
+              <label htmlFor={name} className="flex items-center !text-md">
                 <Icon size={18} className="mr-1" />
                 {choice}
               </label>

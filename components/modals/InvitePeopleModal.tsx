@@ -35,7 +35,7 @@ const InvitePeopleModal = () => {
         {/** Header */}
         <DialogHeader className="mb-10">
           {" "}
-          <DialogTitle className="text-center text-white text-2xl">
+          <DialogTitle className="text-center text-white">
             Invite people to <span className="text-main">{server?.name}</span>
           </DialogTitle>
           <DialogDescription className="text-center text-md">
