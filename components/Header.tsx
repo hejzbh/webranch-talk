@@ -18,6 +18,7 @@ interface HeaderTitleProps {
   className?: string;
   text: string;
   spanText?: string;
+  children?: React.ReactNode;
   spanIcon?: any;
   imageURL?: string;
 }
@@ -50,6 +51,7 @@ export const HeaderTitle = ({
   spanIcon,
   imageURL,
   className,
+  children,
 }: HeaderTitleProps) => {
   const Icon = spanIcon;
 
@@ -66,6 +68,7 @@ export const HeaderTitle = ({
         />
       )}
       {text}
+      {children && children}
       {spanText && (
         <span className="text-gray-500 text-[14px] xl:text-lg ml-2 flex items-center">
           {<Icon className="w-[17px] h-[17px] sm:w-5 sm:h-5 mr-[2px]" />}{" "}
