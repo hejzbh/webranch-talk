@@ -10,9 +10,8 @@ import {
 // Lib
 import { getCurrentAccount } from "@/lib/(account)/current-account";
 import { db } from "@/lib/db";
-import { defaultServerChannels } from "@/lib/default-server-channels";
 // Prisma
-import { Account, ServerRole } from "@prisma/client";
+import { Account } from "@prisma/client";
 
 export async function POST(
   req: Request,
