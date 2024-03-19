@@ -155,7 +155,7 @@ export const ServerChannel = ({
       onClick={onClick}
       className={cn(
         "text-md flex items-center sppace-x-2 text-secondary hover:text-main/80 transition-all duration-300 ease-in-out",
-        isActiveChannel && "text-main"
+        isActiveChannel && "text-main font-semibold"
       )}
     >
       <Icon size={18} className="mr-2" />
