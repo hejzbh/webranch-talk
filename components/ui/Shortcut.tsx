@@ -28,7 +28,7 @@ const Shortcut = ({
     document.addEventListener("keydown", onKeyDown);
 
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [keys]);
+  }, [keys]); // eslint-disable-line
 
   return (
     <kbd

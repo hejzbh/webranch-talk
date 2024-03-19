@@ -66,7 +66,6 @@ model ServerMember {
 model ServerChannel {
   id String @id @default(uuid()) @map("_id")
   name String
-  redirectId String
   type ServerChannelType @default(TEXT)
   authorID String
   author Account @relation(fields:[authorID], references: [id], onDelete: Cascade)

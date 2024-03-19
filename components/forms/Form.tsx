@@ -61,7 +61,7 @@ const Form = ({
     for (const [key, value] of valuesEntries) {
       form.setValue(key, value);
     }
-  }, [defaultValues]);
+  }, [defaultValues]); // eslint-disable-line
 
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
     try {
