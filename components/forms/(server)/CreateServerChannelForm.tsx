@@ -26,7 +26,10 @@ export const formSchema = z.object({
   name: z
     .string()
     .min(1, "Name is required")
-    .max(20, "Name should be less than 20 characters"),
+    .max(20, "Name should be less than 20 characters")
+    .refine((name) => name !== "general", {
+      message: "Name can't be 'general'",
+    }),
   type: z.nativeEnum(ServerChannelType),
 });
 
