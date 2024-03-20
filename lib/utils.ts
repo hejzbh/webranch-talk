@@ -1,5 +1,10 @@
 import { DetailedServer, ServerMemberWithAccount } from "@/ts/types";
-import { Server, ServerMember, ServerRole } from "@prisma/client";
+import {
+  Server,
+  ServerChannel,
+  ServerMember,
+  ServerRole,
+} from "@prisma/client";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -37,3 +42,11 @@ export const memberHasServerRole = ({
   member: ServerMember;
   role: ServerRole;
 }) => member.role === role;
+
+export const isMemberChannelAuthor = ({
+  memberID,
+  channel,
+}: {
+  memberID: string;
+  channel: ServerChannel;
+}) => channel.authorID === memberID;

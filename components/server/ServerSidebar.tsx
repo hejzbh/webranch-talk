@@ -32,7 +32,6 @@ interface ServerSidebarProps {
 
 const ServerSidebar = async ({ server }: ServerSidebarProps) => {
   const currentAccount: Account = await getCurrentAccount();
-
   return (
     <div
       className="bg-red-500 h-full flex-1 border-l-2 border-border-common-2 pt-5 lg:pt-0"

@@ -1,10 +1,10 @@
 "use client";
-import React from "react";
+import React, { useMemo, useState } from "react";
 // Next
 import dynamic from "next/dynamic";
 import { useParams, useRouter } from "next/navigation";
 // Icons
-import { Plus } from "lucide-react";
+import { Plus, Trash } from "lucide-react";
 // Prisma / Types
 import {
   Account,
@@ -17,10 +17,11 @@ import { DetailedServer } from "@/ts/types";
 // Constants
 import { channelIconsMap } from "@/constants/icons";
 // Lib
-import { cn } from "@/lib/utils";
+import { cn, isMemberChannelAuthor } from "@/lib/utils";
 import { channelRoute } from "@/lib/(routes)/channel-route";
 // Components
 import { useModalControl } from "../providers/ModalProvider";
+import { defaultServerChannels } from "@/lib/(serverChannel)/default-server-channels";
 const Label = dynamic(() => import("@/components/ui/Label"));
 const RequireServerRoles = dynamic(
   () => import("@/components/server/RequireServerRoles")
@@ -38,22 +39,26 @@ const ServerChannels = ({
   currentAccount,
   server,
 }: ServerChannelsProps) => {
-  const channelsGroupdByType = channels.reduce(
-    (group, channel) => {
-      group[channel.type].push(channel);
-      return group;
-    },
-    {
-      [ServerChannelType.TEXT]: [] as ServerChannelInterface[],
-      [ServerChannelType.TODO]: [] as ServerChannelInterface[],
-      [ServerChannelType.AUDIO]: [] as ServerChannelInterface[],
-      [ServerChannelType.VIDEO]: [] as ServerChannelInterface[],
-    }
+  const channelsGroupByType = useMemo(
+    () =>
+      channels.reduce(
+        (group, channel) => {
+          group[channel.type].push(channel);
+          return group;
+        },
+        {
+          [ServerChannelType.TEXT]: [] as ServerChannelInterface[],
+          [ServerChannelType.TODO]: [] as ServerChannelInterface[],
+          [ServerChannelType.AUDIO]: [] as ServerChannelInterface[],
+          [ServerChannelType.VIDEO]: [] as ServerChannelInterface[],
+        }
+      ),
+    [channels, server]
   );
 
   return (
     <ul className="space-y-7">
-      {Object.entries(channelsGroupdByType).map(([type, channels]) => {
+      {Object.entries(channelsGroupByType).map(([type, channels]) => {
         return (
           <li key={type}>
             {" "}
@@ -120,7 +125,11 @@ export const ChannelsGroup = ({
       <ul className="space-y-1">
         {channels?.map((channel) => (
           <li key={channel.id}>
-            <ServerChannel channel={channel} />
+            <ServerChannel
+              channel={channel}
+              currentAccount={currentAccount}
+              currentAccountAsMember={accountAsServerMember as ServerMember}
+            />
           </li>
         ))}
       </ul>
@@ -130,11 +139,16 @@ export const ChannelsGroup = ({
 
 export const ServerChannel = ({
   channel,
+  currentAccount,
+  currentAccountAsMember,
 }: {
   channel: ServerChannelInterface;
+  currentAccount: Account;
+  currentAccountAsMember: ServerMember;
 }) => {
   const router = useRouter();
   const params = useParams();
+  const { onOpen } = useModalControl();
 
   const isActiveChannel = params.channelID === channel.id;
 
@@ -155,12 +169,39 @@ export const ServerChannel = ({
       title={`Go to ${channel.name} channel`}
       onClick={onClick}
       className={cn(
-        "text-md flex items-center sppace-x-2 py-1 w-full text-secondary hover:text-main/80 transition-all duration-300 ease-in-out",
+        "text-md flex items-center group justify-between py-1 w-full text-secondary hover:text-main/80 transition-all duration-300 ease-in-out",
         isActiveChannel && "text-main font-semibold"
       )}
     >
-      <Icon size={18} className="mr-2" />
-      {channel.name}
+      {/** Icon & Name */}
+      <div className="flex items-center space-x-1">
+        <Icon size={18} className="mr-2" />
+        {channel.name}
+      </div>
+      {/** Options ? */}
+      {defaultServerChannels("").some(
+        (defaultChannel) => defaultChannel.name === channel.name
+      ) ? null : (
+        <RequireServerRoles
+          currentAccount={currentAccount}
+          member={currentAccountAsMember as ServerMember}
+          requiredServerRoles={
+            isMemberChannelAuthor({ memberID: currentAccount.id, channel })
+              ? []
+              : [ServerRole.MODERATOR, ServerRole.ADMIN, ServerRole.OWNER]
+          }
+        >
+          <button
+            onClick={() => {
+              onOpen("deleteServerChannel", { channel });
+            }}
+            title="Delete"
+            className="opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out p-1  text-secondary hover:text-danger"
+          >
+            <Trash size={14} />
+          </button>
+        </RequireServerRoles>
+      )}
     </button>
   );
 };

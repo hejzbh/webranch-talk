@@ -97,7 +97,7 @@ const Form = ({
 
   const onImageUploaded = (imageURL?: string) =>
     form.setValue("imageURL", imageURL || "");
-  console.log(form.getValues());
+
   return (
     <form
       className={cn("w-full space-y-5", className)}

@@ -28,7 +28,10 @@ export const formSchema = z.object({
     .min(1, "Name is required")
     .max(20, "Name should be less than 20 characters")
     .refine((name) => name !== "general", {
-      message: "Name can't be 'general'",
+      message: "'General' is default channel",
+    })
+    .refine((name) => name !== "to-do", {
+      message: "'to-do' is default channel",
     }),
   type: z.nativeEnum(ServerChannelType),
 });
