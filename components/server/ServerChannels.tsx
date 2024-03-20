@@ -192,7 +192,8 @@ export const ServerChannel = ({
           }
         >
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               onOpen("deleteServerChannel", { channel });
             }}
             title="Delete"
