@@ -20,6 +20,7 @@ const AccountWidget = ({ className = "", account }: AccountWidgetProps) => {
     <div className={cn("flex items-center space-x-2", className)}>
       {/** Settings */}
       <UserButton
+        userProfileMode="modal"
         appearance={{
           elements: {
             avatarBox: {
