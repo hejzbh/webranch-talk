@@ -53,7 +53,7 @@ const ServerChannels = ({
           [ServerChannelType.VIDEO]: [] as ServerChannelInterface[],
         }
       ),
-    [channels, server]
+    [channels]
   );
 
   return (
