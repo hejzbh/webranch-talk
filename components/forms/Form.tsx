@@ -21,8 +21,8 @@ const RadioGroup = dynamic(() => import("@/components/ui/RadioGroup"));
 // Props
 interface FormProps {
   className?: string;
-  onSubmitAction: (formData: any) => Promise<void>;
-  afterOnSubmitDone?: (isSuccessRequest: boolean) => void;
+  onSubmitAction: (formData: any) => Promise<void>; // eslint-disable-line
+  afterOnSubmitDone?: (isSuccessRequest: boolean) => void; // eslint-disable-line
   formSchema: z.ZodObject<any>;
   defaultValues: any;
   formFields: FormField[];

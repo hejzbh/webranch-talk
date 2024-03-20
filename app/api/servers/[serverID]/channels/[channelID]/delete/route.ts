@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { getCurrentAccount } from "@/lib/(account)/current-account";
 // Constants
 import { UNAUTHORIZED_ERROR } from "@/constants/errorMessages";
-import { Account, ServerRole } from "@prisma/client";
+import { Account, ApplicationRole, ServerRole } from "@prisma/client";
 
 export async function DELETE(
   req: Request,
@@ -30,19 +30,28 @@ export async function DELETE(
           },
         },
         OR: [
-          // If user is admin/moderator/admin
+          // If user is admin/moderator/admin in server, or user is admin of entire application
           {
             server: {
               members: {
                 some: {
                   accountID: currentAccount.id,
-                  role: {
-                    in: [
-                      ServerRole.ADMIN,
-                      ServerRole.MODERATOR,
-                      ServerRole.OWNER,
-                    ],
-                  },
+                  OR: [
+                    {
+                      role: {
+                        in: [
+                          ServerRole.ADMIN,
+                          ServerRole.MODERATOR,
+                          ServerRole.OWNER,
+                        ],
+                      },
+                    },
+                    {
+                      account: {
+                        appRole: ApplicationRole.ADMIN,
+                      },
+                    },
+                  ],
                 },
               },
             },

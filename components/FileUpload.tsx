@@ -14,7 +14,7 @@ interface FileUploadProps {
   endpoint: FileUploadEndpoint;
   className?: string;
   value: string;
-  onChange: (url?: string) => void;
+  onChange: (url?: string) => void; // eslint-disable-line
   label?: string;
   error?: string;
 }
@@ -27,7 +27,7 @@ const FileUpload = ({
   onChange = () => {},
 }: FileUploadProps) => {
   //
-  console.log(value);
+
   if (value && isFileImage(value))
     return (
       <div className={`${className}`}>

@@ -61,8 +61,8 @@ const NotificationsProvider = ({ children }: { children: React.ReactNode }) => {
 export const useNotifications = () =>
   useContext(NotificationsContext) as {
     showNotification: (
-      notification: NotificationType,
-      hideAfter?: number
+      notification: NotificationType, // eslint-disable-line
+      hideAfter?: number // eslint-disable-line
     ) => void;
   };
 

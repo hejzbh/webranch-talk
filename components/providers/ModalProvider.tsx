@@ -31,6 +31,12 @@ const ServerMembersModal = dynamic(
 const DeleteServerChannelModal = dynamic(
   () => import("@/components/modals/DeleteServerChannelModal")
 );
+const DeleteServerModal = dynamic(
+  () => import("@/components/modals/DeleteServerModal")
+);
+const LeaveServerModal = dynamic(
+  () => import("@/components/modals/LeaveServerModal")
+);
 
 // Types
 export type ModalType =
@@ -60,10 +66,10 @@ interface ModalStore {
 }
 
 type ModalStoreWithFunctions = ModalStore & {
-  onOpen: (type: ModalType, data?: ModalData) => void;
+  onOpen: (type: ModalType, data?: ModalData) => void; // eslint-disable-line
   onClose: () => void;
-  toggleModal: (type: ModalType, data?: ModalData) => void;
-  changeData: (data: ModalData) => void;
+  toggleModal: (type: ModalType, data?: ModalData) => void; // eslint-disable-line
+  changeData: (data: ModalData) => void; // eslint-disable-line
 };
 
 // Provider
@@ -124,6 +130,8 @@ export const ModalControlProvider = ({
       <ServerSearchModal />
       <ServerMembersModal />
       <DeleteServerChannelModal />
+      <DeleteServerModal />
+      <LeaveServerModal />
       {children}
     </ModalControlContext.Provider>
   );

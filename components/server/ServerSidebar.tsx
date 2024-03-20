@@ -6,9 +6,7 @@ import { DetailedServer } from "@/ts/types";
 // Lib
 import { getCurrentAccount } from "@/lib/(account)/current-account";
 // Prisma
-import { Account, ServerChannelType } from "@prisma/client";
-// Constants
-import { channelIconsMap } from "@/constants/icons";
+import { Account } from "@prisma/client";
 // Components
 const ServerWidget = dynamic(() => import("@/components/server/ServerWidget"));
 const ServerChannels = dynamic(

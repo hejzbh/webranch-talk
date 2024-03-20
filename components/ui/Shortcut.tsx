@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 interface ShortcutProps {
   className?: string;
   keys: string[];
-  onShortcutPress?: (e: KeyboardEvent) => void;
+  onShortcutPress?: (e: KeyboardEvent) => void; // eslint-disable-line
 }
 
 const Shortcut = ({
@@ -15,7 +15,7 @@ const Shortcut = ({
 }: ShortcutProps) => {
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
-      const [_, charKey] = keys;
+      const [_, charKey] = keys; // eslint-disable-line
 
       if (e.key !== charKey) return;
 

@@ -19,7 +19,7 @@ const Form = dynamic(() => import("@/components/forms/Form"));
 interface InviteCodeFormProps {
   type: "use" | "manage";
   inviteCode?: string;
-  afterOnSubmitDone?: (isSuccess: boolean) => void;
+  afterOnSubmitDone?: (isSuccess: boolean) => void; // eslint-disable-line
 }
 
 export const formSchema = z.object({

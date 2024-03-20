@@ -8,7 +8,7 @@ interface TextChannelPageProps {
   };
 }
 
-const TextChannelPage = ({ params }: TextChannelPageProps) => {
+const TextChannelPage = ({}: TextChannelPageProps) => {
   return <div>Text</div>;
 };
 

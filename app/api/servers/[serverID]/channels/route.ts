@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-// NPM
-import { v4 as uuid } from "uuid";
 // Constants
 import {
   UNAUTHORIZED_ERROR,

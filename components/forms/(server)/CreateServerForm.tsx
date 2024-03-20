@@ -14,7 +14,7 @@ const Form = dynamic(() => import("@/components/forms/Form"));
 // Interface
 interface CreateServerFormProps {
   className?: string;
-  afterOnSubmitDone?: (isSuccess: boolean) => void;
+  afterOnSubmitDone?: (isSuccess: boolean) => void; // eslint-disable-line
 }
 
 export const formSchema = z.object({

@@ -17,7 +17,7 @@ const Form = dynamic(() => import("@/components/forms/Form"));
 // Interface
 interface CreateChannelFormProps {
   className?: string;
-  afterOnSubmitDone?: (isSuccess: boolean) => void;
+  afterOnSubmitDone?: (isSuccess: boolean) => void; // eslint-disable-line
   serverID: string;
   channelType?: ServerChannelType;
 }

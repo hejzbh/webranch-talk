@@ -1,6 +1,4 @@
 import React, { useMemo } from "react";
-// Next
-import Image from "next/image";
 // Components
 import { useModalControl } from "../providers/ModalProvider";
 import {
