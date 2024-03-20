@@ -1,5 +1,10 @@
 import React from "react";
-
+// Next
+import dynamic from "next/dynamic";
+// Components
+const ChannelChat = dynamic(
+  () => import("@/components/chat/(channel)/ChannelChat")
+);
 // Props
 interface TextChannelPageProps {
   params: {
@@ -9,7 +14,11 @@ interface TextChannelPageProps {
 }
 
 const TextChannelPage = ({}: TextChannelPageProps) => {
-  return <div>Text</div>;
+  return (
+    <main>
+      <ChannelChat />
+    </main>
+  );
 };
 
 export default TextChannelPage;
