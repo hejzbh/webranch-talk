@@ -11,3 +11,7 @@ export const USE_INVITE_CODE_MISSING_ERROR = "Invite code is missing";
 export const REEGNERATE_INVITE_CODE_ERROR =
   "Something went wrong or invalid code";
 export const REEGNERATE_INVITE_CODE_MISSING_ERROR = "Invite code is missing";
+
+// Server member
+export const CHANGE_ROLE_MISSING_DATA_ERROR = "Data is not provided";
+export const KICK_MEMBER_ERROR = "User cannot be kicked!";

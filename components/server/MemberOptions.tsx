@@ -7,6 +7,8 @@ import { EllipsisVertical, Check } from "lucide-react";
 import { Account, ServerRole } from "@prisma/client";
 // TS
 import { ServerMemberWithAccount } from "@/ts/types";
+// Lib
+import { memberHasServerRole } from "@/lib/utils";
 // Components
 import {
   DropdownMenu,
@@ -18,7 +20,10 @@ import {
   DropdownMenuSubTrigger,
 } from "@/components/ui/DropdownMenu";
 import { memberRoleColor } from "./ServerMember";
-import { memberHasServerRole } from "@/lib/utils";
+import { changeMemberRole } from "@/lib/(serverMember)/change-member-role";
+import { useNotifications } from "../providers/NotificationsProvider";
+import { useRouter } from "next/navigation";
+import { kickServerMember } from "@/lib/(serverMember)/kick-member";
 const RequireServerRoles = dynamic(
   () => import("@/components/server/RequireServerRoles")
 );
@@ -39,6 +44,9 @@ const MemberOptions = ({
 }: MemberOptionsProps) => {
   /**  const isCurrentAccountAppAdmin =
     currentAccount.appRole === ApplicationRole.ADMIN; */
+  const router = useRouter();
+
+  const { showNotification } = useNotifications();
 
   const isCurrentAccountOwner =
     currentAccountAsMember.role === ServerRole.OWNER;
@@ -52,19 +60,84 @@ const MemberOptions = ({
   const memberIsNotAdmin =
     member.role !== ServerRole.ADMIN && member.role !== ServerRole.OWNER;
 
-  const canDoProtectedStuff = isCurrentAccountOwner
-    ? true
-    : isCurrentAccountAdmin && memberIsNotAdmin;
+  const memberIsNotModerator = member.role !== ServerRole.MODERATOR;
+
+  const canDoProtectedStuff =
+    isCurrentAccountOwner ||
+    (isCurrentAccountAdmin && memberIsNotAdmin) ||
+    (isCurrentAccountModerator && memberIsNotAdmin && memberIsNotModerator);
 
   const canKick =
-    canDoProtectedStuff || (memberIsNotAdmin && isCurrentAccountModerator);
+    canDoProtectedStuff ||
+    (memberIsNotAdmin && memberIsNotModerator && isCurrentAccountModerator);
+
+  async function onRoleChange(
+    member: ServerMemberWithAccount,
+    role: ServerRole
+  ) {
+    try {
+      // 1)
+      const updatedMember = await changeMemberRole({ member, role });
+      // 2)
+      if (!updatedMember) throw new Error("Something went wrong");
+      // 3)
+      if (updatedMember.role === role) {
+        showNotification({
+          variant: "success",
+          title: `Updated ${member.account.name}'s role`,
+          message: "New role is successfully added",
+        });
+      }
+      // 4)
+      router.refresh();
+    } catch (err: any) {
+      const errorMsg = err?.response?.data || err?.message;
+
+      showNotification(
+        {
+          title: `Update ${member.account.name}'s role`,
+          message: errorMsg,
+          variant: "error",
+        },
+        5000
+      );
+    }
+  }
+
+  async function onKick(member: ServerMemberWithAccount) {
+    try {
+      // 1)
+      const kickedMember = await kickServerMember({ member });
+      // 2)
+      if (!kickedMember) throw new Error("Something went wrong");
+      // 3)
+      showNotification({
+        variant: "success",
+        title: `KICK`,
+        message: `${member.account.name} is kicked from server!`,
+      });
+      // 4)
+      router.refresh();
+    } catch (err: any) {
+      const errorMsg = err?.response?.data || err?.message;
+
+      showNotification(
+        {
+          title: `Update ${member.account.name}'s role`,
+          message: errorMsg,
+          variant: "error",
+        },
+        5000
+      );
+    }
+  }
 
   return (
     <div className={className}>
       <DropdownMenu>
         {/** Trigger */}
         <DropdownMenuTrigger>
-          <EllipsisVertical className="w-5 h-5" />
+          <EllipsisVertical className="w-5 h-5 !text-neutral-400" />
         </DropdownMenuTrigger>
         {/** Options */}
         <DropdownMenuContent className="w-56 p-3 text-xs font-medium text-neutral-400 space-y-[2px] bg-[#0C0A09] border-none mr-5">
@@ -94,6 +167,9 @@ const MemberOptions = ({
                   >
                     {" "}
                     <DropdownMenuItem
+                      onClick={() => {
+                        onRoleChange(member, ServerRole.ADMIN);
+                      }}
                       className={`px-3 py-2 text-md cursor-pointer flex items-center ${memberRoleColor.ADMIN}`}
                     >
                       {memberHasServerRole({
@@ -105,6 +181,9 @@ const MemberOptions = ({
                   </RequireServerRoles>
 
                   <DropdownMenuItem
+                    onClick={() => {
+                      onRoleChange(member, ServerRole.MODERATOR);
+                    }}
                     className={`px-3 py-2 text-md cursor-pointer flex items-center ${memberRoleColor.MODERATOR}`}
                   >
                     {" "}
@@ -115,6 +194,9 @@ const MemberOptions = ({
                     {ServerRole.MODERATOR}
                   </DropdownMenuItem>
                   <DropdownMenuItem
+                    onClick={() => {
+                      onRoleChange(member, ServerRole.GUEST);
+                    }}
                     className={`px-3 py-2 text-md cursor-pointer flex items-center ${memberRoleColor.GUEST}`}
                   >
                     {memberHasServerRole({
@@ -142,7 +224,10 @@ const MemberOptions = ({
               member={currentAccountAsMember as ServerMemberWithAccount}
               currentAccount={currentAccount}
             >
-              <DropdownMenuItem className="px-3 py-2 text-md cursor-pointer flex items-center justify-between !text-danger">
+              <DropdownMenuItem
+                onClick={() => onKick(member)}
+                className="px-3 py-2 text-md cursor-pointer flex items-center justify-between !text-danger"
+              >
                 Kick
               </DropdownMenuItem>
             </RequireServerRoles>
