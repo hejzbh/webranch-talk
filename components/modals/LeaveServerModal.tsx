@@ -79,7 +79,7 @@ const LeaveServerModal = () => {
           <DeclineOrSubmit
             onSubmit={onDelete}
             onDecline={onClose}
-            submitTitle="Delete"
+            submitTitle="Leave"
           />
         </main>
       </DialogContent>

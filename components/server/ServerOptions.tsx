@@ -62,8 +62,8 @@ function getServerOptions(server: DetailedServer | Server) {
       name: "Leave Server",
       data: { server },
       modal: "leaveServer",
-      requiredRoles: [], // Hiden from owner, owner cant leave his own server.
-      hideFromOwner: true,
+      requiredRoles: [],
+      hideFromOwner: true, // Hiden from owner, owner cant leave his own server.
       Icon: modalIcons.leaveServer,
       className: "text-danger hover:!text-danger",
     },
@@ -71,7 +71,7 @@ function getServerOptions(server: DetailedServer | Server) {
       name: "Delete Server",
       data: { server },
       modal: "deleteServer",
-      requiredRoles: [ServerRole.OWNER], // Hiden from owner, owner cant leave his own server.
+      requiredRoles: [ServerRole.OWNER],
       Icon: modalIcons.deleteServer,
       className: "text-danger hover:!text-danger",
     },
