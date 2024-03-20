@@ -24,7 +24,7 @@ const Button = ({
       title={title}
       type={type}
       className={cn(
-        "bg-[#2563EB] rounded-3xl shadow-md px-4 md:px-5 py-2 md:py-3 text-white border-2 border-[#2563EB] hover:bg-transparent hover:text-[#2563EB] transition-all duration-300 ease-in-out text-md md:text-lg",
+        "bg-[#2563EB] rounded-3xl shadow-md px-3 md:px-4 py-1 md:py-2 text-white border-2 border-[#2563EB] hover:bg-transparent hover:text-[#2563EB] transition-all duration-300 ease-in-out text-md md:text-lg",
         className
       )}
       onClick={onClick}
