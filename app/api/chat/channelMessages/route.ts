@@ -15,7 +15,7 @@ import { UNAUTHORIZED_ERROR } from "@/constants/errorMessages";
 
 const pusherServer = getPusherInstance();
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     // 1)
     const { message, channelID } = await req.json();
@@ -106,7 +106,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 }
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
   try {
     // 1)
 
