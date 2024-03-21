@@ -30,6 +30,7 @@ export default function handler(
       origin: process.env.NEXT_PUBLIC_SITE_URL!,
       methods: ["POST", "GET", "PATCH", "DELETE"],
     },
+    transports: ["websocket", "polling"],
     allowEIO3: true,
   });
 
