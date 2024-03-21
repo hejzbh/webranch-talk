@@ -32,6 +32,9 @@ const ChatInput = ({ className = "", params = {}, apiURL }: ChatInputProps) => {
 
     // 2)
     if (!response.data) throw new Error("Potential problem with chat");
+
+    // 3)
+    setMessage("");
   }
 
   return (
