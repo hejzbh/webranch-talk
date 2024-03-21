@@ -25,6 +25,7 @@ export default function handler(
   const serverIO = new Server(httpServer, {
     path,
     addTrailingSlash: false,
+    transports: ["websocket"],
     cors: {
       origin: process.env.NEXT_PUBLIC_SITE_URL!,
       methods: ["POST", "GET", "PATCH", "DELETE"],
