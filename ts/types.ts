@@ -8,6 +8,9 @@ import {
   ServerMember,
   ServerRole,
 } from "@prisma/client";
+import { Socket, Server as NetServer } from "net";
+import { NextApiResponse } from "next";
+import { Server as SocketServer } from "socket.io";
 
 export type DetailedServer = Server & {
   channels: ServerChannel[];
@@ -86,3 +89,11 @@ export type ServerSearchData = {
   requiredRoles?: ServerRole[];
   items: ServerSearchItem[];
 }[];
+
+export type NextApiSocketResponse = NextApiResponse & {
+  socket: Socket & {
+    server: NetServer & {
+      io: SocketServer;
+    };
+  };
+};

@@ -15,6 +15,9 @@ const CurrentAccountProvider = dynamic(
 const NotificationsProvider = dynamic(
   () => import("@/components/providers/NotificationsProvider")
 );
+const SocketProvider = dynamic(
+  () => import("@/components/providers/SocketProvider")
+);
 
 export default async function MainLayout({
   children,
@@ -24,19 +27,21 @@ export default async function MainLayout({
   const account = await getCurrentAccount();
 
   return (
-    <CurrentAccountProvider account={account}>
-      <NotificationsProvider>
-        <ModalProvider>
-          <div className="flex h-screen">
-            {/** Navigation Sidebar - ON SCREENS LARGER > 768PX (MOBILE: MenuToggle in Header) */}
-            <div className="hidden lg:block h-full min-w-[270px] xl:min-w-[300px] inset-y-0 ">
-              <NavigationSidebar />
+    <SocketProvider>
+      <CurrentAccountProvider account={account}>
+        <NotificationsProvider>
+          <ModalProvider>
+            <div className="flex h-screen">
+              {/** Navigation Sidebar - ON SCREENS LARGER > 768PX (MOBILE: MenuToggle in Header) */}
+              <div className="hidden lg:block h-full min-w-[270px] xl:min-w-[300px] inset-y-0 ">
+                <NavigationSidebar />
+              </div>
+              {/** Page/Children */}
+              <main className=" w-full  h-screen">{children}</main>
             </div>
-            {/** Page/Children */}
-            <main className=" w-full  h-screen">{children}</main>
-          </div>
-        </ModalProvider>
-      </NotificationsProvider>
-    </CurrentAccountProvider>
+          </ModalProvider>
+        </NotificationsProvider>
+      </CurrentAccountProvider>
+    </SocketProvider>
   );
 }
