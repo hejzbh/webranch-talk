@@ -30,6 +30,7 @@ export default function handler(
       origin: process.env.NEXT_PUBLIC_SITE_URL!,
       methods: ["POST", "GET", "PATCH", "DELETE"],
     },
+    allowEIO3: true,
   });
 
   res.socket.server.io = serverIO;
