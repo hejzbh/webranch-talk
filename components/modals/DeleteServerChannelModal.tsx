@@ -23,8 +23,8 @@ const DeleteServerChannelModal = () => {
   const params = useParams();
 
   const isUserCurrentlyInChannel = useMemo(
-    () => params.channelID === data?.channel?.id,
-    [params.channelID, data?.channel]
+    () => params?.channelID === data?.channel?.id,
+    [params?.channelID, data?.channel]
   );
 
   const isModalOpen = type === "deleteServerChannel" && isOpen;

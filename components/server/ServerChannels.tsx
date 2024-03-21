@@ -150,7 +150,7 @@ export const ServerChannel = ({
   const params = useParams();
   const { onOpen } = useModalControl();
 
-  const isActiveChannel = params.channelID === channel.id;
+  const isActiveChannel = params?.channelID === channel.id;
 
   const Icon = channelIconsMap[channel.type];
 
