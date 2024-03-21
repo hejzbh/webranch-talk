@@ -26,10 +26,6 @@ export default function handler(
     path,
     addTrailingSlash: false,
 
-    cors: {
-      origin: process.env.NEXT_PUBLIC_SITE_URL!,
-      methods: ["POST", "GET", "PATCH", "DELETE"],
-    },
     transports: ["websocket", "polling"],
     allowEIO3: true,
   });
