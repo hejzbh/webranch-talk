@@ -53,6 +53,7 @@ const config = {
         secondary: "#a8aeb6",
         owner: "#FFD700",
         admin: "red",
+        chat: "#4183D7",
         moderator: "rgb(99, 102, 241)",
         guest: "gray",
         input: "hsl(var(--input))",

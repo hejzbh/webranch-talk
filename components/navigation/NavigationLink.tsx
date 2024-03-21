@@ -30,12 +30,12 @@ const NavigationLink = ({
   const params = useParams();
 
   const isActiveLink = useMemo(
-    () => href && pathname.includes(href),
+    () => href && pathname?.includes(href),
     [href, pathname]
   );
 
   const isActiveSublink = (sublinkID: string) =>
-    Object.values(params).some((paramID) => paramID === sublinkID);
+    Object.values(params as any).some((paramID) => paramID === sublinkID);
   // TODO: Add active check for servers
   // const params = useParams()
 
@@ -95,7 +95,7 @@ const NavigationLink = ({
                     alt={process.env.NEXT_PUBLIC_ALT_IMAGE_TEXT!!}
                     width={28}
                     height={28}
-                    className="w-7 h-7 rounded-full"
+                    className="w-7 h-7 rounded-full object-cover"
                   />
                 )}
                 <p className="text-md">{sublink.title}</p>
