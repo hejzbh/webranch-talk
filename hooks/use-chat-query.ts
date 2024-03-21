@@ -86,8 +86,6 @@ export const useChatQuery = ({ apiURL, params = {} }: ChatQueryProps) => {
   }
 
   function addNewMessage(newMessage: Message) {
-    console.log(newMessage);
-    console.log("✅✅✅✅-----------------✅✅✅✅");
     // TODO: Dodati check da li message vec postoji (Trebalo bi da je nemoguca ova situacija, ali za svaki slucaj !)
     // 1)
     if (!newMessage) return;

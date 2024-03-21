@@ -1,55 +1,35 @@
 // Next
-import { NextApiRequest } from "next";
+import { NextRequest, NextResponse } from "next/server";
 // TS
-import { DetailedServerChannel, NextApiSocketResponse } from "@/ts/types";
+import { DetailedServerChannel } from "@/ts/types";
 // Lib
-import { getCurrentAccountReq } from "@/lib/(account)/current-account-req";
+import { getCurrentAccount } from "@/lib/(account)/current-account";
+import {
+  newChannelMessageKey,
+  channelChatKey,
+} from "@/lib/(pusher-keys)/(channelChat)";
 import { db } from "@/lib/db";
+import { getPusherInstance } from "@/lib/pusher/server";
 // Constants
 import { UNAUTHORIZED_ERROR } from "@/constants/errorMessages";
-import { newChannelMessageKey } from "@/lib/(socket-keys)/channelNewMessageKey";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiSocketResponse
-) {
+const pusherServer = getPusherInstance();
+
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
     // 1)
-    const methodsFN = {
-      POST: sendChannelMessage,
-      GET: getChannelMessages,
-      undefined: null,
-    };
+    const { message, channelID } = await req.json();
 
     // 2)
-    const fn = methodsFN[req.method as "POST" | "GET"];
-
-    // 2)
-    if (!fn) throw new Error("Method is not allowed");
+    if (!message || !channelID)
+      return new NextResponse("Missing message data", { status: 400 });
 
     // 3)
-    return await fn(req, res);
-  } catch (err: any) {
-    return res.status(500).json({ error: "[CHANNEL_MESSAGES] " + err.message });
-  }
-}
-
-async function sendChannelMessage(
-  req: NextApiRequest,
-  res: NextApiSocketResponse
-) {
-  try {
-    // 1)
-    const { message, channelID } = req.body;
-
-    // 2)
-    if (!message || !channelID) throw new Error("Missing message data");
-
-    // 3)
-    const currentAccount = await getCurrentAccountReq(req);
+    const currentAccount = await getCurrentAccount();
 
     // 4)
-    if (!currentAccount) throw new Error(UNAUTHORIZED_ERROR);
+    if (!currentAccount)
+      return new NextResponse(UNAUTHORIZED_ERROR, { status: 401 });
 
     // 5)
     const channel: DetailedServerChannel | any =
@@ -79,17 +59,19 @@ async function sendChannelMessage(
 
     // 6)
     if (!channel)
-      throw new Error(
-        "Channel does not exists or you are not member in channel's server"
-      );
+      return new NextResponse("Channel doesnt exists or something went wrong", {
+        status: 400,
+      });
 
+    //
     // 7)
     const sender = (channel as DetailedServerChannel)?.server?.members?.find(
       (member) => member.accountID === currentAccount.id
     );
 
     // 8)
-    if (!sender) throw new Error("Problem with sender data");
+    if (!sender)
+      return new NextResponse("Problem with sender data", { status: 400 });
 
     // 5)
     const newMessage = await db.channelMessage.create({
@@ -108,36 +90,39 @@ async function sendChannelMessage(
     });
 
     // 6)
-    res.socket.server.io.emit(newChannelMessageKey(channelID), newMessage);
+    pusherServer.trigger(
+      channelChatKey(channelID),
+      newChannelMessageKey(channelID),
+      newMessage
+    );
 
     // 7)
-    return res.status(200).json(newMessage);
+    return NextResponse.json(newMessage);
   } catch (err: any) {
     // Handling errors
-    throw new Error(err.message);
+    return new NextResponse(err.message, {
+      status: 400,
+    });
   }
 }
 
-async function getChannelMessages(
-  req: NextApiRequest,
-  res: NextApiSocketResponse
-) {
+export async function GET(req: NextRequest, res: NextResponse) {
   try {
     // 1)
-    const { channelID, cursor, page } = req.query as {
-      channelID: string;
-      cursor: string;
-      page: string;
-    };
+
+    const channelID = req.nextUrl.searchParams.get("channelID");
+    const cursor = req.nextUrl.searchParams.get("cursor");
+    const page = req.nextUrl.searchParams.get("page");
 
     // 2)
-    if (!channelID) throw new Error("Channel ID is missing");
+    if (!channelID)
+      return new NextResponse("Channel ID is missing", { status: 400 });
 
     // 3)
     const hasCursor = cursor && cursor?.length > 3 && cursor !== "undefined";
 
     // 3)
-    const currentAccount = await getCurrentAccountReq(req);
+    const currentAccount = await getCurrentAccount();
 
     // 4)
     if (!currentAccount) throw new Error(UNAUTHORIZED_ERROR);
@@ -159,9 +144,9 @@ async function getChannelMessages(
 
     // 6)
     if (!channel)
-      throw new Error(
-        "Channel does not exists or you are not member in channel's server"
-      );
+      return new NextResponse("Channel doesnt exists or you are not member", {
+        status: 400,
+      });
 
     const skip = 1;
     const perPage = 15;
@@ -198,12 +183,12 @@ async function getChannelMessages(
 
     const totalPages = Math.ceil(totalMessages / perPage);
 
-    const hasNextPage = +page < totalPages;
+    const hasNextPage = +(page || 1) < totalPages;
 
     const nextCursor = messages[perPage - skip]?.id ?? null;
 
     // 7)
-    return res.status(200).json({
+    return NextResponse.json({
       messages: messages.sort((a: any, b: any) => a.createdAt - b.createdAt),
       nextCursor,
       hasNextPage,
@@ -212,6 +197,8 @@ async function getChannelMessages(
     });
   } catch (err: any) {
     // Handling errors
-    throw new Error(err.message);
+    return new NextResponse(err.message, {
+      status: 400,
+    });
   }
 }

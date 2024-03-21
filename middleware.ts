@@ -5,6 +5,7 @@ export default authMiddleware({
     "/api/uploadthing",
     "/api/socket/io",
     "/api/socket/channelMessages/",
+    "/api/pusher/auth",
   ],
 });
 

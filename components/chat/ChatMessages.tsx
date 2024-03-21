@@ -5,13 +5,14 @@ import React from "react";
 import { SocketApiURL } from "@/ts/types";
 // Hooks
 import { useChatQuery } from "@/hooks/use-chat-query";
-import { useChatSocket } from "@/hooks/use-chat-socket";
+import { useChatPusher } from "@/hooks/use-chat-pusher";
 
 // Props
 interface ChatMessagesProps {
   className?: string;
   apiURL: SocketApiURL;
-  newMessageSocketKey: string;
+  newMessagePusherKey: string;
+  pusherChannelKey: string;
   params?: {
     channelID?: string;
     serverID?: string;
@@ -22,7 +23,8 @@ const ChatMessages = ({
   className = "",
   apiURL,
   params,
-  newMessageSocketKey,
+  newMessagePusherKey,
+  pusherChannelKey,
 }: ChatMessagesProps) => {
   const {
     hasNextPage,
@@ -36,8 +38,9 @@ const ChatMessages = ({
     apiURL,
   });
 
-  useChatSocket({
-    newMessageSocketKey,
+  useChatPusher({
+    newMessagePusherKey,
+    pusherChannelKey,
     onNewMessageRecieved: addNewMessage,
     onMessageEdited: updateMessage,
     onMessageDeleted: deleteMessage,

@@ -2,7 +2,10 @@ import React from "react";
 // Next
 import dynamic from "next/dynamic";
 // Lib
-import { newChannelMessageKey } from "@/lib/(socket-keys)/channelNewMessageKey";
+import {
+  channelChatKey,
+  newChannelMessageKey,
+} from "@/lib/(pusher-keys)/(channelChat)";
 // Components
 const ChatInput = dynamic(() => import("@/components/chat/ChatInput"));
 const ChatMessages = dynamic(() => import("@/components/chat/ChatMessages"));
@@ -19,13 +22,14 @@ const ChannelChat = ({ channelID }: ChannelChatProps) => {
 
       <ChatMessages
         params={{ channelID }}
-        newMessageSocketKey={newChannelMessageKey(channelID)}
-        apiURL="/api/socket/channelMessages"
+        pusherChannelKey={channelChatKey(channelID)}
+        newMessagePusherKey={newChannelMessageKey(channelID)}
+        apiURL="/api/chat/channelMessages"
         className="flex-1"
       />
 
       {/** Input */}
-      <ChatInput params={{ channelID }} apiURL="/api/socket/channelMessages" />
+      <ChatInput params={{ channelID }} apiURL="/api/chat/channelMessages" />
     </div>
   );
 };
