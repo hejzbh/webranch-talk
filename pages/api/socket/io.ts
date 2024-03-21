@@ -25,6 +25,7 @@ export default function handler(
   const serverIO = new Server(httpServer, {
     path,
     addTrailingSlash: false,
+    transports: ["websocket"],
   });
 
   res.socket.server.io = serverIO;
