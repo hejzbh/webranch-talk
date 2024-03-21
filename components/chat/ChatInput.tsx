@@ -8,6 +8,7 @@ import axios from "axios";
 import { Paperclip, Send } from "lucide-react";
 // TS
 import { SocketApiURL } from "@/ts/types";
+import { useChatSocket } from "@/hooks/use-chat-socket";
 // Components
 const Button = dynamic(() => import("@/components/ui/Button"));
 
@@ -15,13 +16,20 @@ const Button = dynamic(() => import("@/components/ui/Button"));
 interface ChatInputProps {
   className?: string;
   apiURL: SocketApiURL;
+  socketChannelID: string;
   params: {
     channelID?: string;
   };
 }
 
-const ChatInput = ({ className = "", params = {}, apiURL }: ChatInputProps) => {
+const ChatInput = ({
+  className = "",
+  params = {},
+  apiURL,
+  socketChannelID,
+}: ChatInputProps) => {
   const [message, setMessage] = useState<string>();
+  const { socketChannel } = useChatSocket({ channelID: socketChannelID });
 
   async function sendMessage(message: any) {
     // 1)
@@ -29,6 +37,8 @@ const ChatInput = ({ className = "", params = {}, apiURL }: ChatInputProps) => {
       message,
       ...params,
     });
+
+    socketChannel.publish("message", response.data);
 
     // 2)
     if (!response.data) throw new Error("Potential problem with chat");

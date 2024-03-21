@@ -10,8 +10,11 @@ import { dark } from "@clerk/themes";
 const ThemeProvider = dynamic(
   () => import("@/components/providers/ThemeProvider")
 );
-const SocketProvider = dynamic(
-  () => import("@/components/providers/SocketProvider")
+const AblyProvider = dynamic(
+  () => import("@/components/providers/AblyProvider"),
+  {
+    ssr: false,
+  }
 );
 
 const font = Noto_Sans({
@@ -49,10 +52,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <SocketProvider>
+            <AblyProvider>
               {" "}
               <main className="text-white">{children}</main>
-            </SocketProvider>
+            </AblyProvider>
           </ThemeProvider>
         </body>
       </html>

@@ -20,12 +20,16 @@ const ChannelChat = ({ channelID }: ChannelChatProps) => {
       <ChatMessages
         params={{ channelID }}
         newMessageSocketKey={newChannelMessageKey(channelID)}
-        apiURL="/api/socket/channelMessages"
+        apiURL="/api/chat/channelMessages"
         className="flex-1"
       />
 
       {/** Input */}
-      <ChatInput params={{ channelID }} apiURL="/api/socket/channelMessages" />
+      <ChatInput
+        params={{ channelID }}
+        apiURL="/api/chat/channelMessages"
+        socketChannelID="ts"
+      />
     </div>
   );
 };

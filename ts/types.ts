@@ -11,6 +11,7 @@ import {
 } from "@prisma/client";
 import { Socket, Server as NetServer } from "net";
 import { NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 import { Server as SocketServer } from "socket.io";
 
 export type DetailedServer = Server & {
@@ -99,10 +100,14 @@ export type NextApiSocketResponse = NextApiResponse & {
   };
 };
 
+export type NextAblyResponse = NextResponse & {
+  ably: any;
+};
+
 export type ChannelMessageWithSender = ChannelMessage & {
   sender: ServerMemberWithAccount;
 };
 
-export type SocketApiURL = "/api/socket/channelMessages";
+export type SocketApiURL = "/api/chat/channelMessages";
 
 export type Message = ChannelMessageWithSender;

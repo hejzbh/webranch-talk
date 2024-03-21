@@ -1,32 +1,24 @@
-import { useEffect } from "react";
-// Components
-import { useSocket } from "@/components/providers/SocketProvider";
 // TS
 import { Message } from "@/ts/types";
+// NPM
+import { useChannel } from "ably/react";
 
 export const useChatSocket = ({
   newMessageSocketKey,
   onNewMessageRecieved,
   onMessageDeleted,
   onMessageEdited,
+  channelID,
 }: {
-  newMessageSocketKey: string;
-  onNewMessageRecieved: (message: Message) => void;
-  onMessageEdited: (message: Message) => void;
-  onMessageDeleted: (messageID: string) => void;
+  newMessageSocketKey?: string;
+  onNewMessageRecieved?: (message: Message) => void;
+  onMessageEdited?: (message: Message) => void;
+  onMessageDeleted?: (messageID: string) => void;
+  channelID: string;
 }) => {
-  const socket = useSocket();
+  const { channel: socketChannel } = useChannel(channelID);
 
-  useEffect(() => {
-    /** TODO: Svakih 10 sekundi nek pravi request */
-    if (!socket.isListeningToServer) return;
-
-    socket.socket.on(newMessageSocketKey, onNewMessageRecieved);
-
-    return () => {
-      socket.socket.off(newMessageSocketKey);
-    };
-  }, [socket, newMessageSocketKey]); // eslint-disable-line
-
-  return null;
+  return {
+    socketChannel,
+  };
 };

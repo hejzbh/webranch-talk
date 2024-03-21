@@ -41,6 +41,7 @@ const ChatMessages = ({
     onNewMessageRecieved: addNewMessage,
     onMessageEdited: updateMessage,
     onMessageDeleted: deleteMessage,
+    channelID: "ts",
   });
 
   return (

@@ -1,5 +1,5 @@
 // Next
-import { NextApiRequest } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 // TS
 import { DetailedServerChannel, NextApiSocketResponse } from "@/ts/types";
 // Lib
@@ -11,7 +11,7 @@ import { newChannelMessageKey } from "@/lib/(socket-keys)/channelNewMessageKey";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiSocketResponse
+  res: NextApiResponse
 ) {
   try {
     // 1)
@@ -34,10 +34,7 @@ export default async function handler(
   }
 }
 
-async function sendChannelMessage(
-  req: NextApiRequest,
-  res: NextApiSocketResponse
-) {
+async function sendChannelMessage(req: NextApiRequest, res: NextApiResponse) {
   try {
     // 1)
     const { message, channelID } = req.body;
@@ -108,7 +105,7 @@ async function sendChannelMessage(
     });
 
     // 6)
-    res.socket.server.io.emit(newChannelMessageKey(channelID), newMessage);
+    //res.socket.server.io.emit(newChannelMessageKey(channelID), newMessage);
 
     // 7)
     return res.status(200).json(newMessage);
@@ -118,10 +115,7 @@ async function sendChannelMessage(
   }
 }
 
-async function getChannelMessages(
-  req: NextApiRequest,
-  res: NextApiSocketResponse
-) {
+async function getChannelMessages(req: NextApiRequest, res: NextApiResponse) {
   try {
     // 1)
     const { channelID, cursor, page } = req.query as {
