@@ -15,12 +15,19 @@ export type SocketContextData = {
 const SocketContext = createContext({});
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+
   const [sockeData, setSocketData] = useState<SocketContextData>({
     socket: null,
     isListeningToServer: false,
   });
 
   useEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true);
+      return;
+    }
+
     // 1)
     const socket = new (ClientIO as any)(process.env.NEXT_PUBLIC_SITE_URL!, {
       path: "/api/socket/io",
@@ -28,12 +35,12 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     // 2)
-    socket.on("connect", () =>
+    socket.on("connect", () => {
       setSocketData((socketData) => ({
         ...socketData,
         isListeningToServer: true,
-      }))
-    );
+      }));
+    });
 
     // 3)
     socket.on("disconnect", () =>
@@ -47,7 +54,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     setSocketData((socketData) => ({ ...socketData, socket }));
 
     return () => socket.disconnect();
-  }, []);
+  }, [isMounted]);
 
   return (
     <SocketContext.Provider value={sockeData}>
@@ -56,6 +63,6 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const useSocket = () => useContext(SocketContext);
+export const useSocket = () => useContext(SocketContext) as SocketContextData;
 
 export default SocketProvider;

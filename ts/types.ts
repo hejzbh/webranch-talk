@@ -2,6 +2,7 @@ import { ModalType } from "@/components/providers/ModalProvider";
 import {
   Account,
   ApplicationRole,
+  ChannelMessage,
   Server,
   ServerChannel,
   ServerChannelType,
@@ -97,3 +98,11 @@ export type NextApiSocketResponse = NextApiResponse & {
     };
   };
 };
+
+export type ChannelMessageWithSender = ChannelMessage & {
+  sender: ServerMemberWithAccount;
+};
+
+export type SocketApiURL = "/api/socket/channelMessages";
+
+export type Message = ChannelMessageWithSender;

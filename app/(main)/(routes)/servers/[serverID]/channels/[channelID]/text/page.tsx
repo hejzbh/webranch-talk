@@ -13,10 +13,10 @@ interface TextChannelPageProps {
   };
 }
 
-const TextChannelPage = ({}: TextChannelPageProps) => {
+const TextChannelPage = ({ params }: TextChannelPageProps) => {
   return (
     <main>
-      <ChannelChat />
+      <ChannelChat channelID={params.channelID} />
     </main>
   );
 };

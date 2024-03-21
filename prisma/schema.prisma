@@ -58,7 +58,7 @@ model ServerMember {
   server Server @relation(fields:[serverID],references: [id],onDelete:Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
+  channelMessages ChannelMessage[]
   @@index([accountID])
   @@index([serverID])
 }
@@ -73,9 +73,26 @@ model ServerChannel {
   server Server @relation(fields: [serverID],references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  messages ChannelMessage[]
 
   @@index([authorID])
   @@index([serverID])
+}
+
+// CHAT
+model ChannelMessage {
+  id String @id @default(uuid()) @map("_id")
+  content String @db.String
+  fileUrl String? @db.String
+  senderID String
+  sender ServerMember @relation(fields: [senderID],references: [id], onDelete: Cascade)
+  channelID String
+  channel ServerChannel @relation(fields: [channelID],references: [id],onDelete: Cascade)
+  isDeleted Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  @@index([senderID])
+  @@index([channelID])
 }
 
 
