@@ -25,9 +25,6 @@ export default function handler(
   const serverIO = new Server(httpServer, {
     path,
     addTrailingSlash: false,
-
-    transports: ["websocket", "polling"],
-    allowEIO3: true,
   });
 
   res.socket.server.io = serverIO;
