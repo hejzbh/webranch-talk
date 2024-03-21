@@ -49,7 +49,11 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     return () => socket.disconnect();
   }, []);
 
-  return <SocketContext.Provider value={{}}>{children}</SocketContext.Provider>;
+  return (
+    <SocketContext.Provider value={sockeData}>
+      {children}
+    </SocketContext.Provider>
+  );
 };
 
 export const useSocket = () => useContext(SocketContext);
