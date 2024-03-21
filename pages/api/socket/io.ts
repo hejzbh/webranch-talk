@@ -25,7 +25,9 @@ export default function handler(
   const serverIO = new Server(httpServer, {
     path,
     addTrailingSlash: false,
-    transports: ["websocket"],
+    pingTimeout: 60000,
+    pingInterval: 25000,
+    transports: ["polling", "websocket"],
   });
 
   res.socket.server.io = serverIO;

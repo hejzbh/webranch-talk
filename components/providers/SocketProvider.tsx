@@ -32,7 +32,11 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     const socket = new (ClientIO as any)(process.env.NEXT_PUBLIC_SITE_URL!, {
       path: "/api/socket/io",
       addTrailingSlash: false,
-      transports: ["websocket"],
+      reconnection: true,
+      reconnectionAttempts: 500,
+      reconnectionDelayMax: 5000,
+      reconnectionDelay: 1000,
+      transports: ["polling", "websocket"],
     });
 
     // 2)
