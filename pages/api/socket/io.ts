@@ -25,8 +25,6 @@ export default function handler(
   const serverIO = new Server(httpServer, {
     path,
     addTrailingSlash: false,
-    pingInterval: 250,
-    pingTimeout: 250,
     /**    cors: {
       origin: process.env.NEXT_PUBLIC_SITE_URL!,
       methods: ["POST", "GET", "PATCH", "DELETE"],
