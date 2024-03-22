@@ -47,7 +47,7 @@ const Message = ({ message, previousMessage }: MessageProps) => {
       >
         {/** Content */}
         <p
-          className="text-[14px] sm:text-md max-w-[250px] sm:max-w-[400px]"
+          className="text-[14px] sm:text-md max-w-[250px] text-msgContent sm:max-w-[400px]"
           style={{ overflowWrap: "break-word" }}
         >
           {message.content}

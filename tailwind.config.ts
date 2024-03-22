@@ -50,6 +50,7 @@ const config = {
         primary: "white",
         main: "#6763FE",
         myMSG: "#1D90F5",
+        msgContent: "#F1F8FF",
         strangerMSG: "#424656",
         inputBG: "#232529",
         secondary: "#a8aeb6",

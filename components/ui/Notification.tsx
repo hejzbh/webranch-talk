@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 const classes = {
   default:
     "border-2 p-3 rounded-md max-w-[280px] md:max-w-[320px] min-w-[280px]",
-  success: "bg-[limegreen]/70",
+  success: "bg-[limegreen]",
   error: "bg-red-500",
 };
 

@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
     });
 
     // 6)
-    pusherServer.trigger(
+    await pusherServer.trigger(
       channelChatKey(channelID),
       newChannelMessageKey(channelID),
       newMessage
