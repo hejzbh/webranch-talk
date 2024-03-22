@@ -24,6 +24,9 @@ const ChatInput = ({ className = "", params = {}, apiURL }: ChatInputProps) => {
   const [message, setMessage] = useState<string>();
 
   async function sendMessage(message: any) {
+    // 3)
+    setMessage("");
+
     // 1)
     const response = await axios.post(apiURL, {
       message,
@@ -32,9 +35,6 @@ const ChatInput = ({ className = "", params = {}, apiURL }: ChatInputProps) => {
 
     // 2)
     if (!response.data) throw new Error("Potential problem with chat");
-
-    // 3)
-    setMessage("");
   }
 
   return (
