@@ -61,6 +61,7 @@ const ChatInput = ({ className = "", params = {}, apiURL }: ChatInputProps) => {
       </button>
       {/** Input */}
       <input
+        type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         className="pl-0 p-2 sm:p-3 bg-transparent text-sm md:text-md w-full placeholder:text-sm placeholder:md:text-md text-zinc-300"
