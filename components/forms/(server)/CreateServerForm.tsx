@@ -2,6 +2,7 @@
 import React from "react";
 // Next
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 // TS
 import { FormField } from "@/ts/types";
 // NPM
@@ -42,8 +43,13 @@ const CreateServerForm = ({
   className = "",
   afterOnSubmitDone = () => {},
 }: CreateServerFormProps) => {
+  const router = useRouter();
+
   const onFormSubmit = async (formData: z.infer<typeof formSchema>) => {
-    await createServer(formData);
+    // 1)
+    const server = await createServer(formData);
+    // 2)
+    router.push(`/servers/${server.id}`);
   };
 
   return (
