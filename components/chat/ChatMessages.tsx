@@ -51,21 +51,24 @@ const ChatMessages = ({
   });
 
   return (
-    <div
-      className={`max-h-[80vh] overflow-y-scroll py-5 scrollbar-hide ${className}`}
+    <ul
+      className={`flex flex-col space-y-3 max-h-[80vh] overflow-y-scroll py-5 scrollbar-hide ${className}`}
     >
-      {/** Load more messages */}
-      {hasNextPage && <button onClick={fetchNextPage}>Fetch more</button>}
+      {/** Top */}
+      {/** Load more */}
+      {hasNextPage && (
+        <button title="Load previous messages" onClick={fetchNextPage}>
+          Load more
+        </button>
+      )}
       {/** Messages list */}
-      <ul className="flex flex-col space-y-3">
-        {messages?.map((message, idx, messages) => (
-          <li key={message.id}>
-            {" "}
-            <Message message={message} previousMessage={messages[idx - 1]} />
-          </li>
-        ))}
-      </ul>
-    </div>
+      {messages?.map((message, idx, messages) => (
+        <li key={message.id}>
+          <Message message={message} previousMessage={messages[idx - 1]} />
+        </li>
+      ))}
+      {/** Bottom */}
+    </ul>
   );
 };
 
