@@ -78,7 +78,7 @@ const ChatMessages = ({
       {/** Messages */}
       <ul
         ref={chatRef}
-        className={`flex flex-col space-y-3 justify-end min-h-[80vh]  py-5 scrollbar-hide`}
+        className={`flex flex-col space-y-3 justify-end min-h-[80vh]  py-5`}
       >
         {/** Load more */}
         {hasNextPage && (
