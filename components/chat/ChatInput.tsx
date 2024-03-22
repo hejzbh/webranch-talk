@@ -39,6 +39,7 @@ const ChatInput = ({ className = "", params = {}, apiURL }: ChatInputProps) => {
 
   return (
     <form
+      autoComplete="false"
       onSubmit={(e) => {
         e.preventDefault();
         //
@@ -63,6 +64,8 @@ const ChatInput = ({ className = "", params = {}, apiURL }: ChatInputProps) => {
       <input
         type="text"
         value={message}
+        role="presentation"
+        autoComplete="off"
         onChange={(e) => setMessage(e.target.value)}
         className="pl-0 p-2 sm:p-3 bg-transparent text-sm md:text-md w-full placeholder:text-sm placeholder:md:text-md text-zinc-300"
         placeholder="Type a message here..."
