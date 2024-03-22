@@ -27,7 +27,7 @@ const Header = ({ className = "", children }: HeaderProps) => {
   return (
     <header
       className={cn(
-        "min-h-[9vh] ml-[-5%] pl-[7%] border-b-2 border-border-common-2 flex items-center",
+        "min-h-[9vh]  px-2 md:px-5 border-b-2 border-border-common-2 flex items-center",
         className
       )}
       style={{
