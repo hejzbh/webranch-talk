@@ -66,19 +66,19 @@ const ChatMessages = ({
   });
 
   return (
-    <div className={`max-h-[80vh] relative ${className}`}>
+    <div className={` max-h-[80vh] overflow-y-scroll relative ${className}`}>
       {/** Loading on first load */}
       {isLoading && (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
           {" "}
-          <Spinner className="sm:w-[2.5rem] md:w-[4rem] sm:h-[2.5rem] md:h-[4rem] text-spinner" />
+          <Spinner className="wm:w-[2.5rem] md:w-[4rem] sm:h-[2.5rem] md:h-[4rem] text-spinner" />
         </div>
       )}
 
       {/** Messages */}
       <ul
         ref={chatRef}
-        className={`flex flex-col space-y-3 max-h-[80vh] overflow-y-scroll py-5 scrollbar-hide`}
+        className={`flex flex-col space-y-3 justify-end min-h-[80vh]  py-5 scrollbar-hide`}
       >
         {/** Load more */}
         {hasNextPage && (
