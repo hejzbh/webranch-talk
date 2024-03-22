@@ -53,7 +53,7 @@ const NavigationSidebar = async ({}: NavigationSidebarProps) => {
     >
       <div className="relative z-10 h-full flex flex-col">
         {/** Account Widget */}
-        <div className="border-b-2 border-border-common-2 min-h-20 pt-5 pl-5">
+        <div className="border-b-2 border-border-common-2 min-h-[9vh] pt-5 pl-5">
           <AccountWidget
             account={{
               name: account.name,

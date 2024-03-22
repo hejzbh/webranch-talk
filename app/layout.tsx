@@ -47,9 +47,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {" "}
-            <main className="text-white !max-h-screen !overflow-hidden">
-              {children}
-            </main>
+            <main className="text-white">{children}</main>
           </ThemeProvider>
         </body>
       </html>

@@ -16,7 +16,7 @@ interface ChannelChatProps {
 }
 const ChannelChat = ({ channelID }: ChannelChatProps) => {
   return (
-    <div className="min-h-[91vh] flex flex-col p-2 sm:p-5">
+    <div className="h-full flex flex-col p-2 sm:p-5">
       {/** Header */}
       {/** Messsages */}
 

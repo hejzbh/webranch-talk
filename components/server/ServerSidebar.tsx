@@ -42,7 +42,7 @@ const ServerSidebar = async ({ server }: ServerSidebarProps) => {
       <ServerWidget
         currentAccount={currentAccount}
         server={server}
-        className="border-b-2 border-border-common-2 min-h-20 p-5"
+        className="border-b-2 border-border-common-2 min-h-[9vh] px-5 py-2"
       />
 
       {/* Search */}

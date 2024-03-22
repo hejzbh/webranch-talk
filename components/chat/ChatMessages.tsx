@@ -68,7 +68,7 @@ const ChatMessages = ({
   return (
     <div
       ref={chatRef}
-      className={` max-h-[80vh] overflow-y-scroll relative ${className}`}
+      className={` max-h-[82vh] overflow-y-scroll relative ${className}`}
     >
       {/** Loading on first load */}
       {isLoading && (

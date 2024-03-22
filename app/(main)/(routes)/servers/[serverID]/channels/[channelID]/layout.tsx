@@ -55,8 +55,9 @@ const ServerChannelPage = async ({
 
   return (
     <>
+      {" "}
       <ChannelHeader channel={channelDetails} />
-      <main>{children}</main>
+      <main className="!overflow-hidden h-full !max-h-[91vh]">{children}</main>
     </>
   );
 };
