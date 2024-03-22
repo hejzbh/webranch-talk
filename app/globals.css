@@ -20,11 +20,6 @@ input {
   display: none;
 }
 
-body {
-  max-height: 100vh !important;
-  overflow: hidden !important;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
