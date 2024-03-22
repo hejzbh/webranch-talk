@@ -27,7 +27,7 @@ const Message = ({ message, previousMessage }: MessageProps) => {
   return (
     <div
       className={cn(
-        "flex items-center",
+        "flex items-center group",
         isMessageFromMe
           ? "float-right flex-row-reverse text-left"
           : "float-left space-x-2",
@@ -53,6 +53,12 @@ const Message = ({ message, previousMessage }: MessageProps) => {
           {message.content}
         </p>
       </div>
+      {/** On hover */}
+      {!isMessageFromMe && (
+        <span className="transition-all duration-300 opacity-0 group-hover:opacity-100 text-sm text-secondary">
+          {sender.account.name}
+        </span>
+      )}
     </div>
   );
 };

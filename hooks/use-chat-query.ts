@@ -10,6 +10,7 @@ type DataState = {
   hasNextPage?: boolean;
   isFetchingNextPage?: boolean;
   nextCursor: string | null;
+  isLoading: boolean;
   page: number;
 };
 
@@ -34,6 +35,7 @@ export const useChatQuery = ({ apiURL, params = {} }: ChatQueryProps) => {
     messages: [],
     hasNextPage: false,
     isFetchingNextPage: false,
+    isLoading: true,
     nextCursor: null,
     page: 1,
   });
@@ -49,26 +51,32 @@ export const useChatQuery = ({ apiURL, params = {} }: ChatQueryProps) => {
   }, [isMounted]);
 
   async function fetchMessages(cursor?: string, page?: number) {
-    const response = await axios.get(
-      `${apiURL}?cursor=${cursor}&page=${page || 1}&${Object.entries(params)
-        ?.map(([key, value]) => `${key}=${value}`)
-        .join("&")}`
-    );
+    try {
+      const response = await axios.get(
+        `${apiURL}?cursor=${cursor}&page=${page || 1}&${Object.entries(params)
+          ?.map(([key, value]) => `${key}=${value}`)
+          .join("&")}`
+      );
 
-    const responseData = response.data;
+      const responseData = response.data;
 
-    if (!responseData?.messages) {
-      console.log("USE_CHAT_QUERY ERROR");
-      return;
+      if (!responseData?.messages) {
+        console.log("USE_CHAT_QUERY ERROR");
+        return;
+      }
+
+      setData((data) => ({
+        ...data,
+        messages: [...responseData?.messages, ...data.messages], // Because chat start from bottom. ([newMessages, oldMessages]),
+        page: +responseData.page,
+        hasNextPage: responseData.hasNextPage,
+        nextCursor: responseData.nextCursor,
+      }));
+    } finally {
+      setTimeout(() => {
+        setData((data) => ({ ...data, isLoading: false }));
+      }, 250);
     }
-
-    setData((data) => ({
-      ...data,
-      messages: [...responseData?.messages, ...data.messages], // Because chat start from bottom. ([newMessages, oldMessages]),
-      page: +responseData.page,
-      hasNextPage: responseData.hasNextPage,
-      nextCursor: responseData.nextCursor,
-    }));
   }
 
   async function fetchNextPage() {
