@@ -49,6 +49,8 @@ const config = {
         black: "#121212", // 15161A
         primary: "white",
         main: "#6763FE",
+        myMSG: "#1D90F5",
+        strangerMSG: "#424656",
         inputBG: "#232529",
         secondary: "#a8aeb6",
         owner: "#FFD700",
