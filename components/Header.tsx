@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 const NavigationSidebarBurger = dynamic(
   () => import("@/components/burgers/NavigationSidebarBurger")
 );
-const SocketStatus = dynamic(() => import("@/components/SocketStatus"));
 
 // Props
 interface HeaderProps {
@@ -40,7 +39,6 @@ const Header = ({ className = "", children }: HeaderProps) => {
         <NavigationSidebarBurger />
       </div>
       {children}
-      <SocketStatus />
     </header>
   );
 };
