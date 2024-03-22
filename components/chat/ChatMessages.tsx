@@ -71,7 +71,7 @@ const ChatMessages = ({
       {isLoading && (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
           {" "}
-          <Spinner className="w-[4rem] h-[4rem] text-spinner" />
+          <Spinner className="sm:w-[2.5rem] md:w-[4rem] sm:h-[2.5rem] md:h-[4rem] text-spinner" />
         </div>
       )}
 
