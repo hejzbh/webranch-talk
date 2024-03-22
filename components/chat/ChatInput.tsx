@@ -64,6 +64,7 @@ const ChatInput = ({ className = "", params = {}, apiURL }: ChatInputProps) => {
       <input
         type="text"
         value={message}
+        aria-autocomplete="none"
         role="presentation"
         autoComplete="off"
         onChange={(e) => setMessage(e.target.value)}
