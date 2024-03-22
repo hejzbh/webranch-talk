@@ -14,16 +14,12 @@ export const useChatScroll = ({
   initLoadingFinished,
 }: ChatScrollProps) => {
   const [hasInitialized, setHasInitialized] = useState<boolean>();
-  const [mounted, setIsMounted] = useState<boolean>(true);
 
   useEffect(() => {
-    if (!initLoadingFinished || !mounted) {
-      setIsMounted(false);
-      return;
-    }
+    if (!initLoadingFinished) return;
 
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [bottomRef, initLoadingFinished, mounted]);
+  }, [bottomRef, initLoadingFinished]);
   /**
   useEffect(() => {
     const topDiv = chatRef?.current;

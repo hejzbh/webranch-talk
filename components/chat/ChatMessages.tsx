@@ -66,7 +66,10 @@ const ChatMessages = ({
   });
 
   return (
-    <div className={` max-h-[80vh] overflow-y-scroll relative ${className}`}>
+    <div
+      ref={chatRef}
+      className={` max-h-[80vh] overflow-y-scroll relative ${className}`}
+    >
       {/** Loading on first load */}
       {isLoading && (
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
@@ -76,10 +79,7 @@ const ChatMessages = ({
       )}
 
       {/** Messages */}
-      <ul
-        ref={chatRef}
-        className={`flex flex-col space-y-3 justify-end min-h-[80vh]  py-5`}
-      >
+      <ul className={`flex flex-col space-y-3 justify-end min-h-[80vh]  py-5`}>
         {/** Load more */}
         {hasNextPage && (
           <button
