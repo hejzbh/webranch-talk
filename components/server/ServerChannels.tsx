@@ -2,7 +2,8 @@
 import React, { useMemo } from "react";
 // Next
 import dynamic from "next/dynamic";
-import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 // Icons
 import { Plus, Trash } from "lucide-react";
 // Prisma / Types
@@ -19,9 +20,9 @@ import { channelIconsMap } from "@/constants/icons";
 // Lib
 import { cn, isMemberChannelAuthor } from "@/lib/utils";
 import { channelRoute } from "@/lib/(routes)/channel-route";
+import { defaultServerChannels } from "@/lib/(serverChannel)/default-server-channels";
 // Components
 import { useModalControl } from "../providers/ModalProvider";
-import { defaultServerChannels } from "@/lib/(serverChannel)/default-server-channels";
 const Label = dynamic(() => import("@/components/ui/Label"));
 const RequireServerRoles = dynamic(
   () => import("@/components/server/RequireServerRoles")
@@ -146,7 +147,6 @@ export const ServerChannel = ({
   currentAccount: Account;
   currentAccountAsMember: ServerMember;
 }) => {
-  const router = useRouter();
   const params = useParams();
   const { onOpen } = useModalControl();
 
@@ -154,22 +154,20 @@ export const ServerChannel = ({
 
   const Icon = channelIconsMap[channel.type];
 
-  const onClick = () => {
-    router.push(
-      channelRoute({
+  return (
+    <Link
+      title={`Go to ${channel.name} channel`}
+      onClick={(e: any) =>
+        e.target.closest(".delete-channel") && e.preventDefault()
+      }
+      scroll={false}
+      href={channelRoute({
         serverID: channel.serverID,
         channelType: channel.type,
         channelID: channel.id,
-      })
-    );
-  };
-
-  return (
-    <button
-      title={`Go to ${channel.name} channel`}
-      onClick={onClick}
+      })}
       className={cn(
-        "text-md flex items-center group justify-between py-1 w-full text-secondary hover:text-main/80 transition-all duration-300 ease-in-out",
+        "text-md flex  items-center group justify-between py-1 w-full text-secondary hover:text-main/80 transition-all duration-300 ease-in-out",
         isActiveChannel && "text-main font-semibold"
       )}
     >
@@ -194,16 +192,18 @@ export const ServerChannel = ({
           <button
             onClick={(e) => {
               e.stopPropagation();
+              e.preventDefault();
               onOpen("deleteServerChannel", { channel });
             }}
+            type="button"
             title="Delete"
-            className="opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out p-1  text-secondary hover:text-danger"
+            className="opacity-100 delete-channel lg:opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out p-1  text-secondary hover:text-danger"
           >
-            <Trash size={14} />
+            <Trash className="delete-channel" size={14} />
           </button>
         </RequireServerRoles>
       )}
-    </button>
+    </Link>
   );
 };
 
