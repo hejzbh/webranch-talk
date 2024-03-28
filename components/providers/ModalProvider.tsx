@@ -37,12 +37,17 @@ const DeleteServerModal = dynamic(
 const LeaveServerModal = dynamic(
   () => import("@/components/modals/LeaveServerModal")
 );
+const CreateTaskModal = dynamic(
+  () => import("@/components/modals/CreateTaskModal")
+);
 
 // Types
 export type ModalType =
   | "navigationSearch"
   | "serverSearch"
   | "createServer"
+  | "createTask"
+  | "editTask"
   | "serverMembers"
   | "createServerChannel"
   | "deleteServerChannel"
@@ -132,6 +137,7 @@ export const ModalControlProvider = ({
       <DeleteServerChannelModal />
       <DeleteServerModal />
       <LeaveServerModal />
+      <CreateTaskModal />
       {children}
     </ModalControlContext.Provider>
   );

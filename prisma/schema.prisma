@@ -31,6 +31,7 @@ model Account {
  servers Server[]
  serverMembers ServerMember[]
  serverChannels ServerChannel[]
+  tasks Task[]
 }
 
 // SERVER
@@ -59,6 +60,7 @@ model ServerMember {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   channelMessages ChannelMessage[]
+
   @@index([accountID])
   @@index([serverID])
 }
@@ -95,6 +97,20 @@ model ChannelMessage {
   @@index([channelID])
 }
 
+// Todo task
+model Task {
+    id String @id @default(uuid()) @map("_id")
+    content String @db.String
+    channelID String
+    name String
+    authorID String
+    author Account @relation(fields:[authorID], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now())
+    status TaskStatus @default(ON_WAIT)
+    @@index([authorID])
+}
+
 
 
 
@@ -118,3 +134,10 @@ enum ServerChannelType {
   TODO
 }
 
+
+enum TaskStatus {
+  ON_WAIT
+  IN_PROGRESS
+  CANCELLED
+  COMPLETED
+}

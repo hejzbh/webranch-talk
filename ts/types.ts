@@ -52,7 +52,7 @@ export type NavigationLink = {
 
 export type FormField = {
   name: string;
-  type: "file" | "input" | "textarea" | "radio";
+  type: "file" | "input" | "textarea" | "radio" | "textEditor";
   inputType?: "text" | "password" | "email";
   label?: string;
   placeholder?: string;

@@ -1,3 +1,4 @@
+import { UNAUTHORIZED_ERROR } from "@/constants/errorMessages";
 import { getCurrentAccount } from "../(account)/current-account";
 import { db } from "../db";
 
@@ -14,7 +15,7 @@ export const getChannelDetails = async ({
     // 1)
     const account = await getCurrentAccount();
     // 2)
-    if (!account) throw new Error("Unauthorized");
+    if (!account) throw new Error(UNAUTHORIZED_ERROR);
     // 3)
     const channel = await db.serverChannel.findFirst({
       where: {

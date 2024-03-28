@@ -17,6 +17,7 @@ const Input = dynamic(() => import("@/components/ui/Input"));
 const FileUpload = dynamic(() => import("@/components/FileUpload"));
 const Button = dynamic(() => import("@/components/ui/Button"));
 const RadioGroup = dynamic(() => import("@/components/ui/RadioGroup"));
+const TextEditor = dynamic(() => import("@/components/TextEditor"));
 
 // Props
 interface FormProps {
@@ -98,6 +99,9 @@ const Form = ({
   const onImageUploaded = (imageURL?: string) =>
     form.setValue("imageURL", imageURL || "");
 
+  const onTextContentChange = (name: string, content: string) =>
+    form.setValue(name, content || "");
+
   return (
     <form
       className={cn("w-full space-y-5", className)}
@@ -143,6 +147,19 @@ const Form = ({
                 register={form.register}
                 choices={field.radioChoices as any[]}
                 error={form?.formState?.errors[field.name]?.message as string}
+              />
+            );
+          // 4) Text editor
+          case "textEditor":
+            return (
+              <TextEditor
+                key={idx}
+                label={field.label}
+                value={form.watch(field.name)}
+                error={form?.formState?.errors[field.name]?.message as string}
+                onChange={(content) => {
+                  onTextContentChange(field.name, content);
+                }}
               />
             );
           default:
