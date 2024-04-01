@@ -61,7 +61,7 @@ const ChatInput = ({ className = "", params = {}, apiURL }: ChatInputProps) => {
         />
       </button>
       {/** Input */}
-      <input
+      <input // eslint-disable-line
         type="text"
         value={message}
         aria-autocomplete="none"

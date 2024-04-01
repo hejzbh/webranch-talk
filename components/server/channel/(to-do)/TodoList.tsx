@@ -33,9 +33,7 @@ interface TodoListProps {
   channelID: string;
 }
 
-const TodoList = ({ className = "", tasks = [], channelID }: TodoListProps) => {
-  const { toggleModal } = useModalControl();
-
+const TodoList = ({ tasks = [], channelID }: TodoListProps) => {
   const table = useReactTable({
     data: tasks,
     columns: [
@@ -66,7 +64,6 @@ const TodoList = ({ className = "", tasks = [], channelID }: TodoListProps) => {
     ],
     getCoreRowModel: getCoreRowModel(),
   });
-
   const { onOpen } = useModalControl();
 
   return (

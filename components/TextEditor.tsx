@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 // Next
 import dynamic from "next/dynamic";
 // NPM
