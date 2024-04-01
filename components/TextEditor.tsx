@@ -2,7 +2,9 @@ import { useState, useRef } from "react";
 // Next
 import dynamic from "next/dynamic";
 // NPM
-import JoditEditor from "jodit-react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 // Components
 const Label = dynamic(() => import("@/components/ui/Label"));
 
@@ -17,24 +19,16 @@ interface TextEditorProps {
 
 const TextEditor = ({
   className,
-  value,
+  value = "",
   onChange,
   label,
   error,
 }: TextEditorProps) => {
-  const editor = useRef(null);
-  const [content, setContent] = useState(value);
-  const config = {
-    readonly: false,
-    height: 400,
-  };
+  const [convertedText, setConvertedText] = useState(value);
 
-  const handleUpdate = (event: any) => {
-    const editorContent = event.target.innerHTML;
-
-    setContent(editorContent);
-
-    onChange(editorContent);
+  const handleUpdate = (value: string) => {
+    setConvertedText(value);
+    onChange(value);
   };
 
   return (
@@ -50,17 +44,7 @@ const TextEditor = ({
           )}
         </div>
       )}
-      <JoditEditor
-        className="!text-black"
-        ref={editor}
-        value={content}
-        config={config}
-        onChange={handleUpdate}
-      />
-      <div
-        className="opacity-0"
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+      <ReactQuill theme="snow" value={convertedText} onChange={handleUpdate} />
     </div>
   );
 };

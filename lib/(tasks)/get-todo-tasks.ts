@@ -18,6 +18,9 @@ export const getTodoTasks = async (channelID: string) => {
       include: {
         author: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     // 4)
     return tasks;

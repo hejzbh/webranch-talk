@@ -3,12 +3,11 @@ import React from "react";
 // Next
 import dynamic from "next/dynamic";
 // Prisma
-import { ServerChannel, Task } from "@prisma/client";
+import { Account, ServerChannel, Task } from "@prisma/client";
 // Icons
 import { Plus } from "lucide-react";
 // Components
 import {
-  ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
@@ -24,6 +23,8 @@ import {
 } from "@/components/ui/Table";
 import { useModalControl } from "@/components/providers/ModalProvider";
 const Button = dynamic(() => import("@/components/ui/Button"));
+const UserAvatar = dynamic(() => import("@/components/ui/UserAvatar"));
+const TaskStatus = dynamic(() => import("./TaskStatus"));
 
 // Props
 interface TodoListProps {
@@ -33,17 +34,32 @@ interface TodoListProps {
 }
 
 const TodoList = ({ className = "", tasks = [], channelID }: TodoListProps) => {
+  const { toggleModal } = useModalControl();
+
   const table = useReactTable({
     data: tasks,
     columns: [
       { accessorKey: "name", header: "Name" },
-      { accessorKey: "status", header: "Status" },
+      {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const status = row.getValue("status");
+
+          return <TaskStatus status={status as any} />;
+        },
+      },
       {
         accessorKey: "author",
         header: "Author",
         cell: ({ row }) => {
+          const author = row.getValue("author") as Account;
+
           return (
-            <div className="text-right font-medium">{row?.getValue("id")}</div>
+            <div className="font-medium flex items-center space-x-2">
+              <UserAvatar imageURL={author?.imageURL} />
+              <p>{author?.name}</p>
+            </div>
           );
         },
       },
@@ -91,9 +107,11 @@ const TodoList = ({ className = "", tasks = [], channelID }: TodoListProps) => {
         {/** Body */}
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
+            table.getRowModel().rows.map((row, idx) => (
               <TableRow
+                className="cursor-pointer"
                 key={row.id}
+                onClick={() => onOpen("manageTask", { task: tasks[idx] })}
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (

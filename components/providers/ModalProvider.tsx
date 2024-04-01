@@ -8,7 +8,7 @@ import {
   NavigationSearchData,
   ServerSearchData,
 } from "@/ts/types";
-import { Server, ServerChannel, ServerChannelType } from "@prisma/client";
+import { Server, ServerChannel, ServerChannelType, Task } from "@prisma/client";
 // Modals
 const NavigationSearchModal = dynamic(
   () => import("@/components/modals/NavigationSearchModal")
@@ -40,6 +40,9 @@ const LeaveServerModal = dynamic(
 const CreateTaskModal = dynamic(
   () => import("@/components/modals/CreateTaskModal")
 );
+const ManageTaskModal = dynamic(
+  () => import("@/components/modals/ManageTaskModal")
+);
 
 // Types
 export type ModalType =
@@ -54,7 +57,8 @@ export type ModalType =
   | "deleteServer"
   | "leaveServer"
   | "invitePeople"
-  | "serverSettings";
+  | "serverSettings"
+  | "manageTask";
 
 export interface ModalData {
   navigationSearchData?: NavigationSearchData;
@@ -62,6 +66,7 @@ export interface ModalData {
   server?: DetailedServer | Server;
   channelType?: ServerChannelType;
   channel?: ServerChannel;
+  task?: Task;
 }
 
 interface ModalStore {
@@ -138,6 +143,7 @@ export const ModalControlProvider = ({
       <DeleteServerModal />
       <LeaveServerModal />
       <CreateTaskModal />
+      <ManageTaskModal />
       {children}
     </ModalControlContext.Provider>
   );

@@ -10,14 +10,12 @@ import {
 } from "@/components/ui/Dialog";
 //
 import { useModalControl } from "@/components/providers/ModalProvider";
-const CreateTaskForm = dynamic(
-  () => import("@/components/forms/(to-do)/CreateTaskForm")
-);
+const TextEditor = dynamic(() => import("@/components/TextEditor"));
 
-const CreateTaskModal = () => {
+const ManageTaskModal = () => {
   const { type, isOpen, onClose, data } = useModalControl();
 
-  const isModalOpen = type === "createTask" && isOpen;
+  const isModalOpen = type === "manageTask" && isOpen;
 
   if (!isModalOpen) return null;
 
@@ -28,14 +26,14 @@ const CreateTaskModal = () => {
         <DialogHeader className="mb-10">
           {" "}
           <DialogTitle className="text-center text-white">
-            Create new task
+            Task: {data?.task?.name}
           </DialogTitle>
         </DialogHeader>
         {/** Body */}
         <main>
-          <CreateTaskForm
-            channelID={data?.channel?.id as string}
-            afterOnSubmitDone={onClose}
+          <TextEditor
+            value={data?.task?.content as string}
+            onChange={() => {}}
           />
         </main>
       </DialogContent>
@@ -43,4 +41,4 @@ const CreateTaskModal = () => {
   );
 };
 
-export default CreateTaskModal;
+export default ManageTaskModal;

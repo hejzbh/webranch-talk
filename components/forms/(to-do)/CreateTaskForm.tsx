@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { FormField } from "@/ts/types";
 // NPM
 import { z } from "zod";
+import { createTask } from "@/lib/(tasks)/create-task";
 // Components
 const Form = dynamic(() => import("@/components/forms/Form"));
 
@@ -14,6 +15,7 @@ const Form = dynamic(() => import("@/components/forms/Form"));
 interface CreateTaskFormProps {
   className?: string;
   afterOnSubmitDone?: (isSuccess: boolean) => void; // eslint-disable-line
+  channelID: string;
 }
 
 export const formSchema = z.object({
@@ -40,12 +42,13 @@ const formFields: FormField[] = [
 const CreateTaskForm = ({
   className = "",
   afterOnSubmitDone = () => {},
+  channelID,
 }: CreateTaskFormProps) => {
   const router = useRouter();
 
   const onFormSubmit = async (formData: z.infer<typeof formSchema>) => {
     // 1)
-
+    await createTask({ data: formData, channelID });
     // 2)
     router.refresh();
   };
