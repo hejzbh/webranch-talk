@@ -14,8 +14,6 @@ const AudioCall = ({ channelID }: AudioCallProps) => {
   return (
     <div>
       {participants?.map((participant) => {
-        participant?.audioTrack?.play();
-
         return (
           <div key={participant.id}>
             <h2>{participant?.id}</h2>

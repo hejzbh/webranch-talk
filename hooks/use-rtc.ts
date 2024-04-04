@@ -68,6 +68,7 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
   function getSoundFromStrangers() {
     RTC.on("user-published", async (user, mediaType) => {
       await RTC.subscribe(user, mediaType);
+      user.audioTrack?.play();
 
       setParticipants((participants) => [
         ...participants,
