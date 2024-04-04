@@ -9,9 +9,21 @@ interface AudioCallProps {
 }
 
 const AudioCall = ({ channelID }: AudioCallProps) => {
-  const {} = useRTC({ channelID });
+  const { participants } = useRTC({ channelID });
 
-  return <div>AudioCall</div>;
+  return (
+    <div>
+      {participants?.map((participant) => {
+        participant?.audioTrack?.play();
+
+        return (
+          <div>
+            <h2>{participant?.id}</h2>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default AudioCall;

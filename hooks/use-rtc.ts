@@ -2,8 +2,8 @@
 import { useCurrentAccount } from "@/components/providers/CurrentAccountProvider";
 import { getRtcData } from "@/lib/(rtc)/get-rtc-data";
 import { Account } from "@prisma/client";
-import AgoraRTC from "agora-rtc-sdk-ng";
-import { useEffect } from "react";
+import AgoraRTC, { IRemoteAudioTrack } from "agora-rtc-sdk-ng";
+import { useEffect, useState } from "react";
 
 // Props
 interface UseRTCProps {
@@ -20,6 +20,9 @@ let connected = false;
 
 export const useRTC = ({ channelID }: UseRTCProps) => {
   const currentAccount: Account = useCurrentAccount();
+  const [participants, setParticipants] = useState<
+    { id: string; audioTrack?: IRemoteAudioTrack }[]
+  >([]);
 
   useEffect(() => {
     // 1)
@@ -51,13 +54,7 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
           return AgoraRTC.createMicrophoneAudioTrack();
         })
         .then((audioTrack) => {
-          console.log(audioTrack);
-          console.log("✅✅✅✅");
           RTC.publish(audioTrack);
-        })
-        .catch((er) => {
-          console.log(er);
-          console.log("👿👿❤️❤️🧨🧨❤️👿");
         });
 
       // 3)
@@ -71,11 +68,13 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
   function getSoundFromStrangers() {
     RTC.on("user-published", async (user, mediaType) => {
       await RTC.subscribe(user, mediaType);
-      console.log(user);
-      console.log(mediaType);
-      console.log("❤️❤️❤️❤️");
+
+      setParticipants((participants) => [
+        ...participants,
+        { id: user.uid as string, audioTrack: user.audioTrack },
+      ]);
     });
   }
 
-  return {};
+  return { participants };
 };
