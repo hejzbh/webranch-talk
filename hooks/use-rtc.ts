@@ -63,7 +63,8 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
       // 3)
       getSoundFromStrangers();
     } catch (err: any) {
-      alert("ERROR");
+      console.log(err);
+      console.log("🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇");
     }
   }
 
