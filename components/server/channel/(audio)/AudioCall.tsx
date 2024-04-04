@@ -1,7 +1,8 @@
 "use client";
 
 import { useRTC } from "@/hooks/use-rtc";
-import React from "react";
+import { IRemoteAudioTrack } from "agora-rtc-sdk-ng";
+import React, { useEffect } from "react";
 
 // Props
 interface AudioCallProps {
@@ -14,16 +15,27 @@ const AudioCall = ({ channelID }: AudioCallProps) => {
   return (
     <div>
       {participants?.map((participant) => {
-        participant.audioTrack?.setVolume(100);
-        participant?.audioTrack?.play();
-        console.log(participant);
-
-        return (
-          <div key={participant.id}>
-            <h2>{participant?.id}</h2>
-          </div>
-        );
+        return <Participant key={participant.id} participant={participant} />;
       })}
+    </div>
+  );
+};
+
+export const Participant = ({
+  participant,
+}: {
+  participant: {
+    id: string;
+    audioTrack?: IRemoteAudioTrack;
+  };
+}) => {
+  useEffect(() => {
+    participant?.audioTrack?.play();
+  }, [participant]);
+
+  return (
+    <div>
+      <h2>{participant?.id}</h2>
     </div>
   );
 };

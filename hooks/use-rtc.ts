@@ -40,6 +40,11 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
     try {
       connecting = true;
 
+      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+        var audioContext = new AudioContext();
+        audioContext.resume();
+      });
+
       const { token, channel, appID, currentAccountID } = getRtcData({
         currentAccountID: currentAccount?.id,
         channelID,
