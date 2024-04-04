@@ -68,12 +68,21 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
   function getSoundFromStrangers() {
     RTC.on("user-published", async (user, mediaType) => {
       await RTC.subscribe(user, mediaType);
-      user.audioTrack?.play();
 
-      setParticipants((participants) => [
-        ...participants,
-        { id: user.uid as string, audioTrack: user.audioTrack },
-      ]);
+      if (participants.some((participant) => participant.id === user.uid)) {
+        setParticipants((participants) =>
+          participants.filter((participant) =>
+            participant?.id === user.uid
+              ? { ...participant, audioTrack: user.audioTrack }
+              : participant
+          )
+        );
+      } else {
+        setParticipants((participants) => [
+          ...participants,
+          { id: user.uid as string, audioTrack: user.audioTrack },
+        ]);
+      }
     });
   }
 
