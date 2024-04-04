@@ -17,7 +17,7 @@ const AudioCall = ({ channelID }: AudioCallProps) => {
         participant?.audioTrack?.play();
 
         return (
-          <div>
+          <div key={participant.id}>
             <h2>{participant?.id}</h2>
           </div>
         );
