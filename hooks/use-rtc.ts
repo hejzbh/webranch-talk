@@ -15,8 +15,8 @@ const RTC = AgoraRTC.createClient({
   codec: "vp8",
 });
 
-let connecting = false;
-let connected = false;
+/**let connecting = false;
+let connected = false; */
 
 export const useRTC = ({ channelID }: UseRTCProps) => {
   const currentAccount: Account = useCurrentAccount();
@@ -26,20 +26,20 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
 
   useEffect(() => {
     // 1)
-    if (!channelID || connecting || connected) return;
+    if (
+      !channelID ||
+      RTC.connectionState === "CONNECTED" ||
+      RTC.connectionState === "CONNECTING"
+    )
+      return;
+
     // 2)
     connectToAgora(); // eslint-disable-line
     // 3)
-    return () => {
-      connected = false;
-      connecting = false;
-    };
   }, [channelID]);
 
   function connectToAgora() {
     try {
-      connecting = true;
-
       navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
         var audioContext = new AudioContext();
         audioContext.resume();
@@ -53,17 +53,16 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
       // 2)
       RTC.join(appID, channel, token, currentAccountID)
         .then(() => {
-          connecting = false;
-          connected = true;
-
           return AgoraRTC.createMicrophoneAudioTrack();
         })
         .then((audioTrack) => {
+          //
+          getSoundFromStrangers();
+          //
+          trackOnUserLeft();
+          //
           RTC.publish(audioTrack);
         });
-
-      // 3)
-      getSoundFromStrangers();
     } catch (err: any) {
       console.log(err);
       console.log("🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇");
@@ -88,6 +87,15 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
           { id: user.uid as string, audioTrack: user.audioTrack },
         ]);
       }
+    });
+  }
+
+  function trackOnUserLeft() {
+    RTC.on("user-left", async (user) => {
+      await RTC.unsubscribe(user, "audio");
+      alert(user.uid);
+
+      participants.filter((participant) => participant?.id !== user.uid);
     });
   }
 
