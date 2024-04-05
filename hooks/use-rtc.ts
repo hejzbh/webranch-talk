@@ -36,6 +36,9 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
     // 2)
     connectToAgora(); // eslint-disable-line
     // 3)
+    return () => {
+      RTC.connectionState === "CONNECTED" && RTC.unpublish();
+    };
   }, [channelID]);
 
   function connectToAgora() {
