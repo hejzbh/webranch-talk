@@ -61,12 +61,13 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
         .then((audioTrack) => {
           //
           RTC.publish(audioTrack);
+        })
+        .finally(() => {
+          //
+          getSoundFromStrangers();
+          //
+          trackOnUserLeft();
         });
-
-      //
-      getSoundFromStrangers();
-      //
-      trackOnUserLeft();
     } catch (err: any) {
       console.log(err);
       console.log("🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇");
