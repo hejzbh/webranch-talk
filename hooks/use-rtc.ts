@@ -70,9 +70,9 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
         })
         .finally(() => {
           //
-          getSoundFromStrangers();
+          getSoundFromStrangers(participants);
           //
-          trackOnUserLeft();
+          trackOnUserLeft(participants);
         });
     } catch (err: any) {
       console.log(err);
