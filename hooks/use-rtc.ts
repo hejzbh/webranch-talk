@@ -57,12 +57,13 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
         })
         .then((audioTrack) => {
           //
-          getSoundFromStrangers();
-          //
-          trackOnUserLeft();
-          //
           RTC.publish(audioTrack);
         });
+
+      //
+      getSoundFromStrangers();
+      //
+      trackOnUserLeft();
     } catch (err: any) {
       console.log(err);
       console.log("🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇🎇");
@@ -93,7 +94,6 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
   function trackOnUserLeft() {
     RTC.on("user-left", async (user) => {
       await RTC.unsubscribe(user, "audio");
-      alert(user.uid);
 
       participants.filter((participant) => participant?.id !== user.uid);
     });
