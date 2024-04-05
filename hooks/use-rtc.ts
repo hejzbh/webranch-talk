@@ -41,6 +41,12 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
     };
   }, [channelID]);
 
+  useEffect(() => {
+    if (RTC.connectionState !== "CONNECTED") return;
+    getSoundFromStrangers();
+    trackOnUserLeft();
+  }, [participants, RTC.connectionState]);
+
   function connectToAgora() {
     try {
       navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
