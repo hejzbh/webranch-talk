@@ -43,8 +43,8 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
 
   useEffect(() => {
     if (RTC.connectionState !== "CONNECTED") return;
-    getSoundFromStrangers();
-    trackOnUserLeft();
+    getSoundFromStrangers(participants);
+    trackOnUserLeft(participants);
   }, [participants, RTC.connectionState]);
 
   function connectToAgora() {
@@ -80,7 +80,9 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
     }
   }
 
-  function getSoundFromStrangers() {
+  function getSoundFromStrangers(
+    participants: { id: string; audioTrack?: IRemoteAudioTrack }[]
+  ) {
     RTC.on("user-published", async (user, mediaType) => {
       await RTC.subscribe(user, mediaType);
 
@@ -101,7 +103,9 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
     });
   }
 
-  function trackOnUserLeft() {
+  function trackOnUserLeft(
+    participants: { id: string; audioTrack?: IRemoteAudioTrack }[]
+  ) {
     RTC.on("user-unpublished", async (user) => {
       await RTC.unsubscribe(user, "audio");
       console.log(user);
