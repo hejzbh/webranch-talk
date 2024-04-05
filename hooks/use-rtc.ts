@@ -97,12 +97,16 @@ export const useRTC = ({ channelID }: UseRTCProps) => {
   function trackOnUserLeft() {
     RTC.on("user-unpublished", async (user) => {
       await RTC.unsubscribe(user, "audio");
-      alert("leaved");
+      console.log(user);
+      console.log(participants);
+      console.log("🐇🐇🐇🐇🐇🐇🐇🐇🐇📥📥📥📥📥");
       participants.filter((participant) => participant?.id !== user.uid);
     });
     RTC.on("user-left", async (user) => {
       await RTC.unsubscribe(user, "audio");
-      alert("leaved");
+      console.log(user);
+      console.log(participants);
+      console.log("🐇🐇🐇🐇🐇🐇🐇🐇🐇📥📥📥📥📥");
       participants.filter((participant) => participant?.id !== user.uid);
     });
   }
